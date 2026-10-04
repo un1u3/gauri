@@ -9,3 +9,4 @@ SCORE = theme_recall + 0.5 × min_per_language_recall + 0.25 (single mention han
 | iter | hypothesis | change | dev SCORE before → after | per-language recall (en/ko/hi/zh/ne) | kept? |
 |---|---|---|---|---|---|
 | 0 | baseline | first prompt | — → 1.475 (runs 1.30, 1.65) | 80 / 80 / 100 / 70 / 70 | — |
+| 1 | Telling the model that a point usually has 5–10 supporting messages and to re-check every message should fix short citation lists, because it stops listing IDs after ~5. | one sentence added to the `message_ids` rule | 1.475 → 1.650 (runs 1.65, 1.65) | 100 / 80 / 80 / 100 / 80 | yes |

@@ -16,7 +16,7 @@ Rules:
 - Use only what is written in the messages. Do not add facts.
 - "loved": things guests liked. "wished": things guests wished were different.
 - "upgrade": at most one suggestion for the owner, based on what several guests wished for.
-- For every point, list in "message_ids" the ids of ALL messages that support it, in every language.
+- For every point, list in "message_ids" the ids of ALL messages that support it, in every language. A point often has 5 to 10 supporting messages. Before you finish a point, check every message again, one by one, and add each id that says the same thing.
 - Write each point in short, simple English ("point_en") and in short, simple Nepali in Devanagari script ("point_ne"), for someone with basic reading skills.
 - If something is mentioned by only one guest, or is unclear or contradictory, put it in "uncertain" ("note_en" in English, "note_ne" in Nepali in Devanagari script), not in the points.
 - Ignore messages that are only greetings, thanks or travel news.
