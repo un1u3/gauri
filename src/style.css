@@ -1,0 +1,77 @@
+/* Mobile-first, one column. All sizes in rem so the text-size setting and browser zoom scale everything. */
+:root {
+  --ink: #1a1a1a;
+  --paper: #ffffff;
+  --soft: #f3f1ea;
+  --green: #0b5d3b; /* 7.6:1 on white */
+  --red: #a11a1a; /* 7.4:1 on white */
+  --line: #5f5f5f;
+  font-family: "Noto Sans Devanagari", system-ui, sans-serif;
+  font-size: 112.5%;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+}
+:root[data-size="large"] { font-size: 137.5%; }
+:root[data-size="xlarge"] { font-size: 162.5%; }
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+#app { max-width: 40rem; margin: 0 auto; padding: 0 1rem 3rem; }
+
+h1 { font-size: 1.6rem; margin: 1rem 0; }
+h2 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+h3 { font-size: 1rem; margin: 0.75rem 0 0.25rem; }
+p { margin: 0.4rem 0; overflow-wrap: anywhere; }
+ul { list-style: none; padding: 0; margin: 0; }
+.big { font-size: 1.2rem; font-weight: 700; }
+.small { font-size: 0.9rem; }
+.icon { margin-inline-end: 0.4em; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+header { border-bottom: 2px solid var(--ink); padding: 0.5rem 0; }
+.brand { font-size: 1.3rem; font-weight: 700; margin: 0 0 0.5rem; }
+nav ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 0.4rem; }
+nav button { width: 100%; }
+/* Current page: underline + thick border, not colour alone. */
+nav button[aria-current="page"] { background: var(--ink); color: var(--paper); text-decoration: underline; border-width: 3px; }
+
+button, select, input, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 0.5rem;
+  min-height: 3rem; /* ≥ 48px touch target */
+  padding: 0.5rem 0.9rem;
+}
+button { cursor: pointer; font-weight: 700; margin: 0.4rem 0; }
+button.primary { background: var(--green); border-color: var(--green); color: #fff; }
+button.danger { border-color: var(--red); color: var(--red); display: block; margin-top: 2rem; }
+button.link { border-style: dashed; font-weight: 400; text-align: start; }
+button:disabled { opacity: 0.6; cursor: wait; }
+textarea, input[type="text"], input[type="number"], input[type="file"], main > select { display: block; width: 100%; }
+input[type="checkbox"] { width: 1.75rem; height: 1.75rem; min-height: 0; flex: none; }
+label { display: block; font-weight: 700; margin-top: 1rem; }
+.row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.row label { margin-top: 0; }
+
+:focus-visible { outline: 4px solid #1a4fd6; outline-offset: 3px; }
+h1:focus { outline: none; }
+
+.notice { background: var(--soft); border-inline-start: 0.4rem solid var(--ink); padding: 0.75rem 1rem; margin: 1rem 0; }
+.notice.warn { border: 2px solid var(--red); border-inline-start-width: 0.4rem; }
+
+.points > li, .cards > li { border: 2px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1rem; margin: 0.75rem 0; }
+.sources { margin-top: 0.5rem; }
+.sources li { border-top: 1px solid var(--line); padding: 0.5rem 0; }
+.tag { display: inline-block; border: 1px solid var(--ink); border-radius: 0.3rem; padding: 0 0.4rem; font-size: 0.85rem; font-weight: 700; margin-inline-start: 0.3rem; }
+.sources .tag { margin-inline-start: 0; }
+
+/* Uncertain items: dashed frame, question-mark heading and its own title — never colour alone. */
+.uncertain { border: 3px dashed var(--ink); background: var(--soft); border-radius: 0.5rem; padding: 0 1rem 0.75rem; margin-top: 1.5rem; }
+.uncertain li { border-top: 1px solid var(--line); padding: 0.4rem 0; }
+
+footer { margin-top: 2rem; border-top: 2px solid var(--ink); padding-top: 0.75rem; }
+.pass { color: var(--green); }
+.fail { color: var(--red); }

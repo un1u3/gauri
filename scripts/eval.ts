@@ -67,7 +67,7 @@ const model_size_gb = +(sizeBytes / 1e9).toFixed(1);
 const few = await analyse(messages.slice(0, 5), cfg);
 const not_enough_ok = few.status === "not_enough_feedback";
 
-const results = [];
+const results: (ReturnType<typeof score> & { analysis: Analysis })[] = [];
 for (let i = 0; i < runs; i++) {
   try {
     const analysis = await analyse(messages, cfg);
