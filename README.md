@@ -34,7 +34,7 @@ npm run dev                # open http://localhost:5173
 
 In the app: **सेटिङ (Settings)** → "टोलीका लागि" (For the team) at the bottom → "नमुना सन्देश राख्नुहोस्" (Load sample messages: 40 realistic reviews in 9 languages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Or open `/flow.html` and send messages from the simulated guest phone. Analysis takes one to two minutes on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
 
-To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
+To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately. If the app has no labels in that language yet, it translates its own buttons on the device straight away (2–3 minutes, with progress shown; the app is in English meanwhile) and then switches. After that, switching is instant.
 
 `npm run model:text` makes `gemma4-e2b-text` from the files already downloaded: the same weights without the 1 GB image/audio part, which Gauri never uses. Gauri uses that copy automatically when it exists and the full model when it does not. On a 6 GB laptop with a browser open, the full model was killed for lack of memory during analysis; the text-only copy ran and gave the same dev score (1.650).
 

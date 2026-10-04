@@ -216,13 +216,15 @@ function listenIdeas(p: Point, r: IdeasResult) {
 }
 
 async function translateApp() {
+  if (translating) return;
+  const lang = owner(); // fixed for this run, whatever is picked meanwhile
   error = null;
   translating = [0, KEYS.length];
   render();
   try {
-    const pack = await translateLabels(cfg(), (done, total) => { translating = [done, total]; render(); });
+    const pack = await translateLabels({ ...cfg(), ownerLang: lang }, (done, total) => { translating = [done, total]; render(); });
     const n = Object.keys(pack).length;
-    if (n) state.packs[owner()] = pack; // labels that failed their check stay in English
+    if (n) state.packs[lang] = pack; // labels that failed their check stay in English
     setPacks(state.packs);
     translating = null;
     commit();
@@ -354,6 +356,7 @@ function summaryScreen(): Child[] {
     out.push(h("p", { class: "empty" }, icon("ℹ️"), t("noAnalysis")));
     return out;
   }
+  if (a.lang !== owner()) out.push(h("p", { class: "notice" }, icon("🌐"), t("summaryOtherLang", nameInUi(a.lang), nameInUi(owner()))));
   if (a.model === "demo") out.push(h("p", { class: "notice warn" }, icon("🎬"), t("demoOn")));
   out.push(
     h("div", { class: "row" },
@@ -510,12 +513,15 @@ function settingsScreen(): Child[] {
     alertBox(),
     h("h2", { class: "sec" }, icon("🔤"), t("secAppearance")),
     h("div", { class: "card" },
-      field("🌐", "owner", "myLang", h("select", { id: "owner", onchange: (e: Event) => { s.ui = "own"; set("ownerLang", (e.target as HTMLSelectElement).value); } }, ...langOptions(s.ownerLang, false))),
+      field("🌐", "owner", "myLang", h("select", { id: "owner", disabled: translating !== null, onchange: (e: Event) => {
+        s.ui = "own";
+        set("ownerLang", (e.target as HTMLSelectElement).value);
+        // No labels in this language yet: translate them now, so choosing a language is all it takes.
+        if (!hasLabels(s.ownerLang) && !s.demo) translateApp();
+      } }, ...langOptions(s.ownerLang, false))),
       h("p", { class: "small" }, t("myLangHelp")),
-      !hasLabels(s.ownerLang) && (translating
-        ? h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("translating", translating[0], translating[1])),
-            h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${(translating[0] / translating[1]) * 100}%` })))
-        : h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp")))),
+      // Shown only if the translation did not run or failed (model off, demo mode): try again by hand.
+      !hasLabels(s.ownerLang) && !translating && h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp"))),
       !!state.packs[s.ownerLang] && h("p", { class: "notice" }, icon("ℹ️"), t("aiLabels")),
       choice("🔤", "size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize))),
     h("h2", { class: "sec" }, icon("🌱"), t("profileTitle")),
@@ -609,13 +615,18 @@ function render() {
     h("header", {},
       h("div", { class: "appbar" },
         h("p", { class: "brand", lang: "ne" }, h("span", { class: "logo" }, icon("🌱")), "गौरी"),
-        owner() !== "en" && h("button", { type: "button", id: "ui-toggle", class: "pill", "aria-label": langName(other), onclick: () => { state.settings.ui = state.settings.ui === "own" ? "en" : "own"; commit(); } },
+        owner() !== "en" && hasLabels(owner()) && h("button", { type: "button", id: "ui-toggle", class: "pill", "aria-label": langName(other), onclick: () => { state.settings.ui = state.settings.ui === "own" ? "en" : "own"; commit(); } },
           icon("🌐"), h("span", { lang: other }, SHORT[other] ?? other.toUpperCase()))),
       h("nav", { "aria-label": t("navLabel") },
         h("ul", {}, ...NAV.map(([s, emoji, key]) =>
           h("li", {}, h("button", { type: "button", id: `nav-${s}`, onclick: () => go(s), "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null },
             h("span", { class: "tab-icon" }, icon(emoji), !!badges[s] && h("span", { class: "dot" }, String(badges[s]))), t(key))))))),
-    h("main", { class: entering ? `${screen} enter` : screen }, ...SCREENS[screen]()),
+    h("main", { class: entering ? `${screen} enter` : screen },
+      translating && h("div", { class: "notice busy", role: "status" },
+        h("p", {}, icon("⏳"), t("translatingInto", nameInUi(owner()), translating[0], translating[1])),
+        h("p", { class: "small" }, t("translateHelp")),
+        h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${(translating[0] / translating[1]) * 100}%` }))),
+      ...SCREENS[screen]()),
   );
   document.title = `${t("app")} · ${document.querySelector("h1")!.firstChild!.textContent}`;
   if (focused) document.getElementById(focused)?.focus(); // keep keyboard / TalkBack position across re-renders
