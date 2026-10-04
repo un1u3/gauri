@@ -6,5 +6,5 @@ const ollama = { "/ollama": { target: "http://localhost:11434", changeOrigin: tr
 export default defineConfig({
   server: { host: true, proxy: ollama },
   preview: { host: true, proxy: ollama },
-  test: { include: ["tests/**/*.test.ts"] },
+  test: { include: ["tests/**/*.test.ts", "src/**/*.test.ts"] },
 });
