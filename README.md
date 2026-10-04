@@ -12,7 +12,8 @@ Built for the World Bank "Small AI for Development" hackathon (tourism).
 4. Gauri drafts a thank-you / come-back message in each guest's language and shows its meaning in the owner's language. The owner approves, edits or discards. Approved drafts are **copied**; Gauri never sends anything.
 5. With too little evidence, Gauri says so instead of guessing.
 6. Everything works with a screen reader (TalkBack), and the summary can be read aloud in the owner's language.
-7. The app's own buttons and labels are hand-written in Nepali and English. For any other language, the on-device model translates them once (1–2 minutes), each label is checked, and the result is saved on the device.
+7. **"What can I improve?"** Each point in the summary has an ideas button. Gauri shows up to three ideas she could try, explained for her situation: ideas from guidebooks with their source and exact quote, and Gauri's own drafted ideas, clearly labelled as not from a guidebook.
+8. The app's own buttons and labels are hand-written in Nepali and English. For any other language, the on-device model translates them once (1–2 minutes), each label is checked, and the result is saved on the device.
 
 **Why AI and not a spreadsheet:** the messages arrive in many languages and scripts, and the owner reads one of them. A spreadsheet can store them; it cannot tell her that a Korean, a Hindi and a Chinese message are all saying "breakfast was too late".
 
@@ -27,6 +28,7 @@ Needs Node 20+ and [Ollama](https://ollama.com).
 ```bash
 ollama pull gemma4:e2b     # once; 4.6 GB download
 npm install
+npm run model:text         # recommended: text-only copy of the model, about 1 GB less memory
 npm run dev                # open http://localhost:5173
 ```
 
@@ -34,12 +36,16 @@ In the app: **सन्देश (Messages)** → "नमुना सन्द�
 
 To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
 
+`npm run model:text` makes `gemma4-e2b-text` from the files already downloaded: the same weights without the 1 GB image/audio part, which Gauri never uses. Gauri uses that copy automatically when it exists and the full model when it does not. On a 6 GB laptop with a browser open, the full model was killed for lack of memory during analysis; the text-only copy ran and gave the same dev score (1.650).
+
 Other commands:
 
 ```bash
-npm test                     # 51 tests: guardrails, offline rule, data, import, prompts, any-language
+npm test                     # 91 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
+npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
+python3 scripts/check_data.py  # structure checks for the ideas data files
 ```
 
 After the model is pulled, nothing needs the internet. If Ollama is not running, the app says so and shows nothing else.
@@ -77,6 +83,30 @@ The interface is laid out as a phone app (app bar with a one-tap language switch
 
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.
 
+## "What can I improve?" (सुधारका उपाय)
+
+```
+summary point ──► keyword match to a problem (code, no model) ──► nothing matches? ──► "ask your homestay association or guide"
+        │
+        ▼
+ up to 5 candidate ideas (code): guidebook ideas first, then Gauri's drafted ideas
+        │
+        ▼
+ local model: choose up to 3 of THESE and explain each for her situation ──fails──► the original ideas, with a notice
+        │
+        ▼
+ guardrails in code ──► idea cards, each with its source label
+```
+
+- **The model only chooses and rewords.** It is given at most five ideas with ids and may pick up to three. An id it makes up is dropped.
+- **Its text is checked.** An explanation containing a digit, a money word, or a legal or medical word is never shown; that card shows the original idea instead. Over-long text is cut at a sentence end. Text must be in the owner's language.
+- **Sources are never hidden.** A guidebook idea shows its title, page and the exact quote in English. A drafted idea says "गौरीको सुझाव — गाइडबुकबाट होइन" (Gauri's idea — not from a guidebook). Ideas that need internet or English say so.
+- **Unreviewed ideas are labelled.** Every idea in the data is still marked "जाँच बाँकी" (not yet checked): none has been reviewed by a person yet.
+- **Her situation** (rooms, district, Wi-Fi, smartphone access, budget, languages, helpers) is set under Settings → "मेरो होमस्टे" and given to the model in words.
+- **It works with the model off.** Matching and candidates are code, so the original ideas still appear.
+
+Results (`npm run eval:ideas`, details in EVAL.md): matching put 13 of 15 hand-written points under the right problem area; on 5 points the real model answered all 5 in a median of 10 seconds, every shown idea was one of the candidates, and none of its 9 explanations was rejected by the guardrails. Not measured: whether the Nepali explanations are good advice.
+
 ## Any language
 
 Nothing in the code is tied to a particular language.
@@ -94,9 +124,14 @@ Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-rea
 |---|---|---|---|---|
 | `data/synthetic_messages.json` + `synthetic_truth.json` | **Synthetic**, written by the team (`scripts/make_synthetic.py`) | MIT (this repo) | 40 messages, 8 per language | Dev set: tuning the prompt |
 | `data/synthetic_test.json` + `synthetic_test_truth.json` | **Synthetic**, written by the team, different wording and guests | MIT (this repo) | 40 messages, 8 per language | Held-out test set: final numbers only |
+| `data/problem_catalog.json` | Written with a large AI model at build time, for this project | MIT (this repo) | 100 problems in 15 areas | Matching a summary point to ideas |
+| `data/ideas_library.json` | Quotes from public guides: PNG Guesthouse Development Guidebook, ASEAN Homestay Standard, APEC community tourism manual, Airbnb host articles, Caritas Nepal, Kantipur | Short quotations with source and page; the guides belong to their publishers | 30 ideas | Guidebook ideas |
+| `data/drafted_ideas.json` | **AI-drafted** at build time, not from any source | MIT (this repo) | 100 ideas | "Gauri's idea" cards |
 | `data/real_messages.json` | Real guest comments, with consent, names removed | — | **0 (empty slot)** | Import works; no real data collected yet |
 
 Each synthetic set has four planted themes spread across languages (loved the cooking class, loved the coffee farm walk, breakfast too late, farm hard to find), one single mention (Wi-Fi) that must *not* become a point, and 14 neutral messages. Every synthetic message is flagged `synthetic: true` and shown with a "बनावटी / synthetic" badge.
+
+The ideas data is English only and **has not yet been checked by a person** (`data/review_sheet.csv` is the checklist). Only two of the 30 guidebook ideas are from Nepal.
 
 **What the data does not cover:** real Nepali farm-stay guests at any scale; **any guest language beyond English, Korean, Hindi, Chinese and Nepali, and any owner language other than Nepali** (these work, but were only tried by hand, not scored); Romanized Nepali ("khana mitho thiyo"); mother tongues such as Gurung, Tamang or Newar; voice input; very short or sarcastic messages; mixed-language messages; messages that hold two themes at once. The synthetic messages were written by the same people who built the tool, so they are cleaner and more on-topic than real ones will be.
 
@@ -131,11 +166,13 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 ## Limitations and trade-offs
 
 - **The prototype runs on a laptop.** The model itself runs on Android phones; packaging the app and model for a phone is the next step and is not done.
-- **Model size.** `gemma4:e2b` is 4.6 GB on disk as measured here (the published figure we planned around was ~2.6 GB). It can be side-loaded from an SD card or a laptop, but it is not something to download over occasional 3G, and it needs a phone with enough memory.
+- **Model size.** `gemma4:e2b` is 4.6 GB to download as measured here (the published figure we planned around was ~2.6 GB); 3.5 GB of that is the text model Gauri uses and 1 GB is an image/audio part it does not. It can be side-loaded from an SD card or a laptop, but it is not something to download over occasional 3G, and it needs a phone with enough memory.
 - **Nepali voice depends on the phone.** Read-aloud uses the phone's installed text-to-speech. On the development laptop there was no Nepali voice, so only the "no Nepali voice" message was exercised; reading aloud is untested on a real phone.
 - **TalkBack itself is untested.** Accessibility was checked by automated audit (labels, `lang` attributes, target sizes, live region, keyboard use), not yet with TalkBack on a phone.
 - **Not deterministic.** The same input can give slightly different citation lists between runs, even at temperature 0.
 - **Prompt-sensitive.** Two reasonable prompt additions each made results much worse (see LOOP_LOG.md). A small model needs measuring, not guessing.
+- **Memory is tight.** On the 6 GB development laptop the full model was killed by the system during analysis once a browser and an editor were open. The text-only copy fits, with about 1 GB to spare; close other apps before a demo.
+- **Ideas are unreviewed and matched by keywords.** A point worded unusually may get no ideas (2 of 15 in our check), and in a non-Nepali owner language the fallback cards are in English.
 - **Synthetic evaluation only.** No real guest messages have been tested.
 - **Other languages are unmeasured.** All scores are for a Nepali-reading owner and five guest languages. Other languages run through exactly the same code, but how well a 4.6B-parameter model reads or writes a given language varies, and for small languages (Maithili, Bhojpuri, Nepal Bhasa, Dzongkha) it may be poor.
 - **The language check is by script.** It catches "the Nepali text came back in English", but cannot tell French from Spanish, or Nepali from Hindi; for Latin-script languages it only rejects text identical to the English.

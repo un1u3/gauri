@@ -17,6 +17,8 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Step 6b: loop ran 3 iterations, 1 kept: dev 1.475 → 1.650. Stopped (2 non-improving in a row). Held-out test: SCORE 1.350, themes 4/4, per-language 80/20/80/80/100. EVAL.md + README written.
 - UI redesign x2 (team request): social-app style — hero with stats, language avatar row, insight cards with language face-piles, chat-bubble sources, post-style feed, grouped settings, EN/ने switch in the app bar, inline SVG icons (`src/icons.ts`), web-app manifest. 37/37 browser checks pass with the real model.
 - Any-language support (team request, overrides the brief's five-language limit): `Lang` is any code; owner language setting drives prompt/schema/guardrails/voice/labels; labels for other languages translated on-device and checked. 51 tests; dev SCORE unchanged 1.650; browser flows pass in ne/en/es.
+- Ideas data (English only, team decision): 100 problems, 30 library ideas, 100 drafted ideas, review sheet; `scripts/check_data.py` 8/8 PASS. All `review.status` pending.
+- Ideas feature ("What can I improve?"): match → candidates → model → guardrails → cards; profile in Settings; 14 Checks. 91 tests pass; browser flow passes with the real model; `npm run eval:ideas`: matching 13/15, model 5/5 valid, 0/9 rejected, median 10s.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.
@@ -32,6 +34,9 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 
 - Data shape changed from the brief: `point_ne/note_ne/text_ne` → `point_own/note_own/text_own` (+ `Analysis.lang`, `Draft.own_lang`). The model-facing key is still `point_<code>`, so for Nepali it is still `point_ne`.
 - Storage key is now `gauri.v2` (old saved data is ignored).
+
+- Text-only model copy `gemma4-e2b-text` (`npm run model:text`): same weights minus the unused 1 GB image/audio projector. Used automatically when present, full model otherwise. Reason: the full model was OOM-killed on this laptop. Dev SCORE unchanged (1.650).
+- Ideas output is in the owner's language (keys `how_<code>`), fallback cards show the English originals (no `idea_ne` in the data).
 
 ## Learned (rules discovered the hard way — follow these from now on)
 - Laptop has 6.1 GB RAM, CPU only. With the model loaded ~1 GB is free: keep one model loaded, keep `num_ctx` small (8192 max), don't run eval and heavy builds together.
@@ -50,6 +55,9 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - For a Nepali owner the prompt must stay byte-identical to `tests/fixtures/evaluated_prompt.json` (test enforces). Any prompt change = re-run the loop.
 - Chrome lacks own-script language names for some languages (showed "Nepali" not "नेपाली"): names for offered languages are written out in `src/lang.ts`.
 - Python patch scripts: check exact indentation / literal characters first; a failed assert writes nothing.
+
+- OOM: with Brave + VS Code + a second Claude session open, Ollama's runner gets killed (`journalctl -u ollama` shows oom-kill; the app shows "AI model is not running"). Check `free -h` before any model run; never leave headless Chrome running after a failed test (`pkill -f "[c]hrome.*--headless"` — the brackets stop pkill matching its own shell).
+- A crashed browser test leaves Chrome processes behind; the test script must not be left to throw.
 
 ## Open questions for the team
 1. Is there an Android phone with a Nepali TTS voice for testing?

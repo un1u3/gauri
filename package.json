@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
-    "eval": "tsx scripts/eval.ts"
+    "eval": "tsx scripts/eval.ts",
+    "eval:ideas": "tsx scripts/eval_ideas.ts",
+    "model:text": "sh scripts/make_text_model.sh"
   },
   "devDependencies": {
     "@fontsource/noto-sans-devanagari": "^5.3.0",

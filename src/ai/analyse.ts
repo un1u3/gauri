@@ -2,7 +2,7 @@
 // Model output passes through `validated` and the guardrails before it is returned.
 import type { Analysis, Draft, Lang, Message } from "../types";
 import { applyGuardrails, hasEnoughFeedback, notEnoughFeedback, validateAnalysis, validateDraft, validated } from "./guardrails";
-import { chat } from "./ollama";
+import { chat, lastModel } from "./ollama";
 import { analysisSchema, analysisSystem, analysisUser, draftSchema, draftSystem, draftUser } from "./prompts";
 
 // ownerLang: the language the owner reads; summaries and meanings are written in it.
@@ -13,7 +13,7 @@ export async function analyse(messages: Message[], cfg: AiConfig): Promise<Analy
   if (!hasEnoughFeedback(messages.length, cfg.minMessages)) return notEnoughFeedback(messages.length, cfg.model, lang);
   const start = Date.now();
   const raw = await validated(() => chat(cfg.baseUrl, cfg.model, analysisSystem(messages, lang), analysisUser(messages), analysisSchema(lang)), (x) => validateAnalysis(x, lang));
-  return applyGuardrails(raw, messages, { model: cfg.model, seconds: Math.round((Date.now() - start) / 1000), lang });
+  return applyGuardrails(raw, messages, { model: lastModel || cfg.model, seconds: Math.round((Date.now() - start) / 1000), lang });
 }
 
 export async function draftThanks(m: Message, cfg: AiConfig): Promise<Draft> {

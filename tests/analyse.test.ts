@@ -64,6 +64,25 @@ describe("analyse", () => {
   });
 });
 
+describe("text-only copy of the model", () => {
+  const good = JSON.stringify({ loved: [], wished: [], upgrade: [], uncertain: [] });
+  it("is used when it exists; the full model is used when it does not", async () => {
+    const f = vi.fn()
+      .mockResolvedValueOnce(new Response("{}", { status: 404 }))   // gemma4-e2b-text not created
+      .mockResolvedValueOnce(reply(good))                            // gemma4:e2b answers
+      .mockResolvedValueOnce(reply(good));                           // next call goes straight to the full model
+    vi.stubGlobal("fetch", f);
+    const a = await analyse(messages, { ...cfg, model: "gemma4:e2b" });
+    await analyse(messages, { ...cfg, model: "gemma4:e2b" });
+    expect(f.mock.calls.map((c) => JSON.parse(c[1].body).model)).toEqual(["gemma4-e2b-text", "gemma4:e2b", "gemma4:e2b"]);
+    expect(a.model).toBe("gemma4:e2b");
+  });
+  it("a missing model that has no text-only copy is reported as missing", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("{}", { status: 404 })));
+    await expect(analyse(messages, cfg)).rejects.toMatchObject({ message: "model_missing" });
+  });
+});
+
 describe("draftThanks", () => {
   it("returns a pending draft; a draft without Nepali meaning is rejected", async () => {
     fakeFetch(JSON.stringify({ text: "감사합니다!", text_ne: "धन्यवाद!" }));

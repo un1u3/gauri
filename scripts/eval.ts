@@ -60,9 +60,6 @@ function score(a: Analysis) {
   return { SCORE, theme_recall, themes_found, per_language, min_language, t5_correct, t5_not_a_point, t5_in_uncertain, citation_validity, min_citations, n_points: displayed.length, seconds: a.seconds };
 }
 
-const tags = await (await fetch(`${cfg.baseUrl}/api/tags`)).json();
-const sizeBytes: number = tags.models.find((m: any) => m.name === cfg.model)?.size ?? 0;
-const model_size_gb = +(sizeBytes / 1e9).toFixed(1);
 
 const few = await analyse(messages.slice(0, 5), cfg);
 const not_enough_ok = few.status === "not_enough_feedback";
@@ -79,9 +76,15 @@ for (let i = 0; i < runs; i++) {
   }
 }
 
+// Report the model that actually answered (the text-only copy, when it exists) and its size on disk.
+const model = results[0].analysis.model;
+const tags = await (await fetch(`${cfg.baseUrl}/api/tags`)).json();
+const sizeBytes: number = tags.models.find((m: any) => m.name === model || m.name === `${model}:latest`)?.size ?? 0;
+const model_size_gb = +(sizeBytes / 1e9).toFixed(1);
+
 const avg = (f: (r: (typeof results)[number]) => number) => +mean(results.map(f)).toFixed(3);
 const summary = {
-  set, model: cfg.model, model_size_gb, n_messages: messages.length, runs, at: new Date().toISOString(),
+  set, model, model_size_gb, n_messages: messages.length, runs, at: new Date().toISOString(),
   SCORE: avg((r) => r.SCORE),
   theme_recall: avg((r) => r.theme_recall),
   per_language: Object.fromEntries(LANGS.map((l) => [l, avg((r) => r.per_language[l])])) as Record<Lang, number>,
@@ -100,7 +103,7 @@ const L = summary.per_language;
 const table = `| Metric | Result |
 |---|---|
 | Set | ${set} (${messages.length} synthetic messages, mean of ${runs} runs) |
-| Model | ${cfg.model}, ${model_size_gb} GB on disk |
+| Model | ${model}, ${model_size_gb} GB on disk |
 | Theme recall (4 planted themes) | ${pct(summary.theme_recall)} |
 | Per-language recall en / ko / hi / zh / ne | ${LANGS.map((l) => pct(L[l])).join(" / ")} |
 | Weakest language | ${pct(summary.min_language)} |

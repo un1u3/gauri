@@ -56,3 +56,20 @@ suggestion. The decision is yours." and why every point opens the original messa
 
 Details of each iteration are in LOOP_LOG.md. The gap between dev (1.650) and test (1.350) is the reason we keep a
 held-out set: the dev number alone would have hidden the Korean weakness.
+
+## Ideas feature
+
+Produced by `npm run eval:ideas` on 2026-10-04. Model: gemma4-e2b-text, owner language: Nepali, default profile.
+The 15 points were written by hand before running and are not taken from the synthetic message sets.
+
+| Metric | Result |
+|---|---|
+| Matching accuracy (point → problem tag, code only) | 13 of 15 (87%) |
+| Missed | "Guests did not know the price until the end" → no match (expected pricing_payment) |
+| Missed | "Guests loved the coffee picking and roasting" → food (expected activities) |
+| Model runs that returned a valid answer | 5 of 5 (others fell back to the original ideas) |
+| Points where every shown idea is one of the candidates | 5 of 5 (enforced in code) |
+| Chosen ideas whose model text was rejected by the guardrails | 0 of 9 (0%); those cards show the original idea |
+| Median seconds per point | 10 |
+
+Not measured: whether the Nepali explanations are good advice or natural Nepali. Every idea in the data files is still marked "not yet checked" by a person.
