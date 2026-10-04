@@ -1,0 +1,2176 @@
+[
+ {
+  "id": "draft_P001",
+  "problem_id": "P001",
+  "label": "ai_drafted",
+  "idea_en": "Tie a bright cloth or paint a simple arrow at the bus stop and at each fork, and ask guides to tell guests to follow that colour.",
+  "why_it_fits": "Needs no reading and no shared language; uses cloth or paint already at home.",
+  "related_library_ids": [
+   "idea_01",
+   "idea_25"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P002",
+  "problem_id": "P002",
+  "label": "ai_drafted",
+  "idea_en": "Put a wooden board with the farm's name and a drawing of a coffee branch at the turning, high enough to be seen from the road.",
+  "why_it_fits": "A hand-made board from wood and paint; the drawing works for guests who cannot read the name.",
+  "related_library_ids": [
+   "idea_01"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P003",
+  "problem_id": "P003",
+  "label": "ai_drafted",
+  "idea_en": "When guests are expected late, send a family member with a torch to wait at the last junction and walk them in.",
+  "why_it_fits": "Needs only a torch and one person from the household.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P004",
+  "problem_id": "P004",
+  "label": "ai_drafted",
+  "idea_en": "Ask guides to tell guests not to rely on the phone map, and give them the same few landmarks to pass in order every time, such as the big tree, the water tap and the gate.",
+  "why_it_fits": "Works with no internet at all; landmarks are free and never go out of date.",
+  "related_library_ids": [
+   "idea_25"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P005",
+  "problem_id": "P005",
+  "label": "ai_drafted",
+  "idea_en": "Agree with the drivers at the nearest stand on one well-known landmark name for the farm, and have guides tell every guest to say that name.",
+  "why_it_fits": "One conversation with local drivers; nothing to buy and nothing to write.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P006",
+  "problem_id": "P006",
+  "label": "ai_drafted",
+  "idea_en": "Make the arrival walk part of the visit: stop at a couple of places on the way, such as the water tap and the first coffee plants, and show them by pointing.",
+  "why_it_fits": "Builds on something guests already like, with no extra work beyond walking with them.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P007",
+  "problem_id": "P007",
+  "label": "ai_drafted",
+  "idea_en": "Offer this to every guest, and let the family member carry a small board with the farm's name so guests know who to look for.",
+  "why_it_fits": "Uses a family member's time only; the small board can be made at home.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P008",
+  "problem_id": "P008",
+  "label": "ai_drafted",
+  "idea_en": "Make a picture card with drawings of common needs — water, toilet, food, blanket, sleep — so guests can point and the host can answer by pointing.",
+  "why_it_fits": "Pictures need no English and no phone; a child in the family can draw them.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P009",
+  "problem_id": "P009",
+  "label": "ai_drafted",
+  "idea_en": "Before the guide leaves, sit together for a few minutes: the guide tells guests the meal times and tomorrow's plan, and tells the host what the guests need.",
+  "why_it_fits": "Uses the guide who is already there; takes a few minutes and nothing else.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P010",
+  "problem_id": "P010",
+  "label": "ai_drafted",
+  "idea_en": "Draw the day as a row of simple pictures — morning tea, farm walk, meal, rest — with the sun low, high and low again, and show it each morning.",
+  "why_it_fits": "A drawing on paper or a board; no words in any language are needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P011",
+  "problem_id": "P011",
+  "label": "ai_drafted",
+  "idea_en": "Keep a small album of family and farm photos through the seasons; turning its pages together tells the story without words.",
+  "why_it_fits": "Photos the family already has; no translation needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P012",
+  "problem_id": "P012",
+  "label": "ai_drafted",
+  "idea_en": "Sit with the guests for tea once a day even without much talk; teach them one word of your language and learn their word for thank you.",
+  "why_it_fits": "Needs only a cup of tea and a little time; no shared language required.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P013",
+  "problem_id": "P013",
+  "label": "ai_drafted",
+  "idea_en": "Make it a small habit: teach one new word at each meal, such as the name of a dish or the word for tasty, and let the children be the teachers.",
+  "why_it_fits": "Builds on what guests enjoy; the host teaches her own language, so no English is needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P014",
+  "problem_id": "P014",
+  "label": "ai_drafted",
+  "idea_en": "After school, let the children show guests around the yard and the animals for a short while, with an adult close by.",
+  "why_it_fits": "Fits family life as it is; no materials and no shared language needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P015",
+  "problem_id": "P015",
+  "label": "ai_drafted",
+  "idea_en": "The evening before, ask guests when they want to eat by pointing at a clock or at where the sun will be, and prepare what you can that night.",
+  "why_it_fits": "A question asked by pointing; preparing the night before fits around early farm work.",
+  "related_library_ids": [
+   "idea_03",
+   "idea_04"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P016",
+  "problem_id": "P016",
+  "label": "ai_drafted",
+  "idea_en": "Leave a covered plate of something simple in the guest room for later, such as roasted maize, beaten rice or fruit.",
+  "why_it_fits": "Uses food the household already has; no change to the family's own meal time.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P017",
+  "problem_id": "P017",
+  "label": "ai_drafted",
+  "idea_en": "When guests leave early, pack food the night before — boiled eggs, flatbread, fruit — and hand it over as they go.",
+  "why_it_fits": "Made from what is in the kitchen, the evening before, so the morning farm work is not disturbed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P018",
+  "problem_id": "P018",
+  "label": "ai_drafted",
+  "idea_en": "Have the guide tell guests the meal times once on arrival, and before each meal send a child or ring a small bell.",
+  "why_it_fits": "A bell or a child needs no language; the guide explains once.",
+  "related_library_ids": [
+   "idea_04",
+   "idea_05"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P019",
+  "problem_id": "P019",
+  "label": "ai_drafted",
+  "idea_en": "Have tea and a small snack ready for when guests return from a walk, so the main meal can take its time.",
+  "why_it_fits": "Tea and a snack from the kitchen; takes the pressure off cooking the main meal.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P020",
+  "problem_id": "P020",
+  "label": "ai_drafted",
+  "idea_en": "Keep one meal of every stay as the family meal on purpose, and invite guests into the kitchen while the food is being finished.",
+  "why_it_fits": "Builds on what guests enjoy; the family eats as usual, with guests alongside.",
+  "related_library_ids": [
+   "idea_06"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P021",
+  "problem_id": "P021",
+  "label": "ai_drafted",
+  "idea_en": "Cook the guests' portion without chilli, and put pickle and chilli in a separate small bowl so each person adds their own.",
+  "why_it_fits": "No new ingredients; only one step in cooking changes.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P022",
+  "problem_id": "P022",
+  "label": "ai_drafted",
+  "idea_en": "Ask through the guide on arrival who does not eat meat, eggs or milk, and for them add an extra lentil or bean dish and greens from the garden.",
+  "why_it_fits": "Uses pulses and greens the farm already grows; one question through the guide.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P023",
+  "problem_id": "P023",
+  "label": "ai_drafted",
+  "idea_en": "Change one thing at each meal — a different vegetable, a different pickle, flatbread in place of rice — using whatever is ready in the garden.",
+  "why_it_fits": "Variety from the garden, not from the shop.",
+  "related_library_ids": [
+   "idea_29"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P024",
+  "problem_id": "P024",
+  "label": "ai_drafted",
+  "idea_en": "Before cooking, show guests the raw ingredients of each dish on a plate, so they can point to anything they do not eat.",
+  "why_it_fits": "Showing and pointing needs no shared language and no writing.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P025",
+  "problem_id": "P025",
+  "label": "ai_drafted",
+  "idea_en": "Serve what the farm grows first — greens, maize, millet, milk, fruit in season — and keep packet food only for guests who ask for it.",
+  "why_it_fits": "Farm food is already there, so nothing needs to be bought.",
+  "related_library_ids": [
+   "idea_29"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P026",
+  "problem_id": "P026",
+  "label": "ai_drafted",
+  "idea_en": "Let guests roast and grind a small handful themselves and drink that cup, and offer a small packet of the farm's beans to carry home.",
+  "why_it_fits": "Builds on the farm's own crop; needs only the pan and grinder already in the kitchen.",
+  "related_library_ids": [
+   "idea_26"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P027",
+  "problem_id": "P027",
+  "label": "ai_drafted",
+  "idea_en": "Before the meal, walk guests through the garden and let them pick one vegetable that will be cooked for them.",
+  "why_it_fits": "Builds on what guests already praise; a short walk in her own garden.",
+  "related_library_ids": [
+   "idea_06",
+   "idea_29"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P028",
+  "problem_id": "P028",
+  "label": "ai_drafted",
+  "idea_en": "Put an extra blanket on each bed before guests ask, and in the cold months offer a warm drink or a hot water bottle at bedtime.",
+  "why_it_fits": "Uses the household's own bedding; nothing has to be built.",
+  "related_library_ids": [
+   "idea_26"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P029",
+  "problem_id": "P029",
+  "label": "ai_drafted",
+  "idea_en": "Give guests the room furthest from the animal shed, and on arrival let them know, with a smile and a crowing gesture, that the farm wakes early.",
+  "why_it_fits": "Changes only which room is used; the warning is a gesture.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P030",
+  "problem_id": "P030",
+  "label": "ai_drafted",
+  "idea_en": "Lay a folded quilt or a second thin mattress under the sheet to soften the bed, and air the bedding in the sun between guests.",
+  "why_it_fits": "Uses bedding already in the house.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P031",
+  "problem_id": "P031",
+  "label": "ai_drafted",
+  "idea_en": "Keep a charged torch or solar lamp on a hook by each bed and show guests where it is when they arrive.",
+  "why_it_fits": "A torch the family already owns, kept in a fixed place.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P032",
+  "problem_id": "P032",
+  "label": "ai_drafted",
+  "idea_en": "Fit a simple bolt on the inside of the guest room door, and offer a family trunk or cupboard with a padlock for bags.",
+  "why_it_fits": "A bolt and a trunk the household already has or can fit by hand.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P033",
+  "problem_id": "P033",
+  "label": "ai_drafted",
+  "idea_en": "Put a few wooden pegs or nails in the wall, tie a line for clothes, and set a small bench or crate by the bed.",
+  "why_it_fits": "Made in an afternoon from wood and rope on the farm.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P034",
+  "problem_id": "P034",
+  "label": "ai_drafted",
+  "idea_en": "Put a bench or a mat at the best viewing spot and bring the morning tea there.",
+  "why_it_fits": "Builds on the view that is already there; a bench or mat from the house.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P035",
+  "problem_id": "P035",
+  "label": "ai_drafted",
+  "idea_en": "Warm a bucket of water on the fire or in the sun each afternoon and offer it at the same time every day, showing guests by gesture when it will be ready.",
+  "why_it_fits": "Fire and sun are already there; a set time fits around farm work.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P036",
+  "problem_id": "P036",
+  "label": "ai_drafted",
+  "idea_en": "Show guests the way to the toilet while it is still light, keep the path clear, and leave a torch by the room door.",
+  "why_it_fits": "A short walk together in daylight and a torch; nothing to build.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P037",
+  "problem_id": "P037",
+  "label": "ai_drafted",
+  "idea_en": "Boil the drinking water where guests can see it being done, and keep it in a covered jug in their room, refilled every day.",
+  "why_it_fits": "Boiling on the kitchen fire; seeing it done needs no explanation in any language.",
+  "related_library_ids": [
+   "idea_10",
+   "idea_11"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P038",
+  "problem_id": "P038",
+  "label": "ai_drafted",
+  "idea_en": "Fill a covered drum or buckets for the guest washing place every morning, and show guests by gesture that a bucket wash is best when water is short.",
+  "why_it_fits": "Uses containers the farm has; filling them joins the morning chores.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P039",
+  "problem_id": "P039",
+  "label": "ai_drafted",
+  "idea_en": "Keep a soap dish and a clean small towel on a nail by the washing place, and look at them each morning.",
+  "why_it_fits": "Soap and a towel from the household; a quick look each morning.",
+  "related_library_ids": [
+   "idea_28"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P040",
+  "problem_id": "P040",
+  "label": "ai_drafted",
+  "idea_en": "Hang a simple hand-drawn picture by the toilet showing the bucket and the pouring of water, and keep the bucket full.",
+  "why_it_fits": "A drawing explains without words and without embarrassment.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P041",
+  "problem_id": "P041",
+  "label": "ai_drafted",
+  "idea_en": "Give the outdoor washing place more privacy with a bamboo or cloth screen, and show guests the time of day when the water is warmest.",
+  "why_it_fits": "Builds on what guests enjoy, with bamboo and cloth from the farm.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P042",
+  "problem_id": "P042",
+  "label": "ai_drafted",
+  "idea_en": "Keep every dish covered with a lid, a plate or a clean cloth until it is served, and serve guests away from the animal shed.",
+  "why_it_fits": "Lids, plates and cloth are already in the kitchen.",
+  "related_library_ids": [
+   "idea_11"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P043",
+  "problem_id": "P043",
+  "label": "ai_drafted",
+  "idea_en": "Wash and sun-dry the sheets and pillow covers after every guest, and if guests arrive early, make the bed while they can see.",
+  "why_it_fits": "Water, soap and sun; letting guests see it done needs no words.",
+  "related_library_ids": [
+   "idea_28"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P044",
+  "problem_id": "P044",
+  "label": "ai_drafted",
+  "idea_en": "Sweep the yard before guests arrive, keep one covered basket for waste where guests can see it, and one pit for kitchen scraps.",
+  "why_it_fits": "A broom, a basket and a pit; all made on the farm.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P045",
+  "problem_id": "P045",
+  "label": "ai_drafted",
+  "idea_en": "Hang a net over each guest bed if the family has one, close the window before dusk, and clear standing water near the house.",
+  "why_it_fits": "Uses nets the household may already own; the rest is a daily habit.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P046",
+  "problem_id": "P046",
+  "label": "ai_drafted",
+  "idea_en": "Wash the guests' dishes with soap and hot water, dry them on a rack in the sun, and keep them covered until they are used.",
+  "why_it_fits": "Soap, hot water and sun; a rack can be made from bamboo.",
+  "related_library_ids": [
+   "idea_09"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P047",
+  "problem_id": "P047",
+  "label": "ai_drafted",
+  "idea_en": "Do the sweeping and airing in the morning while guests are around, and put a few flowers or green leaves in their room.",
+  "why_it_fits": "Builds on work already done every day; flowers come from the yard.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P048",
+  "problem_id": "P048",
+  "label": "ai_drafted",
+  "idea_en": "Invite guests into the kitchen to watch or help; a clean kitchen that guests can see for themselves needs no explaining.",
+  "why_it_fits": "Builds on a strength she already has; an open kitchen needs no translation.",
+  "related_library_ids": [
+   "idea_06"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P049",
+  "problem_id": "P049",
+  "label": "ai_drafted",
+  "idea_en": "Offer one simple thing for each part of the day and show it by doing: feeding the animals in the morning, a walk to a viewpoint, grinding grain or weaving in the afternoon.",
+  "why_it_fits": "These are jobs the farm does anyway; guests join in.",
+  "related_library_ids": [
+   "idea_07"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P050",
+  "problem_id": "P050",
+  "label": "ai_drafted",
+  "idea_en": "Lengthen the walk by adding stops where guests use their hands — pick, smell, taste, dig — and not only look.",
+  "why_it_fits": "No new place to build; the same farm, shown more slowly.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P051",
+  "problem_id": "P051",
+  "label": "ai_drafted",
+  "idea_en": "Give guests one real task that suits the season — picking ripe cherries, sorting beans, cutting grass — and work beside them.",
+  "why_it_fits": "The work is already there; showing by doing needs no shared language.",
+  "related_library_ids": [
+   "idea_08"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P052",
+  "problem_id": "P052",
+  "label": "ai_drafted",
+  "idea_en": "Keep a few rainy-day things ready by the fire: roasting coffee, making pickle or flatbread together, playing a local board game.",
+  "why_it_fits": "Everything is already in the house; nothing depends on the weather.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P053",
+  "problem_id": "P053",
+  "label": "ai_drafted",
+  "idea_en": "Offer it at every stay: let guests choose between two dishes by pointing at the ingredients, and let them do each step with their own hands.",
+  "why_it_fits": "Builds on what guests love; the family's own meal is cooked at the same time.",
+  "related_library_ids": [
+   "idea_06"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P054",
+  "problem_id": "P054",
+  "label": "ai_drafted",
+  "idea_en": "Outside harvest time, show the other steps — drying, hulling, roasting — so that every guest handles coffee whatever the month.",
+  "why_it_fits": "Uses coffee already stored on the farm; no harvest needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P055",
+  "problem_id": "P055",
+  "label": "ai_drafted",
+  "idea_en": "Keep a regular time morning and evening when guests can join the animal work, and make their tea with the milk they helped collect.",
+  "why_it_fits": "The animal work happens twice a day anyway.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P056",
+  "problem_id": "P056",
+  "label": "ai_drafted",
+  "idea_en": "Show the house customs by doing them first — take off your own shoes at the door, point to where guests sit — and ask the guide to explain once on arrival.",
+  "why_it_fits": "Showing by example needs no shared language.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P057",
+  "problem_id": "P057",
+  "label": "ai_drafted",
+  "idea_en": "Decide as a family what may be photographed and have the guide tell guests on arrival; for everything else a gentle hand gesture is enough.",
+  "why_it_fits": "A family decision and one sentence from the guide.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P058",
+  "problem_id": "P058",
+  "label": "ai_drafted",
+  "idea_en": "Mark a guest seat by the fire with a mat or low stool, lead guests to it by hand, and pass them something small to do, like shelling beans.",
+  "why_it_fits": "Builds on what guests love; a mat and a place by her own fire.",
+  "related_library_ids": [
+   "idea_06"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P059",
+  "problem_id": "P059",
+  "label": "ai_drafted",
+  "idea_en": "When a festival falls during a stay, ask the guide beforehand to explain it, and give guests a small part in it, such as carrying flowers.",
+  "why_it_fits": "Uses the guide and the festival that is already happening.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P060",
+  "problem_id": "P060",
+  "label": "ai_drafted",
+  "idea_en": "Keep this farewell for every guest, and take a photo together at that moment on the guest's own phone so they carry it home.",
+  "why_it_fits": "Builds on her own custom; the photo is on the guest's phone, so she needs none.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P061",
+  "problem_id": "P061",
+  "label": "ai_drafted",
+  "idea_en": "When neighbours are free, invite them for a short evening of songs for guests who stay more than one night, and teach guests one easy chorus or step.",
+  "why_it_fits": "Builds on village life as it is; music needs no translation.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P062",
+  "problem_id": "P062",
+  "label": "ai_drafted",
+  "idea_en": "Scrub the moss off the steps guests use, put straw or sand on wet patches, and show guests the steps while it is light.",
+  "why_it_fits": "Straw, sand and a brush from the farm; general care, shown in daylight.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P063",
+  "problem_id": "P063",
+  "label": "ai_drafted",
+  "idea_en": "Walk with guests after dark, tie up the family dog when guests are arriving, and let the neighbours know when guests are expected.",
+  "why_it_fits": "Needs a rope and a word to the neighbours.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P064",
+  "problem_id": "P064",
+  "label": "ai_drafted",
+  "idea_en": "In the rainy months, let guests know by gesture before a walk, offer a little salt to carry, and keep the grass short along the main path.",
+  "why_it_fits": "Salt and a sickle; ordinary care that the family already takes for itself.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P065",
+  "problem_id": "P065",
+  "label": "ai_drafted",
+  "idea_en": "Send a family member along on the first walk to any steep place, and show guests in daylight which paths to stay away from.",
+  "why_it_fits": "One person's time; general care shown by pointing.",
+  "related_library_ids": [
+   "idea_18"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P066",
+  "problem_id": "P066",
+  "label": "ai_drafted",
+  "idea_en": "When clouds build, point at the sky and keep guests near the house, and plan walks for the clear morning hours.",
+  "why_it_fits": "Uses her own knowledge of the local weather; a gesture is enough.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P067",
+  "problem_id": "P067",
+  "label": "ai_drafted",
+  "idea_en": "Keep the small things that gave them this feeling: walking them to the room at night, looking in on them in the morning, showing where the family sleeps in case they need help.",
+  "why_it_fits": "Builds on care she already gives; no equipment and no shared language.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P068",
+  "problem_id": "P068",
+  "label": "ai_drafted",
+  "idea_en": "On arrival, agree through the guide what the stay includes and what is extra, and show the amounts written on paper so nothing is a surprise at the end.",
+  "why_it_fits": "Written numbers are understood in any language; the guide explains once.",
+  "related_library_ids": [
+   "idea_07"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P069",
+  "problem_id": "P069",
+  "label": "ai_drafted",
+  "idea_en": "In the weeks before guests come, collect small notes in a tin, and ask guides to tell guests to bring small notes too.",
+  "why_it_fits": "A tin and a habit; no bank visit or phone needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P070",
+  "problem_id": "P070",
+  "label": "ai_drafted",
+  "idea_en": "Have guides tell guests before they travel that only cash works here, so they bring enough from town.",
+  "why_it_fits": "Solves it without internet or a card machine, through the guide.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P071",
+  "problem_id": "P071",
+  "label": "ai_drafted",
+  "idea_en": "Keep a small notebook with carbon paper: write the date, the nights, the meals and the amount, give the guest the top page and keep the copy.",
+  "why_it_fits": "A notebook and numbers; she writes in her own script.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P072",
+  "problem_id": "P072",
+  "label": "ai_drafted",
+  "idea_en": "Make a picture list of what is part of the stay and what is extra, and point to it on arrival.",
+  "why_it_fits": "Pictures need no English; made once and used for every guest.",
+  "related_library_ids": [
+   "idea_07"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P073",
+  "problem_id": "P073",
+  "label": "ai_drafted",
+  "idea_en": "Give them a way to do that which helps the farm: offer the farm's coffee or honey to buy and carry home.",
+  "why_it_fits": "Builds on their goodwill using the farm's own produce.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P074",
+  "problem_id": "P074",
+  "label": "ai_drafted",
+  "idea_en": "Choose one time each evening when the phone is always switched on and near a family member, and tell guides that this is the time to call.",
+  "why_it_fits": "Fits a day spent in the fields; uses the basic phone she already has.",
+  "related_library_ids": [
+   "idea_13"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P075",
+  "problem_id": "P075",
+  "label": "ai_drafted",
+  "idea_en": "Ask guides and past guests to call or send a plain text message and not to use internet chat, and look at the basic phone every evening.",
+  "why_it_fits": "Moves contact to the basic phone that is always with her, away from the weekend smartphone.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P076",
+  "problem_id": "P076",
+  "label": "ai_drafted",
+  "idea_en": "Hang a wall calendar in the kitchen, mark every booking on it the moment the call ends, and look at it before saying yes.",
+  "why_it_fits": "A paper calendar the whole family can see; no phone app needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P077",
+  "problem_id": "P077",
+  "label": "ai_drafted",
+  "idea_en": "Ask every guide for one promise: if plans change, call the evening before, even for a very short call.",
+  "why_it_fits": "One phone call on the basic phone; saves food and work being wasted.",
+  "related_library_ids": [
+   "idea_13"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P078",
+  "problem_id": "P078",
+  "label": "ai_drafted",
+  "idea_en": "At every booking ask the same three things and mark them on the calendar: which day, how many people, how many nights.",
+  "why_it_fits": "Three questions asked in her own language to the guide; noted on paper.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P079",
+  "problem_id": "P079",
+  "label": "ai_drafted",
+  "idea_en": "Keep the numbers of the guides who do this well in a notebook, thank them, and ask each to tell you the guests' food needs and arrival time in the same call.",
+  "why_it_fits": "Builds on the guides she already works with; a notebook and a phone call.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P080",
+  "problem_id": "P080",
+  "label": "ai_drafted",
+  "idea_en": "Ask a trusted guide or a relative from town to add the farm to the phone map for you while they are standing in the yard.",
+  "why_it_fits": "Someone else's phone and connection do the work; she needs neither.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P081",
+  "problem_id": "P081",
+  "label": "ai_drafted",
+  "idea_en": "Ask a guest who takes good pictures to photograph the rooms, a meal and the farm, and to pass the pictures to the guide who brings future guests.",
+  "why_it_fits": "Uses the guest's camera and the guide's phone, not hers.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P082",
+  "problem_id": "P082",
+  "label": "ai_drafted",
+  "idea_en": "Keep a small card with the farm's name, the nearest bus stop, the phone number and a hand-drawn map, and let guests photograph it; ask a guide to write the name once in letters guests can read.",
+  "why_it_fits": "One hand-made card, photographed by each guest; the guide helps once with the lettering.",
+  "related_library_ids": [
+   "idea_02"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P083",
+  "problem_id": "P083",
+  "label": "ai_drafted",
+  "idea_en": "Whenever the number changes, call each guide in the same week and write the new number on the farm card and the signboard.",
+  "why_it_fits": "A few phone calls and a pen; no internet needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P084",
+  "problem_id": "P084",
+  "label": "ai_drafted",
+  "idea_en": "Give every leaving guest two of the farm cards — one to keep and one to hand to a friend.",
+  "why_it_fits": "Builds on word of mouth, which already brings her guests; a hand-made card.",
+  "related_library_ids": [
+   "idea_02"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P085",
+  "problem_id": "P085",
+  "label": "ai_drafted",
+  "idea_en": "Show guests the prettiest spots for photos — coffee in fruit, the view, the kitchen fire — and show them on the farm card how the farm's name is written.",
+  "why_it_fits": "Guests do the sharing on their own phones; she only shows the places.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P086",
+  "problem_id": "P086",
+  "label": "ai_drafted",
+  "idea_en": "Keep a guest notebook: ask each guest to write their name, country, phone number and what they liked; it becomes the list for later greetings.",
+  "why_it_fits": "A paper notebook; guests write in their own language and Gauri can read it later.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P087",
+  "problem_id": "P087",
+  "label": "ai_drafted",
+  "idea_en": "At goodbye, hand guests the farm card and ask through the guide for one thing: to give it to one friend who would enjoy the farm.",
+  "why_it_fits": "A card and one small request; nothing to pay and nothing online.",
+  "related_library_ids": [
+   "idea_02"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P088",
+  "problem_id": "P088",
+  "label": "ai_drafted",
+  "idea_en": "At the moment of goodbye, while the feeling is fresh, ask guests through the guide to write a few lines about the farm once they are back in town.",
+  "why_it_fits": "The guest writes the review on their own phone and connection; she only asks.",
+  "related_library_ids": [
+   "idea_21",
+   "idea_22"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P089",
+  "problem_id": "P089",
+  "label": "ai_drafted",
+  "idea_en": "Ask the guide, away from the family, to find out one thing the guests would change, and to tell you afterwards.",
+  "why_it_fits": "Uses the guide as a go-between, so guests can be honest and no shared language is needed.",
+  "related_library_ids": [
+   "idea_24"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P090",
+  "problem_id": "P090",
+  "label": "ai_drafted",
+  "idea_en": "Tell returning guests through the guide which phone number to use and which months are best, and write both on the farm card.",
+  "why_it_fits": "A card and the basic phone; no website or booking system.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P091",
+  "problem_id": "P091",
+  "label": "ai_drafted",
+  "idea_en": "Answer each one with a short thank-you in the guest's language, which Gauri can draft, and invite them to tell a friend.",
+  "why_it_fits": "Builds on messages that already arrive; Gauri drafts in the guest's language, so no English is needed.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P092",
+  "problem_id": "P092",
+  "label": "ai_drafted",
+  "idea_en": "Welcome returning guests with something that shows you remember them — their favourite dish, the same room — and show their friends what the first guest liked most.",
+  "why_it_fits": "Builds on returning guests; uses her memory and the guest notebook, nothing else.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P093",
+  "problem_id": "P093",
+  "label": "ai_drafted",
+  "idea_en": "In the rainy months, tell guides every week whether the road is open, and agree on a walking route from the last point vehicles can reach.",
+  "why_it_fits": "A weekly phone call on the basic phone; she knows the road best.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P094",
+  "problem_id": "P094",
+  "label": "ai_drafted",
+  "idea_en": "In busy weeks, take guests along to the field for part of the day, and show them in the morning, by gesture, when you leave and when you come back.",
+  "why_it_fits": "Fits around her farm work instead of competing with it.",
+  "related_library_ids": [
+   "idea_08"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "high",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P095",
+  "problem_id": "P095",
+  "label": "ai_drafted",
+  "idea_en": "Charge the solar lamp and the torches on every sunny day, and tell guests on arrival to charge their phones whenever the power is on.",
+  "why_it_fits": "Uses lamps the household already has; a daily habit.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P096",
+  "problem_id": "P096",
+  "label": "ai_drafted",
+  "idea_en": "In the growing months, dry and store garden produce — greens, chillies, pickles — and in winter show guests the stored food and the pruning or planting work.",
+  "why_it_fits": "Uses the farm's own surplus and work the season already brings.",
+  "related_library_ids": [
+   "idea_29"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P097",
+  "problem_id": "P097",
+  "label": "ai_drafted",
+  "idea_en": "Share the guest work by task — one person cooks, one keeps the room, one shows the farm — and in busy farm weeks leave a free day between guest groups.",
+  "why_it_fits": "Uses the people already in the household and protects the farm work.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P098",
+  "problem_id": "P098",
+  "label": "ai_drafted",
+  "idea_en": "Before the dry months, store rainwater in covered drums, and in that season have guides tell guests beforehand that washing will be by bucket.",
+  "why_it_fits": "Drums and rainwater on the farm; guests are told in advance through the guide.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P099",
+  "problem_id": "P099",
+  "label": "ai_drafted",
+  "idea_en": "Tell guides which weeks the harvest falls in, so they can bring guests then, and in those weeks plan one harvest task for guests each day.",
+  "why_it_fits": "Builds on the harvest she is doing anyway; guests become extra hands.",
+  "related_library_ids": [
+   "idea_08"
+  ],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "draft_P100",
+  "problem_id": "P100",
+  "label": "ai_drafted",
+  "idea_en": "Tell guides that the quiet months suit guests who want rest, and in those months offer slower things: long tea by the fire, village walks, cooking together.",
+  "why_it_fits": "Turns the empty months into something to offer, with no new spending.",
+  "related_library_ids": [],
+  "constraint_check": {
+   "no_internet": true,
+   "no_english": true,
+   "low_money": true,
+   "fits_small_farm": true
+  },
+  "review_priority": "normal",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ }
+]

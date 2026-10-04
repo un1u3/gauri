@@ -1,0 +1,688 @@
+[
+ {
+  "id": "idea_01",
+  "tags": [
+   "directions"
+  ],
+  "idea_en": "Put up a clear, good-looking sign beside the road so that people passing by, and guests looking for the place, can see where to turn in.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "sign painting / basic carpentry",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 67 (PDF p. 68), Marketing – Sign",
+  "quote": "It is extremely important that you have a clear and attractive sign near the road in order to encourage passing visitors.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_02",
+  "tags": [
+   "directions",
+   "online_presence"
+  ],
+  "idea_en": "Make a simple leaflet with a sketch map, written directions to the house, a phone number and what is on offer; photocopy it and leave copies at arrival points and the tourism office.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "drawing a sketch map, basic writing, access to a photocopier",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 68 (PDF p. 69), Brochures and Business cards",
+  "quote": "You might like to try to produce a simple brochure which you could be photocopied and left at the airport, provincial tourism bureau.",
+  "quote_2": "Your name and telephone number • An attractive sketch, picture or map • Directions about how to get to your guesthouse and • A list of your facilities and activities.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_03",
+  "tags": [
+   "food_timing",
+   "food"
+  ],
+  "idea_en": "Ask guests the evening before which kind of breakfast they want (local or the style they are used to), so it can be ready in the morning without guessing.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none – just asking",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 29 (PDF p. 30), Menu planning – Breakfast",
+  "quote": "Ask them the night before if your guests prefer a PNG or European breakfast",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_04",
+  "tags": [
+   "food_timing"
+  ],
+  "idea_en": "Tell guests the meal times, and when only a few guests are staying, ask what time they would like to eat and fit meals around that.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none – just asking",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 33 (PDF p. 34), Food serving",
+  "quote": "If you only have a few guests ask what time they prefer to eat and try to cater to their needs.",
+  "quote_2": "Let guests know what time meals are served.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_05",
+  "tags": [
+   "food_timing",
+   "food"
+  ],
+  "idea_en": "When there is no choice of dishes, write the day's menu up each morning in the dining area (a chalk or white board works) so guests know what is coming.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "basic writing",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 28 (PDF p. 29), Menu planning",
+  "quote": "If you are not able to give a choice of food make sure to put up a menu every morning in the dining area for guests to see.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_06",
+  "tags": [
+   "activities",
+   "food"
+  ],
+  "idea_en": "Turn meals into an experience: walk guests through the food garden, let them watch the cooking and try the local recipes themselves.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "cooking, explaining the dishes",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 34 (PDF p. 35), Food serving",
+  "quote": "You might also like to show your guests your food garden and encourage them to try local recipes and see how the food is prepared.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_07",
+  "tags": [
+   "activities",
+   "pricing_payment"
+  ],
+  "idea_en": "Keep a board in the common area listing each activity on offer with its price, so guests can see at any time what they can do and what it costs.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "basic writing",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 40 (PDF p. 41), Informing guests about activities",
+  "quote": "You could have a white/black board located in the common area where you could have a list of the different activities and their prices.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_08",
+  "tags": [
+   "activities"
+  ],
+  "idea_en": "A rural tour service lets visitors spend an afternoon doing real farm work – in the rice field or gathering wild vegetables – as part of their stay.",
+  "where": "Sakae Mura, Nagano, Japan (One Life Japan case study)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "farming know-how the host already has",
+  "source_title": "Effective Community Based Tourism: A Best Practice Manual, June 2010 (APEC)",
+  "source_url": "https://www.apec.org/publications/2010/06/effective-community-based-tourism-a-best-practice-manual-june-2010",
+  "page": "p. 118 (PDF p. 131), 9.12 Case Study: One Life, Japan",
+  "quote": "They can set off hiking in the countryside on their own, or work for an afternoon in a rice field or collecting wild vegetables.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_09",
+  "tags": [
+   "hygiene"
+  ],
+  "idea_en": "Make hand-washing with soap the fixed first step before anyone touches food; the same checklist also asks for clean utensils and separate boards and knives for meat and vegetables.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "basic food hygiene",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 32 (PDF p. 33), Food preparation",
+  "quote": "Always wash your hands with soap before touching any food",
+  "quote_2": "Prepare meat and vegetables on different cutting boards and with different knives and wash the utensils well afterwards",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_10",
+  "tags": [
+   "hygiene",
+   "bathroom_water"
+  ],
+  "idea_en": "Give guests only boiled drinking water: boil it for at least ten minutes, then store it in a clean container and keep it cool.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 30 (PDF p. 31), Drinks and snacks",
+  "quote": "This drinking water must be boiled for at least ten minutes to remove bacteria and then placed in a clean container cooled and placed in the fridge.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_11",
+  "tags": [
+   "hygiene",
+   "bathroom_water"
+  ],
+  "idea_en": "Keep food covered once it is served, and serve guests only safe drinking water.",
+  "where": "general guideline (ASEAN member states)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none",
+  "source_title": "ASEAN Homestay Standard",
+  "source_url": "https://asean.org/wp-content/uploads/2012/05/ASEAN-Homestay-Standard.pdf",
+  "page": "p. 9 (PDF p. 21), §5.6.3.6 Food Preparation",
+  "quote": "Served food shall be properly covered.",
+  "quote_2": "Guests shall only be served safe drinking water.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_12",
+  "tags": [
+   "language",
+   "culture"
+  ],
+  "idea_en": "Have one person do the welcome: greet guests in the host's own language, and where a family member has some English, let that person explain how things work.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "one family member with some English",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 9 (PDF p. 10), Meeting and Greeting – Welcoming",
+  "quote": "Greeting tourists in your own language will add to their experience, if there is someone in the family who speaks some English and can explain everything",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_13",
+  "tags": [
+   "language",
+   "booking_enquiries"
+  ],
+  "idea_en": "When the English speaker is away, whoever answers the phone uses a short memorised script: take the caller's name and number and promise a call back.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "a few memorised phrases",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 24 (PDF p. 25), Booking Facilities",
+  "quote": "the person who answers the phone would be able to at least ask for a name and a telephone number and say “My mother will call you back later”",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_14",
+  "tags": [
+   "language"
+  ],
+  "idea_en": "A rural tour service makes bilingual helpers who know the area and culture available to visitors, bridging between guests and local families.",
+  "where": "Sakae Mura, Nagano, Japan (One Life Japan case study)",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "a bilingual person who knows the area",
+  "source_title": "Effective Community Based Tourism: A Best Practice Manual, June 2010 (APEC)",
+  "source_url": "https://www.apec.org/publications/2010/06/effective-community-based-tourism-a-best-practice-manual-june-2010",
+  "page": "p. 118 (PDF p. 131), 9.12 Case Study: One Life, Japan",
+  "quote": "Bilingual facilitators who have studied the area and culture are available",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_15",
+  "tags": [
+   "online_presence"
+  ],
+  "idea_en": "Get listed in a travel guidebook: a remote lodge without internet access found that a guidebook listing was what spread the word and brought steady growth.",
+  "where": "Kumul Lodge, Highlands, Papua New Guinea",
+  "needs_internet": false,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "contacting guidebook publishers / hosting a travel writer",
+  "source_title": "Effective Community Based Tourism: A Best Practice Manual, June 2010 (APEC)",
+  "source_url": "https://www.apec.org/publications/2010/06/effective-community-based-tourism-a-best-practice-manual-june-2010",
+  "page": "p. 115 (PDF p. 128), 9.10 Case Study: Kumul Lodge – Challenges faced",
+  "quote": "A listing in the Lonely Planet was crucial in spreading the word about the lodge and since then it has consistently grown.",
+  "quote_2": "The remote location of Kumul Lodge has meant that it faces many communication-based challenges. The lack of Internet access makes it difficult to attract international visitors.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_16",
+  "tags": [
+   "online_presence",
+   "reviews_referrals"
+  ],
+  "idea_en": "List the place on travel websites and social media – directly or through the tourism authority – and answer negative comments quickly.",
+  "where": "general guideline (APEC economies)",
+  "needs_internet": true,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "basic internet and social media use",
+  "source_title": "Effective Community Based Tourism: A Best Practice Manual, June 2010 (APEC)",
+  "source_url": "https://www.apec.org/publications/2010/06/effective-community-based-tourism-a-best-practice-manual-june-2010",
+  "page": "p. 71 (PDF p. 84), 7.4 – Get online and network",
+  "quote": "Community managers or tourism authorities can list the destination on travel websites and make use of social networking and media sites to promote CBT (e.g. Facebook, Twitter, YouTube, Flickr).",
+  "quote_2": "It is important to recognise that anyone can post on these online travel networks and negative comments need to be addressed swiftly.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_17",
+  "tags": [
+   "online_presence"
+  ],
+  "idea_en": "Ask young people in the village to look after the homestay's website and social media pages and keep them up to date.",
+  "where": "general guideline (ASEAN member states)",
+  "needs_internet": true,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "a young person comfortable with social media",
+  "source_title": "ASEAN Homestay Standard",
+  "source_url": "https://asean.org/wp-content/uploads/2012/05/ASEAN-Homestay-Standard.pdf",
+  "page": "p. 10 (PDF p. 22), §5.8.3.2 Web Marketing",
+  "quote": "It is recommended to engage the village youth to maintain and update the online promotional mediums.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_18",
+  "tags": [
+   "safety",
+   "activities"
+  ],
+  "idea_en": "Give guests a short safety briefing before every activity starts.",
+  "where": "general guideline (ASEAN member states)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "knowing the risks of each activity",
+  "source_title": "ASEAN Homestay Standard",
+  "source_url": "https://asean.org/wp-content/uploads/2012/05/ASEAN-Homestay-Standard.pdf",
+  "page": "p. 10 (PDF p. 22), §5.7.3.1 Briefing on Safety Aspects",
+  "quote": "Guests shall be briefed on safety aspects prior to taking part in any homestay activity.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_19",
+  "tags": [
+   "safety"
+  ],
+  "idea_en": "Make sure at least one family member has first aid training so that someone on site can respond if a guest is hurt.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "first aid training",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 51 (PDF p. 52), Guest Safety",
+  "quote": "Try to make sure one of your family is trained in first aid procedures",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_20",
+  "tags": [
+   "safety",
+   "rooms"
+  ],
+  "idea_en": "Ban candles in guest rooms and show guests how to use any lamps safely.",
+  "where": "Papua New Guinea (guidebook advice for village guesthouses)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none",
+  "source_title": "Guesthouse Development Guidebook (Papua New Guinea)",
+  "source_url": "https://papuanewguinea.travel/wp-content/uploads/2024/07/Guesthouse-Development-Guidebook.pdf",
+  "page": "p. 48 (PDF p. 49), Site Security – Fire",
+  "quote": "Do not allow the use of candles in guesthouses as these pose a big fire hazard.",
+  "quote_2": "If you provide kerosene lamps or BBQ facilities for your guests show them how these can be safely used.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_21",
+  "tags": [
+   "reviews_referrals"
+  ],
+  "idea_en": "On the day guests leave, send them a message asking them to review their stay.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": true,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "sending a phone message in a language the guest reads",
+  "source_title": "How to welcome your first Airbnb guests (Airbnb Resource Center)",
+  "source_url": "https://www.airbnb.com/resources/hosting-homes/a/the-essentials-welcome-your-first-airbnb-guests-32",
+  "page": "web page, section on reviews (last section)",
+  "quote": "Consider scheduling a message on the day of checkout asking guests to review their stay.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_22",
+  "tags": [
+   "reviews_referrals"
+  ],
+  "idea_en": "After guests leave, write a review of them: use it to thank them, give feedback and remind them to review you.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": true,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "writing a short review on a booking site",
+  "source_title": "Create a 5-star stay (Airbnb Resource Centre)",
+  "source_url": "https://www.airbnb.co.in/resources/hosting-homes/a/create-a-5-star-stay-657",
+  "page": "web page, Step 5: Giving and getting reviews",
+  "quote": "Review your guests. This is a chance to express gratitude, share feedback and remind guests to review you.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_23",
+  "tags": [
+   "reviews_referrals"
+  ],
+  "idea_en": "Reply to the reviews guests leave, and use the reply to show you are open to improving.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": true,
+  "needs_english": true,
+  "cost": "unknown",
+  "skills_needed": "reading and answering reviews on a booking site",
+  "source_title": "Create a 5-star stay (Airbnb Resource Centre)",
+  "source_url": "https://www.airbnb.co.in/resources/hosting-homes/a/create-a-5-star-stay-657",
+  "page": "web page, Step 5: Giving and getting reviews",
+  "quote": "Respond to reviews. Use this as an opportunity to show you’re open to improving.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_24",
+  "tags": [
+   "reviews_referrals"
+  ],
+  "idea_en": "A host treats what guests say in reviews as her guide to improving, and takes it to heart.",
+  "where": "Santa Fe, New Mexico, USA (host quoted by Airbnb)",
+  "needs_internet": true,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "reading guest reviews",
+  "source_title": "Create a 5-star stay (Airbnb Resource Centre)",
+  "source_url": "https://www.airbnb.co.in/resources/hosting-homes/a/create-a-5-star-stay-657",
+  "page": "web page, Step 5: Giving and getting reviews",
+  "quote": "“It’s important to take reviews to heart,” says Sadie, a Superhost in Santa Fe, New Mexico.",
+  "quote_2": "“Guests are really your guide to getting to five stars.”",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_25",
+  "tags": [
+   "directions",
+   "language"
+  ],
+  "idea_en": "Give arrival instructions one step at a time, and add photos or a map with arrows.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "drawing a simple map or taking photos; a way to get them to guests before they arrive",
+  "source_title": "Create a 5-star stay (Airbnb Resource Centre)",
+  "source_url": "https://www.airbnb.co.in/resources/hosting-homes/a/create-a-5-star-stay-657",
+  "page": "web page, Step 2: Making check-in and checkout a breeze",
+  "quote": "Write clear check-in instructions. Explain the process step by step, and include any details that might be helpful, such as photos or a map with arrows.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_26",
+  "tags": [
+   "rooms",
+   "food"
+  ],
+  "idea_en": "Small gestures count: for example leave a blanket out for guests, or share some coffee or tea with them.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none beyond everyday hosting",
+  "source_title": "Offering a 5-star stay (Airbnb Resource Center)",
+  "source_url": "https://www.airbnb.com/resources/hosting-homes/a/compliments-to-the-host-76",
+  "page": "web page, section on paying attention to details",
+  "quote": "Small gestures go a long way, like leaving a blanket on a couch or sharing some coffee or tea.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_27",
+  "tags": [
+   "safety"
+  ],
+  "idea_en": "Keep a fire extinguisher, a first-aid kit and a torch ready, and give guests the emergency phone numbers.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "knowing the local emergency numbers",
+  "source_title": "Create a 5-star stay (Airbnb Resource Centre)",
+  "source_url": "https://www.airbnb.co.in/resources/hosting-homes/a/create-a-5-star-stay-657",
+  "page": "web page, Step 4: Preparing for the unexpected",
+  "quote": "Equip your space with a fire extinguisher, first-aid kit and torch. Share emergency phone numbers in the event guests need help.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_28",
+  "tags": [
+   "rooms",
+   "bathroom_water"
+  ],
+  "idea_en": "Before guests arrive, make sure the basics are there: towels, bed linen, pillows, soap and toilet paper.",
+  "where": "general guideline (Airbnb)",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "none beyond everyday hosting",
+  "source_title": "How to welcome your first Airbnb guests (Airbnb Resource Center)",
+  "source_url": "https://www.airbnb.com/resources/hosting-homes/a/the-essentials-welcome-your-first-airbnb-guests-32",
+  "page": "web page, section on providing a comfortable stay",
+  "quote": "Stock up on the basics. These include towels, linens, pillows, soap, and toilet paper.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_29",
+  "tags": [
+   "food",
+   "seasonal_operations"
+  ],
+  "idea_en": "A homestay host grows seasonal and off-season vegetables all year round and serves her guests food made from her own farm's produce.",
+  "where": "Tusse village, Kaski, Nepal",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "vegetable farming",
+  "source_title": "Gurung family's homestay : Home away from home (Caritas Nepal)",
+  "source_url": "https://www.caritasnepal.org/storiesofchange/bankumari-setting-an-example/",
+  "page": "web page",
+  "quote": "Ms. Bankumri Gurung has been farming different types of seasonal and off seasonal vegetables all year round to serve her guests from homestay.",
+  "quote_2": "They serve tasty delicacies prepared from organic products from their farm.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ },
+ {
+  "id": "idea_30",
+  "tags": [
+   "hygiene",
+   "bathroom_water"
+  ],
+  "idea_en": "A homestay village is described as having neat and tidy houses, with toilets and drinking water facilities.",
+  "where": "Sirubari, Syangja, Nepal",
+  "needs_internet": false,
+  "needs_english": false,
+  "cost": "unknown",
+  "skills_needed": "keeping the house tidy; a toilet and a drinking water supply",
+  "source_title": "Homestay business spread from Sirubari (Kantipur, AI-translated English page)",
+  "source_url": "https://ekantipur.com/news/2025/01/22/en/homestay-business-spread-from-sirubari-19-48.html",
+  "page": "web page — page description only (the article body did not load)",
+  "quote": "Neat and tidy houses, toilets and drinking water facilities like in a developed city, clean and spacious stone paved streets.",
+  "review": {
+   "status": "pending",
+   "checked_by": null,
+   "checked_on": null,
+   "note": null
+  }
+ }
+]

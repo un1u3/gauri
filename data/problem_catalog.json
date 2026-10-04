@@ -1,0 +1,1465 @@
+[
+ {
+  "id": "P001",
+  "tag": "directions",
+  "type": "wished",
+  "problem_en": "We got off at the bus stop and did not know which path led to the farm.",
+  "keywords_en": [
+   "bus stop",
+   "path",
+   "lost",
+   "find",
+   "way",
+   "farm",
+   "directions"
+  ]
+ },
+ {
+  "id": "P002",
+  "tag": "directions",
+  "type": "wished",
+  "problem_en": "There is no sign at the turning, so we walked straight past the house.",
+  "keywords_en": [
+   "sign",
+   "signboard",
+   "turning",
+   "missed",
+   "walked past",
+   "house",
+   "road"
+  ]
+ },
+ {
+  "id": "P003",
+  "tag": "directions",
+  "type": "wished",
+  "problem_en": "We arrived after dark and could not see the last part of the trail.",
+  "keywords_en": [
+   "dark",
+   "night",
+   "late",
+   "arrival",
+   "trail",
+   "torch",
+   "light"
+  ]
+ },
+ {
+  "id": "P004",
+  "tag": "directions",
+  "type": "wished",
+  "problem_en": "The map on our phone showed a spot far from the real house.",
+  "keywords_en": [
+   "map",
+   "pin",
+   "location",
+   "phone",
+   "wrong",
+   "gps",
+   "far"
+  ]
+ },
+ {
+  "id": "P005",
+  "tag": "directions",
+  "type": "wished",
+  "problem_en": "Our driver did not know the place and had to ask villagers again and again.",
+  "keywords_en": [
+   "driver",
+   "taxi",
+   "jeep",
+   "ask",
+   "villagers",
+   "unknown",
+   "route"
+  ]
+ },
+ {
+  "id": "P006",
+  "tag": "directions",
+  "type": "loved",
+  "problem_en": "Guests enjoyed the walk up from the road through the village and the fields.",
+  "keywords_en": [
+   "walk",
+   "village",
+   "fields",
+   "arrival",
+   "enjoyed",
+   "path",
+   "scenery"
+  ]
+ },
+ {
+  "id": "P007",
+  "tag": "directions",
+  "type": "loved",
+  "problem_en": "Guests liked being met at the bus stop by someone from the family.",
+  "keywords_en": [
+   "met",
+   "welcome",
+   "bus stop",
+   "pick up",
+   "family",
+   "greeted"
+  ]
+ },
+ {
+  "id": "P008",
+  "tag": "language",
+  "type": "wished",
+  "problem_en": "We had no shared language with the host and could not ask even simple questions.",
+  "keywords_en": [
+   "language",
+   "communicate",
+   "understand",
+   "ask",
+   "questions",
+   "speak",
+   "host"
+  ]
+ },
+ {
+  "id": "P009",
+  "tag": "language",
+  "type": "wished",
+  "problem_en": "After our guide left, there was nobody who could translate.",
+  "keywords_en": [
+   "guide",
+   "translate",
+   "left",
+   "interpreter",
+   "nobody",
+   "explain"
+  ]
+ },
+ {
+  "id": "P010",
+  "tag": "language",
+  "type": "wished",
+  "problem_en": "We did not understand what the plan for the day was.",
+  "keywords_en": [
+   "plan",
+   "schedule",
+   "day",
+   "understand",
+   "confused",
+   "programme",
+   "when"
+  ]
+ },
+ {
+  "id": "P011",
+  "tag": "language",
+  "type": "wished",
+  "problem_en": "We wanted to learn about the family and the farm, but could not talk with them.",
+  "keywords_en": [
+   "family",
+   "learn",
+   "story",
+   "talk",
+   "farm",
+   "history",
+   "conversation"
+  ]
+ },
+ {
+  "id": "P012",
+  "tag": "language",
+  "type": "wished",
+  "problem_en": "The host seemed shy and did not come to sit with us.",
+  "keywords_en": [
+   "shy",
+   "host",
+   "distant",
+   "sit",
+   "together",
+   "quiet",
+   "contact"
+  ]
+ },
+ {
+  "id": "P013",
+  "tag": "language",
+  "type": "loved",
+  "problem_en": "Guests loved learning a few Nepali words from the family.",
+  "keywords_en": [
+   "nepali",
+   "words",
+   "learn",
+   "greeting",
+   "phrases",
+   "namaste",
+   "fun"
+  ]
+ },
+ {
+  "id": "P014",
+  "tag": "language",
+  "type": "loved",
+  "problem_en": "Guests enjoyed how the children helped them communicate with gestures and laughter.",
+  "keywords_en": [
+   "children",
+   "gestures",
+   "communicate",
+   "laughter",
+   "kids",
+   "play"
+  ]
+ },
+ {
+  "id": "P015",
+  "tag": "food_timing",
+  "type": "wished",
+  "problem_en": "Breakfast came after the time we needed to set off on our walk.",
+  "keywords_en": [
+   "breakfast",
+   "late",
+   "morning",
+   "early",
+   "leave",
+   "time",
+   "wait"
+  ]
+ },
+ {
+  "id": "P016",
+  "tag": "food_timing",
+  "type": "wished",
+  "problem_en": "Dinner was served very early and we were hungry again at night.",
+  "keywords_en": [
+   "dinner",
+   "early",
+   "hungry",
+   "night",
+   "evening",
+   "meal",
+   "time"
+  ]
+ },
+ {
+  "id": "P017",
+  "tag": "food_timing",
+  "type": "wished",
+  "problem_en": "We had an early bus and left without eating anything.",
+  "keywords_en": [
+   "early",
+   "bus",
+   "departure",
+   "left",
+   "without",
+   "eating",
+   "packed"
+  ]
+ },
+ {
+  "id": "P018",
+  "tag": "food_timing",
+  "type": "wished",
+  "problem_en": "We never knew when the next meal would be.",
+  "keywords_en": [
+   "meal",
+   "time",
+   "when",
+   "know",
+   "unclear",
+   "waiting",
+   "schedule"
+  ]
+ },
+ {
+  "id": "P019",
+  "tag": "food_timing",
+  "type": "wished",
+  "problem_en": "We came back hungry from the hike and waited a long time for food.",
+  "keywords_en": [
+   "wait",
+   "long",
+   "hungry",
+   "hike",
+   "return",
+   "food",
+   "snack"
+  ]
+ },
+ {
+  "id": "P020",
+  "tag": "food_timing",
+  "type": "loved",
+  "problem_en": "Guests loved the unhurried evening meal with the family around the fire.",
+  "keywords_en": [
+   "evening",
+   "meal",
+   "family",
+   "fire",
+   "together",
+   "relaxed",
+   "dinner"
+  ]
+ },
+ {
+  "id": "P021",
+  "tag": "food",
+  "type": "wished",
+  "problem_en": "The food was too spicy for us.",
+  "keywords_en": [
+   "spicy",
+   "chilli",
+   "hot",
+   "food",
+   "mild",
+   "pepper"
+  ]
+ },
+ {
+  "id": "P022",
+  "tag": "food",
+  "type": "wished",
+  "problem_en": "I do not eat meat, and there was little for me besides rice.",
+  "keywords_en": [
+   "vegetarian",
+   "vegan",
+   "meat",
+   "diet",
+   "rice",
+   "options"
+  ]
+ },
+ {
+  "id": "P023",
+  "tag": "food",
+  "type": "wished",
+  "problem_en": "We were given the same dish at every meal.",
+  "keywords_en": [
+   "same",
+   "every",
+   "meal",
+   "variety",
+   "repeat",
+   "boring",
+   "dish"
+  ]
+ },
+ {
+  "id": "P024",
+  "tag": "food",
+  "type": "wished",
+  "problem_en": "I have to avoid some ingredients and could not tell what was in the food.",
+  "keywords_en": [
+   "ingredients",
+   "allergy",
+   "avoid",
+   "contains",
+   "nuts",
+   "know",
+   "unsure"
+  ]
+ },
+ {
+  "id": "P025",
+  "tag": "food",
+  "type": "wished",
+  "problem_en": "We hoped to taste food from the farm but were given packet noodles and biscuits.",
+  "keywords_en": [
+   "packet",
+   "noodles",
+   "farm",
+   "local",
+   "fresh",
+   "taste",
+   "biscuits"
+  ]
+ },
+ {
+  "id": "P026",
+  "tag": "food",
+  "type": "loved",
+  "problem_en": "Guests loved the coffee grown and roasted on the farm.",
+  "keywords_en": [
+   "coffee",
+   "roasted",
+   "farm",
+   "grown",
+   "taste",
+   "cup",
+   "loved"
+  ]
+ },
+ {
+  "id": "P027",
+  "tag": "food",
+  "type": "loved",
+  "problem_en": "Guests praised the home-cooked meals made with vegetables from the garden.",
+  "keywords_en": [
+   "home-cooked",
+   "vegetables",
+   "garden",
+   "fresh",
+   "tasty",
+   "meals",
+   "praised"
+  ]
+ },
+ {
+  "id": "P028",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "The room was very cold at night.",
+  "keywords_en": [
+   "cold",
+   "night",
+   "blanket",
+   "room",
+   "warm",
+   "freezing",
+   "sleep"
+  ]
+ },
+ {
+  "id": "P029",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "Roosters and dogs woke us long before sunrise.",
+  "keywords_en": [
+   "rooster",
+   "dogs",
+   "noise",
+   "woke",
+   "early",
+   "barking",
+   "sleep"
+  ]
+ },
+ {
+  "id": "P030",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "The mattress was thin and the bed felt hard.",
+  "keywords_en": [
+   "mattress",
+   "bed",
+   "hard",
+   "thin",
+   "bedding",
+   "back",
+   "sleep"
+  ]
+ },
+ {
+  "id": "P031",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "When the power went out there was no light in the room.",
+  "keywords_en": [
+   "light",
+   "power",
+   "dark",
+   "torch",
+   "lamp",
+   "outage",
+   "room"
+  ]
+ },
+ {
+  "id": "P032",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "The door had no lock and we worried about our bags.",
+  "keywords_en": [
+   "lock",
+   "door",
+   "bags",
+   "valuables",
+   "privacy",
+   "secure",
+   "worried"
+  ]
+ },
+ {
+  "id": "P033",
+  "tag": "rooms",
+  "type": "wished",
+  "problem_en": "There was nowhere to hang clothes or put our things.",
+  "keywords_en": [
+   "hang",
+   "clothes",
+   "hooks",
+   "shelf",
+   "storage",
+   "things",
+   "space"
+  ]
+ },
+ {
+  "id": "P034",
+  "tag": "rooms",
+  "type": "loved",
+  "problem_en": "Guests loved waking up to the view of the hills from the room.",
+  "keywords_en": [
+   "view",
+   "hills",
+   "window",
+   "morning",
+   "waking",
+   "mountains",
+   "sunrise"
+  ]
+ },
+ {
+  "id": "P035",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "There was no hot water for washing.",
+  "keywords_en": [
+   "hot water",
+   "shower",
+   "wash",
+   "cold",
+   "bath",
+   "bucket",
+   "warm"
+  ]
+ },
+ {
+  "id": "P036",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "The toilet was far from the room and hard to find at night.",
+  "keywords_en": [
+   "toilet",
+   "far",
+   "night",
+   "outside",
+   "dark",
+   "find",
+   "path"
+  ]
+ },
+ {
+  "id": "P037",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "We were not sure whether the drinking water was safe.",
+  "keywords_en": [
+   "drinking water",
+   "safe",
+   "boiled",
+   "filter",
+   "bottle",
+   "unsure",
+   "sick"
+  ]
+ },
+ {
+  "id": "P038",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "The water ran out while we were washing.",
+  "keywords_en": [
+   "water",
+   "ran out",
+   "shortage",
+   "tank",
+   "tap",
+   "dry",
+   "washing"
+  ]
+ },
+ {
+  "id": "P039",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "There was no soap or towel in the bathroom.",
+  "keywords_en": [
+   "soap",
+   "towel",
+   "bathroom",
+   "missing",
+   "hand wash",
+   "basics"
+  ]
+ },
+ {
+  "id": "P040",
+  "tag": "bathroom_water",
+  "type": "wished",
+  "problem_en": "We did not know how to use the squat toilet and the bucket.",
+  "keywords_en": [
+   "squat",
+   "toilet",
+   "bucket",
+   "flush",
+   "how",
+   "use",
+   "unfamiliar"
+  ]
+ },
+ {
+  "id": "P041",
+  "tag": "bathroom_water",
+  "type": "loved",
+  "problem_en": "Guests enjoyed washing outdoors with sun-warmed water and a view.",
+  "keywords_en": [
+   "outdoor",
+   "wash",
+   "sun",
+   "warm",
+   "view",
+   "bucket",
+   "enjoyed"
+  ]
+ },
+ {
+  "id": "P042",
+  "tag": "hygiene",
+  "type": "wished",
+  "problem_en": "There were many flies around the food.",
+  "keywords_en": [
+   "flies",
+   "food",
+   "insects",
+   "cover",
+   "kitchen",
+   "dirty"
+  ]
+ },
+ {
+  "id": "P043",
+  "tag": "hygiene",
+  "type": "wished",
+  "problem_en": "The sheets did not look freshly washed.",
+  "keywords_en": [
+   "sheets",
+   "bedding",
+   "washed",
+   "clean",
+   "smell",
+   "dirty",
+   "linen"
+  ]
+ },
+ {
+  "id": "P044",
+  "tag": "hygiene",
+  "type": "wished",
+  "problem_en": "Rubbish was lying around the yard.",
+  "keywords_en": [
+   "rubbish",
+   "litter",
+   "yard",
+   "plastic",
+   "waste",
+   "garbage",
+   "dirty"
+  ]
+ },
+ {
+  "id": "P045",
+  "tag": "hygiene",
+  "type": "wished",
+  "problem_en": "Mosquitoes and other insects kept us awake.",
+  "keywords_en": [
+   "mosquitoes",
+   "insects",
+   "bites",
+   "net",
+   "bugs",
+   "night",
+   "awake"
+  ]
+ },
+ {
+  "id": "P046",
+  "tag": "hygiene",
+  "type": "wished",
+  "problem_en": "The cups and plates were not clean.",
+  "keywords_en": [
+   "cups",
+   "plates",
+   "dishes",
+   "clean",
+   "dirty",
+   "washing",
+   "utensils"
+  ]
+ },
+ {
+  "id": "P047",
+  "tag": "hygiene",
+  "type": "loved",
+  "problem_en": "Guests said the swept yard and sun-dried bedding made the place feel cared for.",
+  "keywords_en": [
+   "swept",
+   "yard",
+   "bedding",
+   "fresh",
+   "cared",
+   "tidy",
+   "sun-dried"
+  ]
+ },
+ {
+  "id": "P048",
+  "tag": "hygiene",
+  "type": "loved",
+  "problem_en": "Guests noticed how clean and tidy the kitchen was kept.",
+  "keywords_en": [
+   "clean",
+   "tidy",
+   "kitchen",
+   "neat",
+   "noticed",
+   "spotless"
+  ]
+ },
+ {
+  "id": "P049",
+  "tag": "activities",
+  "type": "wished",
+  "problem_en": "After the farm walk there was nothing else to do.",
+  "keywords_en": [
+   "nothing",
+   "bored",
+   "activities",
+   "afternoon",
+   "free time",
+   "do"
+  ]
+ },
+ {
+  "id": "P050",
+  "tag": "activities",
+  "type": "wished",
+  "problem_en": "The farm walk was too short; we wanted to see more.",
+  "keywords_en": [
+   "short",
+   "walk",
+   "tour",
+   "more",
+   "longer",
+   "quick",
+   "farm"
+  ]
+ },
+ {
+  "id": "P051",
+  "tag": "activities",
+  "type": "wished",
+  "problem_en": "We wanted to help with the farm work but were only allowed to watch.",
+  "keywords_en": [
+   "help",
+   "work",
+   "join",
+   "watch",
+   "hands-on",
+   "picking",
+   "farm work"
+  ]
+ },
+ {
+  "id": "P052",
+  "tag": "activities",
+  "type": "wished",
+  "problem_en": "It rained all day and there was nothing to do indoors.",
+  "keywords_en": [
+   "rain",
+   "indoors",
+   "weather",
+   "stuck",
+   "nothing",
+   "monsoon"
+  ]
+ },
+ {
+  "id": "P053",
+  "tag": "activities",
+  "type": "loved",
+  "problem_en": "Guests loved the cooking class with the host.",
+  "keywords_en": [
+   "cooking",
+   "class",
+   "learn",
+   "cook",
+   "kitchen",
+   "recipe",
+   "loved"
+  ]
+ },
+ {
+  "id": "P054",
+  "tag": "activities",
+  "type": "loved",
+  "problem_en": "Guests loved picking coffee cherries and seeing how the coffee is processed.",
+  "keywords_en": [
+   "coffee",
+   "picking",
+   "cherries",
+   "processing",
+   "harvest",
+   "beans",
+   "loved"
+  ]
+ },
+ {
+  "id": "P055",
+  "tag": "activities",
+  "type": "loved",
+  "problem_en": "Guests enjoyed feeding and milking the animals.",
+  "keywords_en": [
+   "animals",
+   "goats",
+   "cow",
+   "milking",
+   "feeding",
+   "buffalo",
+   "enjoyed"
+  ]
+ },
+ {
+  "id": "P056",
+  "tag": "culture",
+  "type": "wished",
+  "problem_en": "We did not know whether to take our shoes off or where we were allowed to sit.",
+  "keywords_en": [
+   "shoes",
+   "customs",
+   "sit",
+   "rules",
+   "unsure",
+   "house",
+   "manners"
+  ]
+ },
+ {
+  "id": "P057",
+  "tag": "culture",
+  "type": "wished",
+  "problem_en": "We were unsure whether we could photograph the family and the shrine.",
+  "keywords_en": [
+   "photos",
+   "camera",
+   "permission",
+   "shrine",
+   "family",
+   "pictures",
+   "allowed"
+  ]
+ },
+ {
+  "id": "P058",
+  "tag": "culture",
+  "type": "loved",
+  "problem_en": "Guests loved being invited to sit in the kitchen and watch the family cook on the fire.",
+  "keywords_en": [
+   "kitchen",
+   "fire",
+   "sit",
+   "watch",
+   "invited",
+   "hearth",
+   "loved"
+  ]
+ },
+ {
+  "id": "P059",
+  "tag": "culture",
+  "type": "wished",
+  "problem_en": "A festival was going on in the village but we did not understand what was happening.",
+  "keywords_en": [
+   "festival",
+   "ceremony",
+   "village",
+   "understand",
+   "explain",
+   "celebration"
+  ]
+ },
+ {
+  "id": "P060",
+  "tag": "culture",
+  "type": "loved",
+  "problem_en": "Guests loved being given tika and flowers when they left.",
+  "keywords_en": [
+   "tika",
+   "flowers",
+   "farewell",
+   "blessing",
+   "leaving",
+   "garland",
+   "loved"
+  ]
+ },
+ {
+  "id": "P061",
+  "tag": "culture",
+  "type": "loved",
+  "problem_en": "Guests enjoyed an evening of songs and dancing with the neighbours.",
+  "keywords_en": [
+   "songs",
+   "dance",
+   "music",
+   "neighbours",
+   "evening",
+   "madal",
+   "enjoyed"
+  ]
+ },
+ {
+  "id": "P062",
+  "tag": "safety",
+  "type": "wished",
+  "problem_en": "The stone steps were slippery after the rain.",
+  "keywords_en": [
+   "slippery",
+   "steps",
+   "rain",
+   "fall",
+   "path",
+   "stones",
+   "wet"
+  ]
+ },
+ {
+  "id": "P063",
+  "tag": "safety",
+  "type": "wished",
+  "problem_en": "The village dogs frightened us when we walked at night.",
+  "keywords_en": [
+   "dogs",
+   "night",
+   "frightened",
+   "barking",
+   "walk",
+   "scared"
+  ]
+ },
+ {
+  "id": "P064",
+  "tag": "safety",
+  "type": "wished",
+  "problem_en": "We found leeches on the trail in the rainy season.",
+  "keywords_en": [
+   "leeches",
+   "trail",
+   "rain",
+   "monsoon",
+   "bites",
+   "socks"
+  ]
+ },
+ {
+  "id": "P065",
+  "tag": "safety",
+  "type": "wished",
+  "problem_en": "The path to the viewpoint had a steep drop and nobody came with us.",
+  "keywords_en": [
+   "steep",
+   "drop",
+   "path",
+   "viewpoint",
+   "alone",
+   "cliff",
+   "dangerous"
+  ]
+ },
+ {
+  "id": "P066",
+  "tag": "safety",
+  "type": "wished",
+  "problem_en": "A storm came in quickly and we were caught outside.",
+  "keywords_en": [
+   "storm",
+   "weather",
+   "rain",
+   "caught",
+   "lightning",
+   "hail"
+  ]
+ },
+ {
+  "id": "P067",
+  "tag": "safety",
+  "type": "loved",
+  "problem_en": "Guests said they felt safe and looked after, like part of the family.",
+  "keywords_en": [
+   "safe",
+   "cared",
+   "family",
+   "looked after",
+   "welcome",
+   "comfortable"
+  ]
+ },
+ {
+  "id": "P068",
+  "tag": "pricing_payment",
+  "type": "wished",
+  "problem_en": "We did not know the price until we were leaving.",
+  "keywords_en": [
+   "price",
+   "unclear",
+   "cost",
+   "how much",
+   "bill",
+   "leaving",
+   "surprise"
+  ]
+ },
+ {
+  "id": "P069",
+  "tag": "pricing_payment",
+  "type": "wished",
+  "problem_en": "The host had no change for our large notes.",
+  "keywords_en": [
+   "change",
+   "notes",
+   "cash",
+   "large",
+   "small",
+   "money",
+   "pay"
+  ]
+ },
+ {
+  "id": "P070",
+  "tag": "pricing_payment",
+  "type": "wished",
+  "problem_en": "We wanted to pay by card or phone, but only cash was possible.",
+  "keywords_en": [
+   "card",
+   "cash",
+   "pay",
+   "phone",
+   "digital",
+   "wallet",
+   "only cash"
+  ]
+ },
+ {
+  "id": "P071",
+  "tag": "pricing_payment",
+  "type": "wished",
+  "problem_en": "We asked for a receipt and there was none.",
+  "keywords_en": [
+   "receipt",
+   "bill",
+   "paper",
+   "record",
+   "proof",
+   "invoice"
+  ]
+ },
+ {
+  "id": "P072",
+  "tag": "pricing_payment",
+  "type": "wished",
+  "problem_en": "We were not sure whether the activities were included or extra.",
+  "keywords_en": [
+   "included",
+   "extra",
+   "activities",
+   "charge",
+   "unclear",
+   "pay"
+  ]
+ },
+ {
+  "id": "P073",
+  "tag": "pricing_payment",
+  "type": "loved",
+  "problem_en": "Guests felt the stay was very good value and wanted to give something extra.",
+  "keywords_en": [
+   "value",
+   "generous",
+   "tip",
+   "extra",
+   "fair",
+   "worth"
+  ]
+ },
+ {
+  "id": "P074",
+  "tag": "booking_enquiries",
+  "type": "wished",
+  "problem_en": "We tried to call to book, but nobody answered.",
+  "keywords_en": [
+   "call",
+   "phone",
+   "book",
+   "answered",
+   "contact",
+   "reach",
+   "no reply"
+  ]
+ },
+ {
+  "id": "P075",
+  "tag": "booking_enquiries",
+  "type": "wished",
+  "problem_en": "We sent a message and the reply came many days later.",
+  "keywords_en": [
+   "message",
+   "reply",
+   "late",
+   "days",
+   "wait",
+   "response"
+  ]
+ },
+ {
+  "id": "P076",
+  "tag": "booking_enquiries",
+  "type": "wished",
+  "problem_en": "Two groups were booked for the same night and there were not enough beds.",
+  "keywords_en": [
+   "double",
+   "booking",
+   "same night",
+   "beds",
+   "full",
+   "overbooked",
+   "groups"
+  ]
+ },
+ {
+  "id": "P077",
+  "tag": "booking_enquiries",
+  "type": "wished",
+  "problem_en": "We had to cancel and did not know how to tell the host.",
+  "keywords_en": [
+   "cancel",
+   "tell",
+   "inform",
+   "change",
+   "plan",
+   "notify"
+  ]
+ },
+ {
+  "id": "P078",
+  "tag": "booking_enquiries",
+  "type": "wished",
+  "problem_en": "The host did not know we were coming, or how many of us there were.",
+  "keywords_en": [
+   "unexpected",
+   "how many",
+   "group",
+   "unprepared",
+   "surprise",
+   "arrival",
+   "number"
+  ]
+ },
+ {
+  "id": "P079",
+  "tag": "booking_enquiries",
+  "type": "loved",
+  "problem_en": "Guests liked that their guide had arranged everything with the host by phone beforehand.",
+  "keywords_en": [
+   "guide",
+   "arranged",
+   "phone",
+   "beforehand",
+   "easy",
+   "organised"
+  ]
+ },
+ {
+  "id": "P080",
+  "tag": "online_presence",
+  "type": "wished",
+  "problem_en": "We could not find the farm-stay on any map or website before coming.",
+  "keywords_en": [
+   "map",
+   "website",
+   "find",
+   "online",
+   "search",
+   "listed"
+  ]
+ },
+ {
+  "id": "P081",
+  "tag": "online_presence",
+  "type": "wished",
+  "problem_en": "There were no photos anywhere, so we did not know what to expect.",
+  "keywords_en": [
+   "photos",
+   "pictures",
+   "expect",
+   "see",
+   "rooms",
+   "before"
+  ]
+ },
+ {
+  "id": "P082",
+  "tag": "online_presence",
+  "type": "wished",
+  "problem_en": "We wanted to send friends the location, but there was nothing to share.",
+  "keywords_en": [
+   "share",
+   "location",
+   "friends",
+   "send",
+   "pin",
+   "link"
+  ]
+ },
+ {
+  "id": "P083",
+  "tag": "online_presence",
+  "type": "wished",
+  "problem_en": "The phone number we found for the farm was old and no longer worked.",
+  "keywords_en": [
+   "phone number",
+   "old",
+   "wrong",
+   "not working",
+   "contact",
+   "outdated"
+  ]
+ },
+ {
+  "id": "P084",
+  "tag": "online_presence",
+  "type": "loved",
+  "problem_en": "Guests found the place through a friend who had stayed before.",
+  "keywords_en": [
+   "friend",
+   "recommended",
+   "word of mouth",
+   "told",
+   "referral",
+   "heard"
+  ]
+ },
+ {
+  "id": "P085",
+  "tag": "online_presence",
+  "type": "loved",
+  "problem_en": "Guests took many photos and wanted to share them.",
+  "keywords_en": [
+   "photos",
+   "post",
+   "share",
+   "pictures",
+   "social",
+   "camera"
+  ]
+ },
+ {
+  "id": "P086",
+  "tag": "reviews_referrals",
+  "type": "wished",
+  "problem_en": "Happy guests leave and we never hear from them again.",
+  "keywords_en": [
+   "return",
+   "come back",
+   "never",
+   "contact",
+   "lost touch",
+   "hear"
+  ]
+ },
+ {
+  "id": "P087",
+  "tag": "reviews_referrals",
+  "type": "wished",
+  "problem_en": "Guests said they would recommend us, but no new guests came from it.",
+  "keywords_en": [
+   "recommend",
+   "friends",
+   "referral",
+   "new guests",
+   "tell",
+   "word"
+  ]
+ },
+ {
+  "id": "P088",
+  "tag": "reviews_referrals",
+  "type": "wished",
+  "problem_en": "Nobody has written a review of the farm-stay anywhere.",
+  "keywords_en": [
+   "review",
+   "written",
+   "online",
+   "rating",
+   "none",
+   "feedback"
+  ]
+ },
+ {
+  "id": "P089",
+  "tag": "reviews_referrals",
+  "type": "wished",
+  "problem_en": "We do not know what guests really thought, because they are too polite to say.",
+  "keywords_en": [
+   "honest",
+   "feedback",
+   "polite",
+   "thought",
+   "opinion",
+   "say",
+   "improve"
+  ]
+ },
+ {
+  "id": "P090",
+  "tag": "reviews_referrals",
+  "type": "wished",
+  "problem_en": "A guest wanted to come back with family but did not know how to arrange it.",
+  "keywords_en": [
+   "come back",
+   "return",
+   "family",
+   "arrange",
+   "again",
+   "book"
+  ]
+ },
+ {
+  "id": "P091",
+  "tag": "reviews_referrals",
+  "type": "loved",
+  "problem_en": "Guests wrote warm thank-you messages after going home.",
+  "keywords_en": [
+   "thank",
+   "message",
+   "wrote",
+   "after",
+   "home",
+   "kind",
+   "grateful"
+  ]
+ },
+ {
+  "id": "P092",
+  "tag": "reviews_referrals",
+  "type": "loved",
+  "problem_en": "Some guests came back a second time and brought friends.",
+  "keywords_en": [
+   "came back",
+   "again",
+   "second",
+   "friends",
+   "brought",
+   "returning"
+  ]
+ },
+ {
+  "id": "P093",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "During the monsoon the road was blocked and we could not reach the farm.",
+  "keywords_en": [
+   "monsoon",
+   "road",
+   "blocked",
+   "landslide",
+   "reach",
+   "rain"
+  ]
+ },
+ {
+  "id": "P094",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "The host was busy in the fields and we were left alone for most of the day.",
+  "keywords_en": [
+   "busy",
+   "fields",
+   "alone",
+   "host",
+   "away",
+   "work",
+   "harvest"
+  ]
+ },
+ {
+  "id": "P095",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "The power was out for most of our stay.",
+  "keywords_en": [
+   "power",
+   "electricity",
+   "outage",
+   "cut",
+   "dark",
+   "charge"
+  ]
+ },
+ {
+  "id": "P096",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "In winter there was little fresh food and the farm looked bare.",
+  "keywords_en": [
+   "winter",
+   "off-season",
+   "fresh",
+   "bare",
+   "little",
+   "season"
+  ]
+ },
+ {
+  "id": "P097",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "The family seemed tired from hosting on top of the farm work.",
+  "keywords_en": [
+   "tired",
+   "overworked",
+   "family",
+   "staff",
+   "hosting",
+   "busy",
+   "help"
+  ]
+ },
+ {
+  "id": "P098",
+  "tag": "seasonal_operations",
+  "type": "wished",
+  "problem_en": "In the dry months there was hardly any water for guests.",
+  "keywords_en": [
+   "dry",
+   "water",
+   "shortage",
+   "months",
+   "season",
+   "tank"
+  ]
+ },
+ {
+  "id": "P099",
+  "tag": "seasonal_operations",
+  "type": "loved",
+  "problem_en": "Guests who came at harvest time loved seeing the whole farm at work.",
+  "keywords_en": [
+   "harvest",
+   "season",
+   "picking",
+   "busy",
+   "loved",
+   "work",
+   "time"
+  ]
+ },
+ {
+  "id": "P100",
+  "tag": "seasonal_operations",
+  "type": "loved",
+  "problem_en": "Guests enjoyed the quiet of the off-season, when they were the only visitors.",
+  "keywords_en": [
+   "quiet",
+   "off-season",
+   "peaceful",
+   "only",
+   "calm",
+   "alone"
+  ]
+ }
+]
