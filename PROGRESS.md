@@ -26,6 +26,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Realistic sample set (team request): `data/sample_reviews.json`, 40 msgs, 9 languages, 7 themes + 3 singles; used by "Load sample" and demo mode (MOCK = saved model run). `--set sample`: SCORE 1.036, themes 79%, precision 99%. Not tuned on. Getting-started card on empty summary.
 - Demo flow (team request): `guest.html` (simulated guest phone, messaging-app look) + `flow.html` (both phones side by side). Guest page writes to the same localStorage; Gauri picks it up via the `storage` event and shows a toast. Simulation only, labelled as such; messages marked synthetic; one-way (Gauri never sends). Browser flow test: 10/10 pass.
 - Settings (team request): model name, MIN_MESSAGES, demo mode and demo links moved into a closed "For the team" section at the bottom; the owner sees only appearance, her farm-stay and privacy. Sample contacts are phone numbers; stale e-mail contacts are repaired on load.
+- Inbox (team request): Messages screen is an SMS inbox for the last 7 days (`WINDOW_DAYS`); summary, stats, thank-yous and badge all use the same window. Paste / JSON import / sample moved to Settings → For the team. Sample is re-dated across the last 7 days on load. Older messages hidden, deletable. 99 tests; inbox 9/9 and flow browser checks pass. Summary title is now just "सारांश" (not monthly).
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

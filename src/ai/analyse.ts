@@ -1,4 +1,4 @@
-// The two AI features: monthly analysis and thank-you drafts.
+// The two AI features: the summary analysis and thank-you drafts.
 // Model output passes through `validated` and the guardrails before it is returned.
 import type { Analysis, Draft, Lang, Message } from "../types";
 import { addCitations, applyGuardrails, hasEnoughFeedback, NotSureError, notEnoughFeedback, validateAnalysis, validateDraft, validateSecondLook, validated } from "./guardrails";

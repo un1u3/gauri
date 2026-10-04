@@ -1,7 +1,7 @@
 // UI text: [Nepali, English]. Nepali is the default; English is for judges.
 const S = {
   app: ["गौरी", "Gauri"],
-  heroTitle: ["यो महिनाका पाहुनाको कुरा", "What this month's guests said"],
+  heroTitle: ["पछिल्लो ७ दिनका पाहुनाको कुरा", "What guests said in the last 7 days"],
   statMessages: ["सन्देश", "messages"],
   statLangs: ["भाषा", "languages"],
   statContacts: ["सम्पर्क", "contacts"],
@@ -16,7 +16,7 @@ const S = {
   navSettings: ["सेटिङ", "Settings"],
   navLabel: ["मुख्य मेनु", "Main menu"],
 
-  summaryTitle: ["मासिक सारांश", "Monthly summary"],
+  summaryTitle: ["सारांश", "Summary"],
   analyse: ["प्रतिक्रिया विश्लेषण गर्नुहोस्", "Analyse feedback"],
   analysing: ["विश्लेषण हुँदैछ… १–३ मिनेट लाग्न सक्छ।", "Analysing… this may take 1–3 minutes."],
   elapsed: ["बितेको समय: {0} सेकेन्ड", "Elapsed: {0} seconds"],
@@ -24,10 +24,9 @@ const S = {
   notEnoughHelp: ["थोरै सन्देशबाट गौरीले अनुमान गर्दैन। थप सन्देश आएपछि फेरि हेर्नुहोस्।", "Gauri does not guess from a few messages. Check again when more arrive."],
   noAnalysis: ["अहिलेसम्म विश्लेषण गरिएको छैन। माथिको बटन थिच्नुहोस्।", "No analysis yet. Press the button above."],
   startTitle: ["सुरु गरौं", "Getting started"],
-  startStep1: ["पाहुनाका सन्देश थप्नुहोस्", "Add your guests' messages"],
+  startStep1: ["पाहुनाले तपाईंको नम्बरमा SMS पठाउँछन्", "Guests send an SMS to your number"],
   startStep2: ["“प्रतिक्रिया विश्लेषण गर्नुहोस्” थिच्नुहोस्", "Press “Analyse feedback”"],
   startStep3: ["के मन पर्‍यो र के सुधार्ने, हेर्नुहोस्", "See what guests loved and what to improve"],
-  startMessages: ["आफ्नै सन्देश थप्नुहोस्", "Add my own messages"],
   loved: ["पाहुनालाई मन परेको", "What guests loved"],
   wished: ["पाहुनाले चाहेको", "What guests wished for"],
   upgrade: ["सुझाव", "Suggested upgrade"],
@@ -76,6 +75,10 @@ const S = {
 
   advanced: ["टोलीका लागि (थप सेटिङ र डेमो)", "For the team (advanced and demo)"],
   advancedHelp: ["होमस्टे चलाउनेले यी सेटिङ छुनु पर्दैन। यी एप बनाउने टोली र डेमोका लागि हुन्।", "The owner never needs these. They are for the team that sets up the app, and for demos."],
+  inboxInfo: ["पाहुनाले SMS बाट पठाएका सन्देश · पछिल्लो {0} दिन", "Messages guests sent by SMS · last {0} days"],
+  older: ["{0} वटा पुराना सन्देश ({1} दिनभन्दा अघिका) यो फोनमा छन्। ती देखाइँदैनन् र विश्लेषणमा पर्दैनन्।", "{0} older messages (more than {1} days old) are kept on this phone. They are not shown and not analysed."],
+  deleteOlder: ["पुराना सन्देश मेटाउनुहोस्", "Delete older messages"],
+  addByHand: ["हातले सन्देश थप्ने (सेटअप र परीक्षणका लागि)", "Add messages by hand (set-up and testing)"],
   newMessage: ["नयाँ सन्देश आयो", "New message received"],
   demoHelp: ["पाहुनाको फोनको नक्कल: त्यहाँ लेखेको सन्देश सिधै यहाँ आउँछ। साँच्चैको SMS जाँदैन।", "A simulated guest phone: a message written there arrives here at once. No real SMS is sent."],
   openGuest: ["पाहुनाको फोन खोल्नुहोस्", "Open the guest's phone"],
@@ -94,7 +97,7 @@ const S = {
   del: ["हटाउनुहोस्", "Delete"],
   delMsg: ["सन्देश {0} हटाउनुहोस्", "Delete message {0}"],
   deleted: ["सन्देश हटाइयो।", "Message deleted."],
-  noMessages: ["अहिले कुनै सन्देश छैन।", "No messages yet."],
+  noMessages: ["पछिल्लो {0} दिनमा कुनै SMS आएको छैन।", "No SMS in the last {0} days."],
 
   followTitle: ["धन्यवाद सन्देश", "Thank-you messages"],
   neverSends: ["गौरीले कहिल्यै आफैं सन्देश पठाउँदैन। तपाईंले स्वीकृत गरेपछि प्रतिलिपि मात्र हुन्छ; पठाउने काम तपाईंको।", "Gauri never sends anything. After you approve, the text is only copied; sending is up to you."],

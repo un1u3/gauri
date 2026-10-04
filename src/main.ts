@@ -14,7 +14,7 @@ import { IDEAS } from "./ideas/data";
 import { getIdeas, offlineIdeas, type IdeasResult } from "./ideas/ideas";
 import type { Section } from "./ideas/match";
 import { cardView } from "./ideas/view";
-import { fromJson, fromPaste } from "./messages";
+import { datedThisWeek, fromJson, fromPaste, recent, WINDOW_DAYS } from "./messages";
 import { MOCK_ANALYSIS, MOCK_DRAFTS } from "./mock";
 import { clearAll, load, save, STORE_KEY } from "./store";
 import type { Draft, Lang, Message, Point } from "./types";
@@ -42,6 +42,9 @@ const owner = () => state.settings.ownerLang;
 const uiLang = (): Lang => (state.settings.ui === "own" && hasLabels(owner()) ? owner() : "en");
 const t = (key: Key, ...args: (string | number)[]) => translate(uiLang(), key, ...args);
 const cfg = () => ({ baseUrl: "/ollama", model: state.settings.model, minMessages: state.settings.minMessages, ownerLang: owner() });
+// What the owner works with: the messages that arrived in the last WINDOW_DAYS days.
+const inbox = () => recent(state.messages);
+const loadSample = () => addMessages(datedThisWeek(fromJson(sample, state.messages)));
 const nameOf = (l: Lang) => (l === UNKNOWN ? t("unknownLang") : langName(l));
 // A language named inside a sentence of the app: in the app's language, so it reads as one sentence.
 const nameInUi = (l: Lang) => (l === uiLang() ? langName(l) : langName(l, uiLang()));
@@ -78,7 +81,7 @@ function commit() {
 // ---------- actions ----------
 async function runAnalysis() {
   error = null;
-  const n = state.messages.length;
+  const messages = inbox(), n = messages.length;
   if (!hasEnoughFeedback(n, state.settings.minMessages)) {
     state.analysis = notEnoughFeedback(n, state.settings.model, owner()); // rule 4: the model is not called
     announce(t("notEnough", n, state.settings.minMessages));
@@ -93,8 +96,8 @@ async function runAnalysis() {
   }, 1000);
   try {
     state.analysis = state.settings.demo
-      ? applyGuardrails(MOCK_ANALYSIS, state.messages, { model: "demo", seconds: 0, lang: "ne" })
-      : await analyse(state.messages, cfg());
+      ? applyGuardrails(MOCK_ANALYSIS, messages, { model: "demo", seconds: 0, lang: "ne" })
+      : await analyse(messages, cfg());
     state.ideas = {}; // ideas belong to the points of one summary
     const a = state.analysis;
     announce(t("ready", a.loved.length + a.wished.length + (a.upgrade ? 1 : 0)));
@@ -314,8 +317,8 @@ function section(titleKey: Key, emoji: string, points: Point[], prefix: string, 
 
 function summaryScreen(): Child[] {
   const a = state.analysis;
-  const n = state.messages.length, min = state.settings.minMessages;
-  const present = languagesIn(state.messages);
+  const messages = inbox(), n = messages.length, min = state.settings.minMessages;
+  const present = languagesIn(messages);
   const stat = (emoji: string, value: number, label: Key) => h("li", {}, icon(emoji), h("strong", {}, String(value)), h("span", {}, t(label)));
   const out: Child[] = [
     h("h1", { tabindex: "-1" }, t("summaryTitle")),
@@ -324,12 +327,12 @@ function summaryScreen(): Child[] {
       h("ul", { class: "stats" },
         stat("💬", n, "statMessages"),
         stat("🌐", present.length, "statLangs"),
-        stat("👤", state.messages.filter((m) => m.contact).length, "statContacts")),
+        stat("👤", messages.filter((m) => m.contact).length, "statContacts")),
       button("analyse", "🔍", t("analyse"), runAnalysis, { class: "cta", disabled: busySince !== null })),
     present.length > 0 && h("div", { class: "stories" },
       h("p", { class: "label" }, t("guestLangs")),
       h("ul", {}, ...present.map((l) =>
-        h("li", {}, h("span", { class: "ring" }, avatar(l, "story")), h("span", { class: "story-name", lang: l }, nameOf(l)), h("span", { class: "story-n" }, String(state.messages.filter((m) => m.lang === l).length)))))),
+        h("li", {}, h("span", { class: "ring" }, avatar(l, "story")), h("span", { class: "story-name", lang: l }, nameOf(l)), h("span", { class: "story-n" }, String(messages.filter((m) => m.lang === l).length)))))),
   ];
   if (busySince !== null) {
     out.push(
@@ -338,12 +341,10 @@ function summaryScreen(): Child[] {
     return out;
   }
   out.push(alertBox());
-  if (n === 0) // first visit: say what to do, and offer the sample so the app can be tried in one tap
+  if (n === 0) // nothing has arrived yet: say how it works
     out.push(h("div", { class: "card start" },
       h("h2", {}, icon("🌱"), t("startTitle")),
-      h("ol", {}, ...(["startStep1", "startStep2", "startStep3"] as Key[]).map((k, i) => h("li", {}, h("span", { class: "step", "aria-hidden": "true" }, String(i + 1)), t(k)))),
-      button("start-sample", "🧪", t("loadSample"), () => addMessages(fromJson(sample, state.messages)), { class: "primary wide" }),
-      button("start-messages", "💬", t("startMessages"), () => go("messages"), { class: "tonal wide" })));
+      h("ol", {}, ...(["startStep1", "startStep2", "startStep3"] as Key[]).map((k, i) => h("li", {}, h("span", { class: "step", "aria-hidden": "true" }, String(i + 1)), t(k))))));
   if (!hasEnoughFeedback(n, min) || a?.status === "not_enough_feedback") {
     out.push(h("div", { class: "notice" }, h("p", { class: "big" }, icon("✋"), t("notEnough", n, min)), h("p", {}, t("notEnoughHelp")),
       h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${Math.min(100, (n / min) * 100)}%` }))));
@@ -391,7 +392,40 @@ const langOptions = (current: Lang, withUnknown = true) =>
     .filter((l) => withUnknown || l !== UNKNOWN)
     .map((l) => h("option", { value: l, lang: l === UNKNOWN ? null : l, selected: l === current }, l === UNKNOWN ? `? ${t("unknownLang")}` : `${langName(l)} (${l})`));
 
+// The owner's inbox: what guests sent by SMS in the last WINDOW_DAYS days. She does not type messages in;
+// adding by hand (paste, file, sample) is a set-up tool and lives in Settings → "For the team".
 function messagesScreen(): Child[] {
+  const messages = inbox(), older = state.messages.length - messages.length;
+  return [
+    h("h1", { tabindex: "-1" }, t("messagesTitle"), h("span", { class: "count" }, String(messages.length))),
+    h("p", { class: "notice safe" }, icon("💬"), t("inboxInfo", WINDOW_DAYS)),
+    alertBox(),
+    messages.length === 0 && h("p", { class: "empty" }, icon("💬"), t("noMessages", WINDOW_DAYS)),
+    h("ul", { class: "cards" }, ...messages.map((m) =>
+      h("li", {},
+        postHead(m, m.contact ?? t("guest")),
+        h("p", { lang: m.lang, class: "post-text" }, m.text),
+        h("div", { class: "actions" },
+          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" }),
+          h("label", { for: `lang-${m.id}` }, icon("🌐"), t("language")),
+          h("select", { id: `lang-${m.id}`, onchange: (e: Event) => { m.lang = (e.target as HTMLSelectElement).value as Lang; commit(); } },
+            ...langOptions(m.lang))),
+      ))),
+    // Older messages stay on the phone until she removes them; they are not shown and not analysed.
+    older > 0 && h("div", { class: "card" },
+      h("p", {}, icon("📅"), t("older", older, WINDOW_DAYS)),
+      button("delete-older", "🗑", t("deleteOlder"), () => {
+        const keep = new Set(messages.map((m) => m.id));
+        state.messages = state.messages.filter((m) => keep.has(m.id));
+        state.drafts = state.drafts.filter((d) => keep.has(d.message_id));
+        announce(t("deleted"));
+        commit();
+      }, { class: "ghost danger-text" })),
+  ];
+}
+
+// Set-up tool (Settings → "For the team"): add messages by hand, from a file, or load the sample.
+function addByHand(): HTMLElement {
   const paste = h("textarea", { id: "paste", rows: "3" });
   const file = h("input", { type: "file", id: "file", accept: ".json,application/json", onchange: async () => {
     error = null;
@@ -403,28 +437,14 @@ function messagesScreen(): Child[] {
       render();
     }
   } });
-  return [
-    h("h1", { tabindex: "-1" }, t("messagesTitle"), h("span", { class: "count" }, String(state.messages.length))),
-    alertBox(),
-    h("div", { class: "card composer" },
-      h("label", { for: "paste" }, icon("✏️"), t("paste")),
-      paste,
-      button("add", "➕", t("add"), () => paste.value.trim() && addMessages(fromPaste(paste.value, state.messages)), { class: "primary wide" }),
-      h("label", { for: "file" }, icon("📂"), t("importFile")),
-      file,
-      button("sample", "🧪", t("loadSample"), () => addMessages(fromJson(sample, state.messages)), { class: "tonal wide" })),
-    state.messages.length === 0 && h("p", { class: "empty" }, icon("💬"), t("noMessages")),
-    h("ul", { class: "cards" }, ...state.messages.map((m) =>
-      h("li", {},
-        postHead(m, m.contact ?? t("guest")),
-        h("p", { lang: m.lang, class: "post-text" }, m.text),
-        h("div", { class: "actions" },
-          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" }),
-          h("label", { for: `lang-${m.id}` }, icon("🌐"), t("language")),
-          h("select", { id: `lang-${m.id}`, onchange: (e: Event) => { m.lang = (e.target as HTMLSelectElement).value as Lang; commit(); } },
-            ...langOptions(m.lang))),
-      ))),
-  ];
+  return h("div", { class: "card composer" },
+    h("h3", {}, icon("✏️"), t("addByHand")),
+    h("label", { for: "paste" }, t("paste")),
+    paste,
+    button("add", "➕", t("add"), () => paste.value.trim() && addMessages(fromPaste(paste.value, state.messages)), { class: "primary wide" }),
+    h("label", { for: "file" }, icon("📂"), t("importFile")),
+    file,
+    button("sample", "🧪", t("loadSample"), loadSample, { class: "tonal wide" }));
 }
 
 function draftCard(d: Draft): HTMLElement {
@@ -456,7 +476,7 @@ function draftCard(d: Draft): HTMLElement {
 
 function followScreen(): Child[] {
   const drafts = state.drafts.filter((d) => d.status !== "discarded");
-  const waiting = state.messages.filter((m) => m.contact && !drafts.some((d) => d.message_id === m.id));
+  const waiting = inbox().filter((m) => m.contact && !drafts.some((d) => d.message_id === m.id));
   return [
     h("h1", { tabindex: "-1" }, t("followTitle")),
     h("p", { class: "notice safe" }, icon("🔒"), t("neverSends")),
@@ -530,6 +550,7 @@ function settingsScreen(): Child[] {
       icon("⚙️"), t("advanced"), icon(open.has("advanced") ? "▼" : "▶")),
     open.has("advanced") && h("div", { id: "advanced" },
       h("p", { class: "small" }, t("advancedHelp")),
+      addByHand(),
       h("div", { class: "card" },
         field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
         field("🔢", "min", "minMessages", h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) })),
@@ -583,7 +604,7 @@ function render() {
   document.documentElement.lang = ui;
   document.documentElement.dir = isRtl(ui) ? "rtl" : "ltr";
   document.documentElement.dataset.size = state.settings.textSize;
-  const badges: Partial<Record<Screen, number>> = { messages: state.messages.length, follow: state.drafts.filter((d) => d.status === "pending").length };
+  const badges: Partial<Record<Screen, number>> = { messages: inbox().length, follow: state.drafts.filter((d) => d.status === "pending").length };
   app.replaceChildren(
     h("header", {},
       h("div", { class: "appbar" },

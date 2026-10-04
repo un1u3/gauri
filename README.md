@@ -6,8 +6,8 @@ Built for the World Bank "Small AI for Development" hackathon (tourism).
 
 ## What it does
 
-1. Guests send a short message after their visit, in their own language — any language. In this prototype the messages are pasted or imported.
-2. Once a month the owner presses one button. A small model running on the device reads all the messages and shows her, **in her language** (Nepali by default): what guests loved, what they wished for, and one suggested upgrade.
+1. Guests send a short message after their visit, in their own language — any language. They arrive in Gauri's inbox; in this prototype that is simulated (see "How messages get in").
+2. The owner presses one button. A small model running on the device reads the messages from the last 7 days and shows her, **in her language** (Nepali by default): what guests loved, what they wished for, and one suggested upgrade.
 3. **Every point links to the exact messages behind it** and shows which languages those messages were in.
 4. Gauri drafts a thank-you / come-back message in each guest's language and shows its meaning in the owner's language. The owner approves, edits or discards. Approved drafts are **copied**; Gauri never sends anything.
 5. With too little evidence, Gauri says so instead of guessing.
@@ -32,7 +32,7 @@ npm run model:text         # recommended: text-only copy of the model, about 1 G
 npm run dev                # open http://localhost:5173
 ```
 
-In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages: 40 realistic reviews in 9 languages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes one to two minutes on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
+In the app: **सेटिङ (Settings)** → "टोलीका लागि" (For the team) at the bottom → "नमुना सन्देश राख्नुहोस्" (Load sample messages: 40 realistic reviews in 9 languages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Or open `/flow.html` and send messages from the simulated guest phone. Analysis takes one to two minutes on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
 
 To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
 
@@ -41,7 +41,7 @@ To use another language: **सेटिङ (Settings)** → "मेरो भा
 Other commands:
 
 ```bash
-npm test                     # 95 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
+npm test                     # 99 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
@@ -91,6 +91,14 @@ The **जाँच (Checks)** screen (from Settings) runs these rules on fixed i
 The interface is laid out as a phone app (app bar with a one-tap language switch, bottom tab bar with count badges, a home feed with stats and language avatars, post-style cards, inline SVG icons) and ships a web-app manifest, so on a phone it can be added to the home screen and opens full-screen.
 
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.
+
+## How messages get in: an SMS inbox for the last 7 days
+
+The owner does not type or import messages. The Messages screen is an inbox of what guests sent by SMS in the **last 7 days**, and the summary is made from exactly those messages, so nothing is analysed that she cannot see. Older messages stay on the phone until she deletes them (one button), but are not shown and not analysed.
+
+**What is real and what is not, in this prototype:** reading the phone's SMS inbox is not built. Messages reach the inbox from the simulated guest phone below, or from the set-up tools under Settings → "For the team" (paste, JSON file, bundled sample). The sample is dated across the last 7 days when it is loaded.
+
+**A trade-off to know about:** the brief describes a monthly summary for a farm with 6–7 visitors a month. With a 7-day window and a minimum of 8 messages, a real farm that size would usually see "not enough feedback yet". The window is one constant (`WINDOW_DAYS` in `src/messages.ts`).
 
 ## Showing the flow: a simulated guest phone
 

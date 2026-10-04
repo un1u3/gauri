@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { runChecks } from "../src/checks";
-import { fromJson, fromPaste } from "../src/messages";
+import { datedThisWeek, fromJson, fromPaste, recent, WINDOW_DAYS } from "../src/messages";
 import { guessLang, langName, scriptHint, writtenIn } from "../src/lang";
 import { labelOk, translateLabels } from "../src/ai/translate";
 import { ENGLISH, KEYS, setPacks, translate } from "../src/i18n";
@@ -46,6 +46,24 @@ it("sample messages saved with an old placeholder e-mail get the sample's phone 
   ]);
   expect(fixed.map((m) => m.contact)).toEqual([withContact.contact, "someone@example.invalid", "+977 98-0000-0000"]);
   expect(withContact.contact).toMatch(/^\+\d/);
+});
+
+describe("the 7-day window", () => {
+  const now = new Date(2026, 9, 4, 14, 0); // 4 October 2026, afternoon
+  const on = (received_at: string) => ({ id: received_at, text: "x", lang: "en", received_at, contact: null, synthetic: true });
+  it("keeps messages from today back to 6 days ago, and nothing older", () => {
+    expect(WINDOW_DAYS).toBe(7);
+    const kept = recent(["2026-10-04", "2026-09-28", "2026-09-27", "2026-09-01", "2026-10-04T08:30:00Z"].map(on), now).map((m) => m.id);
+    expect(kept).toEqual(["2026-10-04", "2026-09-28", "2026-10-04T08:30:00Z"]);
+  });
+  it("the sample is dated across the last 7 days when loaded, oldest first, and all of it is in the window", () => {
+    const sample = datedThisWeek(fromJson(load("sample_reviews.json"), []), now);
+    expect([sample[0].received_at, sample[39].received_at]).toEqual(["2026-09-28", "2026-10-04"]);
+    expect(new Set(sample.map((m) => m.received_at)).size).toBe(7);
+    expect(recent(sample, now).length).toBe(40);
+    expect(recent(fromJson(load("sample_reviews.json"), []), now).length).toBeLessThan(40); // its fixed September dates are mostly older
+  });
+  it("a message added now is in the window", () => expect(recent(fromPaste("hello", [])).length).toBe(1));
 });
 
 describe("checks page and demo mode", () => {
