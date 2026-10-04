@@ -5,26 +5,32 @@
    "model": "gemma4:e2b",
    "model_size_gb": 4.6,
    "n_messages": 40,
-   "runs": 1,
-   "at": "2026-10-04T04:21:44.564Z",
-   "SCORE": 1.55,
+   "runs": 2,
+   "at": "2026-10-04T04:29:03.406Z",
+   "SCORE": 1.475,
    "theme_recall": 1,
    "per_language": {
     "en": 0.8,
     "ko": 0.8,
     "hi": 1,
-    "zh": 0.6,
-    "ne": 0.8
+    "zh": 0.7,
+    "ne": 0.7
    },
-   "min_language": 0.6,
-   "t5_correct": true,
+   "min_language": 0.7,
+   "t5_correct": false,
    "t5_not_a_point": true,
-   "t5_in_uncertain": true,
+   "t5_in_uncertain": false,
    "citation_validity": 1,
    "min_citations_per_point": 4,
-   "seconds": 57,
+   "seconds": 32,
    "not_enough_ok": true,
    "themes_found": [
+    {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
     {
      "T1": true,
      "T2": true,
@@ -35,7 +41,7 @@
   },
   "runs": [
    {
-    "SCORE": 1.55,
+    "SCORE": 1.3,
     "theme_recall": 1,
     "themes_found": {
      "T1": true,
@@ -48,23 +54,23 @@
      "ko": 0.8,
      "hi": 1,
      "zh": 0.6,
-     "ne": 0.8
+     "ne": 0.6
     },
     "min_language": 0.6,
-    "t5_correct": true,
+    "t5_correct": false,
     "t5_not_a_point": true,
-    "t5_in_uncertain": true,
+    "t5_in_uncertain": false,
     "citation_validity": 1,
     "min_citations": 4,
     "n_points": 5,
-    "seconds": 57,
+    "seconds": 37,
     "analysis": {
      "status": "ok",
      "n_messages": 40,
      "loved": [
       {
        "point_en": "Walk through the coffee farm was wonderful.",
-       "point_ne": "कफी खेतमा घुम्नु धेरै राम्रो थियो।",
+       "point_ne": "कफी खेतमा घुम्नु धेरै राम्रो लाग्यो।",
        "message_ids": [
         "m02",
         "m08",
@@ -76,7 +82,7 @@
       },
       {
        "point_en": "Learning to cook with Noor was loved.",
-       "point_ne": "नूरसँग खाना पकाउन सिक्नु मन पर्यो।",
+       "point_ne": "नूरसँग पकाउन सिक्नु मन पर्यो।",
        "message_ids": [
         "m04",
         "m18",
@@ -98,8 +104,104 @@
        ]
       },
       {
-       "point_en": "There should be signage on the road to find the farm.",
-       "point_ne": "फार्म भेट्न बाटोमा संकेत (बोर्ड) हुनुपर्छ।",
+       "point_en": "There should be road signs to help find the farm.",
+       "point_ne": "फार्म खोज्न बाटोमा संकेतहरू हुनुपर्छ।",
+       "message_ids": [
+        "m12",
+        "m26",
+        "m34",
+        "m38"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade: Provide clear road signage to help guests find the farm.",
+      "point_ne": "सुधार: अतिथिहरूलाई फार्म फेला पार्न मद्दत गर्न स्पष्ट बाटो संकेतहरू दिनुहोस्।",
+      "message_ids": [
+       "m12",
+       "m26",
+       "m34",
+       "m38"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "The owner's availability in December is unclear.",
+       "note_ne": "दिसम्बरमा मालिकको उपलब्धता स्पष्ट छैन। (m01)"
+      }
+     ],
+     "model": "gemma4:e2b",
+     "seconds": 37,
+     "created_at": "2026-10-04T04:28:36.674Z"
+    }
+   },
+   {
+    "SCORE": 1.65,
+    "theme_recall": 1,
+    "themes_found": {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
+    "per_language": {
+     "en": 0.8,
+     "ko": 0.8,
+     "hi": 1,
+     "zh": 0.8,
+     "ne": 0.8
+    },
+    "min_language": 0.8,
+    "t5_correct": true,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": true,
+    "citation_validity": 1,
+    "min_citations": 5,
+    "n_points": 5,
+    "seconds": 27,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Walk through the coffee farm was wonderful.",
+       "point_ne": "कफी खेतमा घुम्नु धेरै राम्रो लाग्यो।",
+       "message_ids": [
+        "m02",
+        "m08",
+        "m09",
+        "m11",
+        "m19",
+        "m23"
+       ]
+      },
+      {
+       "point_en": "Learning to cook with Noor was loved.",
+       "point_ne": "नूरसँग पकाउन सिक्नु मन पर्यो।",
+       "message_ids": [
+        "m04",
+        "m18",
+        "m31",
+        "m37",
+        "m40"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Breakfast was served too late.",
+       "point_ne": "बिहानको खाना धेरै ढिलो आयो।",
+       "message_ids": [
+        "m03",
+        "m15",
+        "m20",
+        "m24",
+        "m29"
+       ]
+      },
+      {
+       "point_en": "There should be road signs to help find the farm.",
+       "point_ne": "फार्म खोज्न बाटोमा संकेतहरू हुनुपर्छ।",
        "message_ids": [
         "m12",
         "m26",
@@ -111,7 +213,7 @@
      ],
      "upgrade": {
       "point_en": "Upgrade: Install road signage to help guests find the farm.",
-      "point_ne": "सुधार: अतिथिहरूलाई फार्म भेट्न मद्दत गर्न बाटोमा संकेत राख्नुहोस्।",
+      "point_ne": "सुधार: अतिथिहरूलाई फार्म खोज्न मद्दत गर्न बाटोमा संकेतहरू लगाउनुहोस्।",
       "message_ids": [
        "m12",
        "m26",
@@ -127,12 +229,12 @@
       },
       {
        "note_en": "The owner's availability in December is unclear.",
-       "note_ne": "दिसम्बरमा मालिकको उपलब्धता स्पष्ट छैन। (m01)"
+       "note_ne": "दिसम्बरमा मालिकको उपलब्धता स्पष्ट छैन।"
       }
      ],
      "model": "gemma4:e2b",
-     "seconds": 57,
-     "created_at": "2026-10-04T04:21:44.558Z"
+     "seconds": 27,
+     "created_at": "2026-10-04T04:29:03.406Z"
     }
    }
   ]
