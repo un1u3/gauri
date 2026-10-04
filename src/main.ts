@@ -511,18 +511,6 @@ function settingsScreen(): Child[] {
       h("div", { class: "field check" },
         h("input", { type: "checkbox", id: "p-wifi", checked: pr.has_wifi, onchange: (e: Event) => setProfile("has_wifi", (e.target as HTMLInputElement).checked) }),
         h("label", { for: "p-wifi" }, icon("🌐"), t("pWifi")))),
-    h("h2", { class: "sec" }, icon("🤖"), t("secAi")),
-    h("div", { class: "card" },
-      field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
-      field("🔢", "min", "minMessages", h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) })),
-      h("div", { class: "field check" },
-        h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
-        h("label", { for: "demo" }, icon("🎬"), t("demo")))),
-    h("h2", { class: "sec" }, icon("🎬"), t("demoTitle")),
-    h("div", { class: "card" },
-      h("p", { class: "small" }, t("demoHelp")),
-      h("a", { class: "btn", href: "guest.html", target: "_blank", rel: "noopener" }, icon("📱"), t("openGuest")),
-      h("a", { class: "btn", href: "flow.html", target: "_blank", rel: "noopener" }, icon("💬"), t("openFlow"))),
     h("h2", { class: "sec" }, icon("🛡"), t("secPrivacy")),
     h("div", { class: "card" },
       h("h3", {}, icon("📝"), t("consentTitle")),
@@ -537,6 +525,21 @@ function settingsScreen(): Child[] {
         announce(t("cleared"));
         render();
       }, { class: "danger wide" })),
+    // Not for the owner: model name, threshold, demo mode and the simulated guest phone. Closed unless opened.
+    h("button", { type: "button", id: "advanced-btn", class: "ghost wide advanced", "aria-expanded": String(open.has("advanced")), "aria-controls": "advanced", onclick: () => { open.has("advanced") ? open.delete("advanced") : open.add("advanced"); render(); } },
+      icon("⚙️"), t("advanced"), icon(open.has("advanced") ? "▼" : "▶")),
+    open.has("advanced") && h("div", { id: "advanced" },
+      h("p", { class: "small" }, t("advancedHelp")),
+      h("div", { class: "card" },
+        field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
+        field("🔢", "min", "minMessages", h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) })),
+        h("div", { class: "field check" },
+          h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
+          h("label", { for: "demo" }, icon("🎬"), t("demo")))),
+      h("div", { class: "card" },
+        h("p", { class: "small" }, t("demoHelp")),
+        h("a", { class: "btn", href: "guest.html", target: "_blank", rel: "noopener" }, icon("📱"), t("openGuest")),
+        h("a", { class: "btn", href: "flow.html", target: "_blank", rel: "noopener" }, icon("💬"), t("openFlow"))),),
   ];
 }
 

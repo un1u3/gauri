@@ -160,6 +160,10 @@ button.cta { width: 100%; min-height: 3.4rem; margin: 0; border: 0; background: 
 /* links that look like the tonal buttons (Settings → Demo) */
 a.btn { display: flex; align-items: center; justify-content: center; min-height: 3.1rem; margin: 0.5rem 0 0; padding: 0.55rem 1.1rem; border-radius: 0.95rem; background: var(--green-tint); color: var(--green-dark); font-weight: 700; text-decoration: none; }
 
+/* Settings → "for the team": deliberately quiet, at the very bottom */
+button.advanced { margin-top: 1.5rem; justify-content: flex-start; font-weight: 400; font-size: 0.9rem; }
+button.advanced > .icon:last-child { margin: 0 0 0 auto; }
+
 /* Getting-started card on an empty summary */
 .start h2 { margin: 0 0 0.6rem; display: flex; align-items: center; }
 .start h2 .icon { color: var(--green); }

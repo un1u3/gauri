@@ -94,7 +94,7 @@ Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the brows
 
 ## Showing the flow: a simulated guest phone
 
-For demos there are two extra pages, both reachable from Settings → "डेमो":
+For demos there are two extra pages, both reachable from Settings → "टोलीका लागि" (For the team), a closed section at the bottom that also holds the model name, the minimum-messages threshold and demo mode. Those are set-up and demo tools, so they are kept out of the owner's way:
 
 - **`/guest.html`** — a guest's phone, laid out like a phone's messaging app. Pick a guest (Korean, Japanese, French, Hindi, Chinese, English), type or tap a message in that language and press send.
 - **`/flow.html`** — the guest's phone and Gauri side by side, so the whole path fits on one screen.

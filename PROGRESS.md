@@ -25,6 +25,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Theme (team request): farm-derived palette — leaf green, cherry red accent, bean-brown text, lokta cream, marigold highlight. All text pairs ≥ 4.5:1 (computed). Only colour tokens changed.
 - Realistic sample set (team request): `data/sample_reviews.json`, 40 msgs, 9 languages, 7 themes + 3 singles; used by "Load sample" and demo mode (MOCK = saved model run). `--set sample`: SCORE 1.036, themes 79%, precision 99%. Not tuned on. Getting-started card on empty summary.
 - Demo flow (team request): `guest.html` (simulated guest phone, messaging-app look) + `flow.html` (both phones side by side). Guest page writes to the same localStorage; Gauri picks it up via the `storage` event and shows a toast. Simulation only, labelled as such; messages marked synthetic; one-way (Gauri never sends). Browser flow test: 10/10 pass.
+- Settings (team request): model name, MIN_MESSAGES, demo mode and demo links moved into a closed "For the team" section at the bottom; the owner sees only appearance, her farm-stay and privacy. Sample contacts are phone numbers; stale e-mail contacts are repaired on load.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

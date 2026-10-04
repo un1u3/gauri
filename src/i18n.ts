@@ -9,7 +9,6 @@ const S = {
   guest: ["पाहुना", "Guest"],
   theirMessage: ["पाहुनाले लेखेको", "The guest wrote"],
   secAppearance: ["देखावट", "Appearance"],
-  secAi: ["AI मोडेल", "AI model"],
   secPrivacy: ["गोपनीयता र सुरक्षा", "Privacy and safety"],
   navSummary: ["सारांश", "Summary"],
   navMessages: ["सन्देश", "Messages"],
@@ -75,8 +74,9 @@ const S = {
   pLanguages: ["मैले बोल्ने भाषा (अल्पविरामले छुट्याउनुहोस्)", "Languages I speak (separate with commas)"],
   pHelpers: ["सघाउने मान्छे", "Helpers"],
 
+  advanced: ["टोलीका लागि (थप सेटिङ र डेमो)", "For the team (advanced and demo)"],
+  advancedHelp: ["होमस्टे चलाउनेले यी सेटिङ छुनु पर्दैन। यी एप बनाउने टोली र डेमोका लागि हुन्।", "The owner never needs these. They are for the team that sets up the app, and for demos."],
   newMessage: ["नयाँ सन्देश आयो", "New message received"],
-  demoTitle: ["डेमो", "Demo"],
   demoHelp: ["पाहुनाको फोनको नक्कल: त्यहाँ लेखेको सन्देश सिधै यहाँ आउँछ। साँच्चैको SMS जाँदैन।", "A simulated guest phone: a message written there arrives here at once. No real SMS is sent."],
   openGuest: ["पाहुनाको फोन खोल्नुहोस्", "Open the guest's phone"],
   openFlow: ["दुवै फोन सँगै हेर्नुहोस्", "Show both phones side by side"],
