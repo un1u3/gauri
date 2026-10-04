@@ -41,7 +41,7 @@ To use another language: **सेटिङ (Settings)** → "मेरो भा
 Other commands:
 
 ```bash
-npm test                     # 93 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
+npm test                     # 95 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
@@ -134,6 +134,7 @@ Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-rea
 | `data/problem_catalog.json` | Written with a large AI model at build time, for this project | MIT (this repo) | 100 problems in 15 areas | Matching a summary point to ideas |
 | `data/ideas_library.json` | Quotes from public guides: PNG Guesthouse Development Guidebook, ASEAN Homestay Standard, APEC community tourism manual, Airbnb host articles, Caritas Nepal, Kantipur | Short quotations with source and page; the guides belong to their publishers | 30 ideas | Guidebook ideas |
 | `data/drafted_ideas.json` | **AI-drafted** at build time, not from any source | MIT (this repo) | 100 ideas | "Gauri's idea" cards |
+| `data/synthetic_final.json` + `synthetic_final_truth.json` | **Synthetic**, written by the team after the first two sets had been looked at | MIT (this repo) | 40 messages, 8 per language | Second held-out set, run once |
 | `data/real_messages.json` | Real guest comments, with consent, names removed | — | **0 (empty slot)** | Import works; no real data collected yet |
 
 Each synthetic set has four planted themes spread across languages (loved the cooking class, loved the coffee farm walk, breakfast too late, farm hard to find), one single mention (Wi-Fi) that must *not* become a point, and 14 neutral messages. Every synthetic message is flagged `synthetic: true` and shown with a "बनावटी / synthetic" badge.
@@ -158,6 +159,8 @@ Held-out **test set**, text-only `gemma4:e2b` (3.6 GB on disk), mean of 2 runs, 
 | Seconds per analysis | 56 |
 | SCORE (max 1.75) | **1.525** |
 
+**On a fresh set nobody had seen results for** (`data/synthetic_final.json`, run once, nothing changed afterwards): SCORE **1.425**, themes 4 of 4, per-language recall 100 / 100 / 60 / 100 / 90, precision 98%. This is the cleanest number we have. Hindi was the weak language here, not Korean, and one Hindi message was cited under the wrong point in one run: which language is under-counted varies from set to set.
+
 **How we got there** ([LOOP_LOG.md](LOOP_LOG.md)): we measured on the dev set, changed one thing at a time, and kept only what helped.
 
 | Version | dev SCORE | test SCORE | Korean recall on test |
@@ -175,7 +178,7 @@ The first test run exposed a language bias: only 1 of 5 Korean theme messages wa
 - **Uncertain states.** "Not enough feedback yet", "Not sure — please check yourself" and "Not sure — try again" are real screens, and they are marked by wording, icon and border, not colour alone.
 - **Consent.** The farm card guests receive says: *"Your message may be read by the owner to improve her tours. It stays on her phone."* The same note is shown in Settings.
 - **Data stays on the device** (localStorage). The owner can delete any message, or everything, in one tap. Deleting a message also removes the summary that cited it.
-- **Language bias, measured and reduced.** Per-language recall is reported for every run. The first held-out run showed Korean guests under-counted (20% recall against 80–100% for the others); the second look raised that to 80% with no wrong citations. The per-point language list keeps any remaining gap visible to the owner.
+- **Language bias, measured and reduced.** Per-language recall is reported for every run. The first held-out run showed Korean guests under-counted (20% recall against 80–100% for the others); the second look raised that to 80%. On a fresh set Korean was fully cited but Hindi was at 60%, so no language is reliably safe; the per-point language list keeps the gap visible to the owner.
 - **Known hallucination risk.** The guardrails check *sources*, not *wording*. In an earlier test run the suggestion said "earlier breakfast, perhaps around 9 AM"; guests had said breakfast came after nine. That is why every point opens its source messages and the screen ends with "यो सुझाव मात्र हो। निर्णय तपाईंको।" (This is only a suggestion. The decision is yours.)
 - **Inclusivity.** Nepali by default, simple wording, icons paired with text, 48 px touch targets, three text sizes, semantic HTML with `lang` on every piece of text so TalkBack picks the right voice, an `aria-live` announcement when the summary is ready, and read-aloud. If the phone has no voice for the owner's language, Gauri says so instead of reading it with the wrong voice. The owner's language can be any language, including right-to-left ones.
 
@@ -201,7 +204,7 @@ The first test run exposed a language bias: only 1 of 5 Korean theme messages wa
 
 1. Package for Android (model + app on the phone, no laptop).
 2. Collect real messages with consent, fill `data/real_messages.json`, and re-run the evaluation.
-3. Build a fresh held-out set (the current one has been looked at) and re-measure; two coffee-walk messages are still missed.
+3. Recall for paraphrased non-English messages still varies by set (Hindi 60% on the fresh set); try a per-message pass over all messages, measured on a new set.
 4. Test with TalkBack and a Nepali voice on a real phone, with a real owner.
 5. Romanized Nepali and mother-tongue messages.
 6. Score more guest and owner languages (the code is language-neutral; the evidence is not yet).

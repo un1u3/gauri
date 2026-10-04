@@ -21,6 +21,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Ideas feature ("What can I improve?"): match → candidates → model → guardrails → cards; profile in Settings; 14 Checks. 91 tests pass; browser flow passes with the real model; `npm run eval:ideas`: matching 13/15, model 5/5 valid, 0/9 rejected, median 10s.
 - Second look (citation completion pass) + precision metric: dev 1.650 → 1.750, test 1.350 → 1.525, Korean recall on test 20% → 80%, precision 100%. `npm run eval -- --no-second-look` measures without it. 93 tests.
 - Ideas matcher: stemmer fixed; 11/11 real model points get ideas; hand-written set 13/15.
+- Fresh held-out set (`--set final`), run once: SCORE 1.425, themes 4/4, per-language 100/100/60/100/90, precision 98%. No tuning after it. Do not tune on it.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.
