@@ -7,6 +7,7 @@ import { labelOk, translateLabels } from "../src/ai/translate";
 import { ENGLISH, KEYS, setPacks, translate } from "../src/i18n";
 import { applyGuardrails } from "../src/ai/guardrails";
 import { MOCK_ANALYSIS } from "../src/mock";
+import { refreshSampleContacts } from "../src/store";
 
 const load = (f: string) => JSON.parse(readFileSync(`data/${f}`, "utf8"));
 
@@ -33,6 +34,18 @@ describe("messages", () => {
     expect(fromJson([{ id: "x", text: "again" }], first)[0].id).not.toBe("x");
     expect(() => fromJson({ text: "x" }, [])).toThrow();
   });
+});
+
+it("sample messages saved with an old placeholder e-mail get the sample's phone number; others are left alone", () => {
+  const sample = load("sample_reviews.json");
+  const withContact = sample.find((m: any) => m.contact);
+  const fixed = refreshSampleContacts([
+    { ...withContact, contact: `guest-${withContact.id}@example.invalid` },
+    { ...withContact, id: "g7", contact: "someone@example.invalid" },      // not a sample message
+    { ...withContact, id: "g8", contact: "+977 98-0000-0000" },             // the owner's own entry
+  ]);
+  expect(fixed.map((m) => m.contact)).toEqual([withContact.contact, "someone@example.invalid", "+977 98-0000-0000"]);
+  expect(withContact.contact).toMatch(/^\+\d/);
 });
 
 describe("checks page and demo mode", () => {

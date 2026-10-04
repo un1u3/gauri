@@ -1,4 +1,5 @@
 // Everything the app knows lives in this one localStorage entry on the device (hard rule 7).
+import sample from "../data/sample_reviews.json";
 import { DEFAULT_MIN_MESSAGES } from "./ai/guardrails";
 import { DEFAULT_MODEL } from "./ai/prompts";
 import { DEFAULT_PROFILE, type IdeasResult, type Profile } from "./ideas/ideas";
@@ -17,9 +18,21 @@ const defaults = (): State => ({
   settings: { demo: false, model: DEFAULT_MODEL, minMessages: DEFAULT_MIN_MESSAGES, textSize: "normal", ui: "own", ownerLang: "ne" },
 });
 
+// Sample messages saved by an earlier version had placeholder e-mail contacts. Guests write by SMS,
+// so those get the phone number the sample has now. Messages the owner added herself are not touched.
+export function refreshSampleContacts(messages: Message[]): Message[] {
+  for (const m of messages) {
+    if (!m.contact?.endsWith("@example.invalid")) continue;
+    const current = sample.find((s) => s.id === m.id && s.text === m.text);
+    if (current) m.contact = current.contact;
+  }
+  return messages;
+}
+
 export function load(): State {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
+    if (saved?.messages) refreshSampleContacts(saved.messages);
     return saved ? { ...defaults(), ...saved, settings: { ...defaults().settings, ...saved.settings }, profile: { ...DEFAULT_PROFILE, ...saved.profile } } : defaults();
   } catch {
     return defaults();
