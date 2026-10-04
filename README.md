@@ -86,6 +86,8 @@ The guardrails (`src/ai/guardrails.ts`) are applied to every model output before
 
 The **जाँच (Checks)** screen (from Settings) runs these rules on fixed inputs in the browser and shows PASS/FAIL for each.
 
+**Colours come from the farm, not from a tech palette:** coffee-leaf green for actions, ripe-cherry red as the accent (red is green's complement, so it stands out without shouting), roasted-bean brown for text, the cream of lokta paper for backgrounds, and marigold as the highlight. Every text and background pair is checked for a contrast of at least 4.5:1, and no meaning depends on colour alone.
+
 The interface is laid out as a phone app (app bar with a one-tap language switch, bottom tab bar with count badges, a home feed with stats and language avatars, post-style cards, inline SVG icons) and ships a web-app manifest, so on a phone it can be added to the home screen and opens full-screen.
 
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.

@@ -22,6 +22,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Second look (citation completion pass) + precision metric: dev 1.650 → 1.750, test 1.350 → 1.525, Korean recall on test 20% → 80%, precision 100%. `npm run eval -- --no-second-look` measures without it. 93 tests.
 - Ideas matcher: stemmer fixed; 11/11 real model points get ideas; hand-written set 13/15.
 - Fresh held-out set (`--set final`), run once: SCORE 1.425, themes 4/4, per-language 100/100/60/100/90, precision 98%. No tuning after it. Do not tune on it.
+- Theme (team request): farm-derived palette — leaf green, cherry red accent, bean-brown text, lokta cream, marigold highlight. All text pairs ≥ 4.5:1 (computed). Only colour tokens changed.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

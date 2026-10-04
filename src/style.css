@@ -1,32 +1,35 @@
 /* Phone-app design: white app bar, feed of cards, bottom tab bar.
    All sizes in rem so the text-size setting and browser zoom scale everything.
+   Colours come from the farm: coffee-leaf green, ripe-cherry red (its complement, used as the accent),
+   roasted-bean brown for text, lokta-paper cream for backgrounds, marigold as the highlight.
    Text colours are checked for ≥ 4.5:1 contrast; nothing relies on colour alone
    (every coloured thing also has an icon, a label or a shape). */
 :root {
-  --ink: #14181a;
-  --muted: #545b60; /* 6.9:1 on white */
-  --page: #f1f3f2;
-  --card: #ffffff;
-  --line: #e2e6e4;
-  --edge: #6b7378; /* input borders, 4.8:1 on white */
-  --green: #0b5d3b; /* 7.6:1 on white */
-  --green-dark: #084630;
-  --green-tint: #e3f2ea;
-  --brand: linear-gradient(135deg, #084630 0%, #0b5d3b 45%, #0f7a5c 100%); /* white text ≥ 5.3:1 everywhere */
-  --rose: #a3173d;
-  --rose-tint: #ffe6ec;
-  --amber: #7a4a00;
-  --amber-tint: #ffefc9;
-  --red: #a11a1a;
-  --red-tint: #fdeaea;
-  --orange: #c2410c; /* white text 5.2:1 */
+  --ink: #2a1c12; /* dark roast */
+  --muted: #5e4c3e;
+  --page: #f6efe2; /* lokta paper */
+  --card: #fffdf8;
+  --line: #e6dcc8;
+  --edge: #7a6756;
+  --green: #155e3b; /* coffee leaf */
+  --green-dark: #0d4429;
+  --green-tint: #e3efdd;
+  --brand: linear-gradient(135deg, #0d4429 0%, #155e3b 50%, #2f6b3a 100%);
+  --rose: #9c1f27; /* ripe coffee cherry */
+  --rose-tint: #fbe6e3;
+  --amber: #734600;
+  --amber-tint: #fdebc0;
+  --red: #9c1f27;
+  --red-tint: #fbe6e3;
+  --orange: #9c1f27;
+  --gold: #f2b33d; /* marigold: highlight only, never behind small text */
   --radius: 1.15rem;
   --shadow: 0 1px 2px rgb(15 30 25 / 0.06), 0 6px 18px rgb(15 30 25 / 0.07);
   font-family: "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 100%;
   line-height: 1.55;
   color: var(--ink);
-  background: #dfe5e2;
+  background: #e7dcc6;
   -webkit-tap-highlight-color: transparent;
 }
 :root[data-size="large"] { font-size: 125%; }
@@ -57,14 +60,14 @@ ul { list-style: none; padding: 0; margin: 0; }
 
 /* ---------- app bar ---------- */
 header { position: sticky; top: 0; z-index: 5; }
-.appbar { display: flex; align-items: center; justify-content: space-between; background: rgb(255 255 255 / 0.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: calc(0.35rem + env(safe-area-inset-top)) 0.9rem 0.35rem; }
+.appbar { display: flex; align-items: center; justify-content: space-between; background: rgb(255 253 248 / 0.95); backdrop-filter: blur(10px); border-bottom: 0.2rem solid var(--gold); padding: calc(0.35rem + env(safe-area-inset-top)) 0.9rem 0.35rem; }
 .brand { display: flex; align-items: center; gap: 0.55rem; font-size: 1.5rem; font-weight: 700; margin: 0; color: var(--green-dark); }
 .logo { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 0.8rem; background: var(--brand); color: #fff; box-shadow: 0 3px 8px rgb(11 93 59 / 0.35); }
 .logo .icon { margin: 0; }
 button.pill { min-width: 4.2rem; margin: 0; padding: 0.3rem 0.8rem; border: 0; border-radius: 2rem; background: var(--page); color: var(--ink); }
 
 /* ---------- bottom tab bar (stays before <main> in the page, so it is read first) ---------- */
-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 30rem; background: rgb(255 255 255 / 0.96); backdrop-filter: blur(10px); border-top: 1px solid var(--line); padding: 0.25rem 0.4rem calc(0.25rem + env(safe-area-inset-bottom)); }
+nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 30rem; background: rgb(255 253 248 / 0.97); backdrop-filter: blur(10px); border-top: 1px solid var(--line); padding: 0.25rem 0.4rem calc(0.25rem + env(safe-area-inset-bottom)); }
 nav ul { display: grid; grid-template-columns: repeat(4, 1fr); }
 nav button { width: 100%; min-height: 3.7rem; margin: 0; padding: 0.3rem 0.1rem 0.2rem; display: flex; flex-direction: column; align-items: center; gap: 0.15rem; border: 0; border-radius: 0.9rem; background: none; color: var(--muted); font-size: 0.75rem; font-weight: 400; line-height: 1.35; box-shadow: none; }
 .tab-icon { position: relative; display: inline-flex; padding: 0.2rem 1.05rem; border-radius: 1.2rem; transition: background 0.2s; }
@@ -103,27 +106,28 @@ h1:focus { outline: none; }
 
 /* ---------- home: hero, stats, language stories ---------- */
 .hero { background: var(--brand); color: #fff; border-radius: 1.5rem; padding: 1.1rem 1rem 1rem; box-shadow: 0 10px 24px rgb(11 93 59 / 0.3); position: relative; overflow: hidden; }
-.hero::after { content: ""; position: absolute; width: 11rem; height: 11rem; border-radius: 50%; right: -3.5rem; top: -4.5rem; background: rgb(255 255 255 / 0.08); }
+.hero::after { content: ""; position: absolute; width: 11rem; height: 11rem; border-radius: 50%; right: -3.5rem; top: -4.5rem; background: rgb(242 179 61 / 0.22); }
 .hero-title { margin: 0 0 0.8rem; font-weight: 700; font-size: 1.05rem; }
+.hero-title .icon { color: var(--gold); }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 0.9rem; }
 .stats li { background: rgb(0 0 0 / 0.22); border-radius: 1rem; padding: 0.6rem 0.4rem; display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 0.8rem; }
 .stats .icon { margin: 0; }
 .stats strong { font-size: 1.6rem; line-height: 1.2; }
-button.cta { width: 100%; min-height: 3.4rem; margin: 0; border: 0; background: #fff; color: var(--green-dark); font-size: 1.05rem; box-shadow: 0 4px 12px rgb(0 0 0 / 0.18); position: relative; z-index: 1; }
+button.cta { width: 100%; min-height: 3.4rem; margin: 0; border: 0; background: var(--card); color: var(--green-dark); font-size: 1.05rem; box-shadow: 0 4px 12px rgb(0 0 0 / 0.18); position: relative; z-index: 1; }
 
 .stories { margin: 1.3rem 0 0.4rem; }
 .label { font-size: 0.8rem; font-weight: 700; color: var(--muted); margin: 0 0.2rem 0.5rem; }
 .stories ul { display: flex; gap: 0; overflow-x: auto; padding: 0.2rem 0.1rem 0.5rem; scrollbar-width: none; }
 .stories li { flex: 1 0 3.9rem; display: flex; flex-direction: column; align-items: center; font-size: 0.78rem; line-height: 1.3; }
-.ring { display: inline-flex; padding: 0.17rem; border-radius: 50%; background: conic-gradient(from 200deg, #f59e0b, #e11d48, #7c3aed, #0f7a5c, #f59e0b); margin-bottom: 0.25rem; }
+.ring { display: inline-flex; padding: 0.17rem; border-radius: 50%; background: conic-gradient(from 200deg, var(--gold), var(--rose), var(--green), var(--gold)); margin-bottom: 0.25rem; }
 .story-n { font-weight: 700; color: var(--muted); }
 
 /* Language avatar: coloured circle with the language's own letters. The name is always written next to it. */
 .avatar { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; color: #fff; font-weight: 700; font-size: 0.95rem; line-height: 1; background: var(--muted); }
-.avatar.en { background: #1d4ed8; }
-.avatar.ko { background: #be185d; }
-.avatar.hi { background: #c2410c; }
-.avatar.zh { background: #b91c1c; }
+.avatar.en { background: #1f4e79; }
+.avatar.ko { background: #8a2d5c; }
+.avatar.hi { background: #a84d14; }
+.avatar.zh { background: #9c1f27; }
 .avatar.ne { background: var(--green); }
 .avatar.story { width: 3.5rem; height: 3.5rem; font-size: 1.2rem; border: 0.18rem solid #fff; }
 .avatar.mini { width: 1.75rem; height: 1.75rem; font-size: 0.62rem; border: 2px solid #fff; margin-inline-start: -0.5rem; }
@@ -142,7 +146,7 @@ button.cta { width: 100%; min-height: 3.4rem; margin: 0; border: 0; background: 
 .meter span { display: block; height: 100%; border-radius: 1rem; background: var(--brand); }
 
 .skeleton { background: var(--card); border-radius: var(--radius); padding: 1rem; margin: 0.75rem 0; box-shadow: var(--shadow); }
-.skeleton span { display: block; height: 0.8rem; border-radius: 1rem; margin: 0.55rem 0; background: linear-gradient(90deg, #e9eeec 25%, #f6f8f7 45%, #e9eeec 65%); background-size: 200% 100%; animation: shimmer 1.3s linear infinite; }
+.skeleton span { display: block; height: 0.8rem; border-radius: 1rem; margin: 0.55rem 0; background: linear-gradient(90deg, #ece3d2 25%, #f8f2e6 45%, #ece3d2 65%); background-size: 200% 100%; animation: shimmer 1.3s linear infinite; }
 .skeleton span:nth-child(2) { width: 85%; }
 .skeleton span:nth-child(3) { width: 55%; }
 @keyframes shimmer { to { background-position: -200% 0; } }
