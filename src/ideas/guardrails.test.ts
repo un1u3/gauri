@@ -55,7 +55,7 @@ describe("4. guardrails", () => {
     expect(validateChosen({ chosen: [{ candidate_id: "L1", how_fr: "Demandez la veille.", first_step_fr: "Ce soir." }] }, "fr")?.[0].how).toBe("Demandez la veille.");
   });
   it("the profile is given to the model in words, with no digits", () => {
-    expect(describeProfile(DEFAULT_PROFILE)).toBe("She runs a farm-stay with three guest rooms in Gulmi district. She has no Wi-Fi and only occasional mobile internet. She can use a smartphone: weekends only. She has a very small budget. She speaks: Nepali. Help she has: daughter on weekends.");
+    expect(describeProfile(DEFAULT_PROFILE)).toBe("She runs a farm-stay with three guest rooms in Gulmi district. She has no Wi-Fi and only occasional mobile internet. She can use a smartphone: weekends only. She has a very small budget. She speaks: Nepali. Help she has: a family member on weekends.");
   });
 });
 

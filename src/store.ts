@@ -37,11 +37,18 @@ export function repairLanguageLabels(messages: Message[]): Message[] {
   return messages;
 }
 
+// Smartphone access and helpers are now fixed choices; a free-text value saved earlier becomes the default.
+function knownChoices(p: Profile): Profile {
+  if (!["every day", "weekends only", "rarely"].includes(p.smartphone_days)) p.smartphone_days = DEFAULT_PROFILE.smartphone_days;
+  if (!["", "a family member on weekends", "a family member every day"].includes(p.helpers)) p.helpers = DEFAULT_PROFILE.helpers;
+  return p;
+}
+
 export function load(): State {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
     if (saved?.messages) repairLanguageLabels(refreshSampleContacts(saved.messages));
-    return saved ? { ...defaults(), ...saved, settings: { ...defaults().settings, ...saved.settings }, profile: { ...DEFAULT_PROFILE, ...saved.profile } } : defaults();
+    return saved ? { ...defaults(), ...saved, settings: { ...defaults().settings, ...saved.settings }, profile: knownChoices({ ...DEFAULT_PROFILE, ...saved.profile }) } : defaults();
   } catch {
     return defaults();
   }

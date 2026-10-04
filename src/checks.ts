@@ -53,7 +53,7 @@ export async function runChecks(): Promise<Check[]> {
   const OK = "अघिल्लो साँझ पाहुनालाई सोध्नुहोस्।";
   const cards = applyIdeaGuardrails([
     { candidate_id: "L9", how: OK, first_step: OK },                       // an id the model made up
-    { candidate_id: "L1", how: "बिहान ७ बजे खाना दिनुहोस्।", first_step: OK },   // a number
+    { candidate_id: "L1", how: "बिहान 7 बजे खाना दिनुहोस्।", first_step: OK },   // a number
     { candidate_id: "L2", how: "यसको शुल्क लिनुहोस्।", first_step: OK },        // money
     { candidate_id: "D1", how: OK, first_step: "लाइसेन्स लिनुहोस्।" },          // a legal claim
   ], candidates, "ne");
@@ -80,11 +80,11 @@ export async function runChecks(): Promise<Check[]> {
     validateAnalysis(reply("ko", "पाहुनालाई वाइफाइ चाहियो।"), "ko") === null;
 
   return [
-    { en: "5 messages (fewer than 8) → “not enough feedback”, model not called", ne: "५ सन्देश (८ भन्दा कम) → “पर्याप्त प्रतिक्रिया छैन”, मोडेल चल्दैन", pass: few.status === "not_enough_feedback" && calls === 0 },
+    { en: "5 messages (fewer than 8) → “not enough feedback”, model not called", ne: "5 सन्देश (8 भन्दा कम) → “पर्याप्त प्रतिक्रिया छैन”, मोडेल चल्दैन", pass: few.status === "not_enough_feedback" && calls === 0 },
     { en: "Citations to messages that do not exist are removed", ne: "नभएका सन्देशको हवाला हटाइन्छ", pass: fake.loved[0]?.message_ids.join() === "a1,a2" },
     { en: "A point from only one guest is moved to “not sure”", ne: "एक जना पाहुनाको कुरा “निश्चित छैन” मा जान्छ", pass: single.wished.length === 0 && single.uncertain.length === 1 },
     { en: "A point with no real source is not shown at all", ne: "स्रोत नभएको कुरा देखाइँदैन", pass: invented.loved.length === 0 && invented.uncertain.length === 0 },
-    { en: "A suggestion from fewer than 2 guests is not shown as a suggestion", ne: "२ भन्दा कम पाहुनाबाट आएको सुझाव देखाइँदैन", pass: upgrade.upgrade === null && upgrade.uncertain.length === 1 },
+    { en: "A suggestion from fewer than 2 guests is not shown as a suggestion", ne: "2 भन्दा कम पाहुनाबाट आएको सुझाव देखाइँदैन", pass: upgrade.upgrade === null && upgrade.uncertain.length === 1 },
     { en: "Broken model output → one retry → “not sure”, never displayed", ne: "बिग्रेको उत्तर → एक पटक फेरि प्रयास → “निश्चित छैन”, कहिल्यै देखाइँदैन", pass: refused && tries === 2 },
     { en: "Text in the owner's language must really be in that language (tested: Nepali, Arabic, Korean)", ne: "मालिकको भाषाको पाठ साँच्चै त्यही भाषामा हुनुपर्छ (जाँचिएको: नेपाली, अरबी, कोरियाली)", pass: ownLanguageChecked },
     { en: "Languages behind a point are computed from the messages, not by the model", ne: "भाषाको सूची सन्देशबाट गनिन्छ, मोडेलबाट होइन", pass: languagesOf(point(["a1", "a2", "a3"]), MSGS).join() === "en,ko,ne" },

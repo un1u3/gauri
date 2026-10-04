@@ -8,7 +8,7 @@ import { applyGuardrails, hasEnoughFeedback, languagesOf, NotSureError, notEnoug
 import { OllamaError } from "./ai/ollama";
 import { runChecks, type Check } from "./checks";
 import { icon } from "./icons";
-import { hasLabels, KEYS, setPacks, translate, type Key } from "./i18n";
+import { hasLabels, KEYS, labelsFor, missingLabels, setPacks, translate, type Key } from "./i18n";
 import { COMMON_LANGS, isRtl, langName, languagesIn, UNKNOWN } from "./lang";
 import { IDEAS } from "./ideas/data";
 import { getIdeas, offlineIdeas, type IdeasResult } from "./ideas/ideas";
@@ -198,7 +198,7 @@ async function toggleIdeas(section: Section, p: Point, key: string) {
     if (el) el.textContent = t("elapsed", Math.round((Date.now() - ideasBusy.get(k)!) / 1000));
   }, 1000);
   // Demo mode never calls the model; a failing model falls back to the original ideas inside getIdeas.
-  state.ideas[k] = state.settings.demo ? offlineIdeas(p.point_en, section, IDEAS, owner()) : await getIdeas(p.point_en, section, state.profile, cfg(), IDEAS);
+  state.ideas[k] = state.settings.demo ? offlineIdeas(p.point_en, section, IDEAS, owner()) : await getIdeas(p.point_en, section, { ...state.profile, host_languages: [langName(owner(), "en")] }, cfg(), IDEAS);
   clearInterval(timer);
   ideasBusy.delete(k);
   announce(state.ideas[k].status === "no_match" ? t("noIdea") : t("ideasReady"));
@@ -215,23 +215,35 @@ function listenIdeas(p: Point, r: IdeasResult) {
   }
 }
 
-async function translateApp() {
-  if (translating) return;
-  const lang = owner(); // fixed for this run, whatever is picked meanwhile
+// Translate the app's labels into the owner's language, a batch at a time. Each batch is saved and shown
+// as soon as it arrives. If the model stops part-way (out of memory, switched off), what is done is kept
+// and the rest is tried again shortly; nothing is translated twice.
+async function translateApp(attempt = 1) {
+  if (translating && attempt === 1) return;
+  const lang = owner();
+  const todo = missingLabels(lang).length;
+  if (!todo) return;
   error = null;
-  translating = [0, KEYS.length];
+  translating = [KEYS.length - todo, KEYS.length];
   render();
   try {
-    const pack = await translateLabels({ ...cfg(), ownerLang: lang }, (done, total) => { translating = [done, total]; render(); });
-    const n = Object.keys(pack).length;
-    if (n) state.packs[lang] = pack; // labels that failed their check stay in English
-    setPacks(state.packs);
+    await translateLabels({ ...cfg(), ownerLang: lang }, labelsFor(lang), (done, left) => {
+      state.packs[lang] = { ...state.packs[lang], ...done };
+      setPacks(state.packs);
+      translating = [KEYS.length - left, KEYS.length];
+      commit();
+    });
     translating = null;
-    commit();
-    announce(t("translated", n, KEYS.length));
+    render();
+    announce(t("translated", KEYS.length - missingLabels(lang).length, KEYS.length));
   } catch (e) {
+    const message = errorText(e);
+    if (attempt < 3 && owner() === lang) { // the model usually comes back by itself after a few seconds
+      await new Promise((r) => setTimeout(r, 15000));
+      return translateApp(attempt + 1);
+    }
     translating = null;
-    error = errorText(e);
+    error = message;
     announce(error);
     render();
   }
@@ -514,23 +526,25 @@ function settingsScreen(): Child[] {
         s.ui = "own";
         set("ownerLang", (e.target as HTMLSelectElement).value);
         // No labels in this language yet: translate them now, so choosing a language is all it takes.
-        if (!hasLabels(s.ownerLang) && !s.demo) translateApp();
+        if (missingLabels(s.ownerLang).length && !s.demo) translateApp();
       } }, ...langOptions(s.ownerLang))),
       h("p", { class: "small" }, t("myLangHelp")),
       // Shown only if the translation did not run or failed (model off, demo mode): try again by hand.
-      !hasLabels(s.ownerLang) && !translating && h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp"))),
-      !!state.packs[s.ownerLang] && h("p", { class: "notice" }, icon("ℹ️"), t("aiLabels")),
+      missingLabels(s.ownerLang).length > 0 && !translating && h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), () => translateApp(), { class: "primary wide" }), h("p", { class: "small" }, t("translateLeft", missingLabels(s.ownerLang).length))),
+      hasLabels(s.ownerLang) && s.ownerLang !== "ne" && s.ownerLang !== "en" && h("p", { class: "notice" }, icon("ℹ️"), t("aiLabels")),
       choice("🔤", "size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize))),
     h("h2", { class: "sec" }, icon("🌱"), t("profileTitle")),
     h("div", { class: "card" },
       h("p", { class: "small" }, t("profileHelp")),
       field("🔢", "p-rooms", "pRooms", h("input", { type: "number", id: "p-rooms", min: "1", max: "10", value: String(pr.rooms), onchange: (e: Event) => setProfile("rooms", Math.min(10, Math.max(1, Number((e.target as HTMLInputElement).value) || pr.rooms))) })),
       field("📅", "p-district", "pDistrict", h("input", { type: "text", id: "p-district", value: pr.district, onchange: (e: Event) => setProfile("district", (e.target as HTMLInputElement).value.trim() || pr.district) })),
-      field("📱", "p-smartphone", "pSmartphone", h("input", { type: "text", id: "p-smartphone", value: pr.smartphone_days, onchange: (e: Event) => setProfile("smartphone_days", (e.target as HTMLInputElement).value.trim()) })),
+      // Fixed choices, shown in the owner's language; the model is given the English value.
+      field("📱", "p-smartphone", "pSmartphone", h("select", { id: "p-smartphone", onchange: (e: Event) => setProfile("smartphone_days", (e.target as HTMLSelectElement).value) },
+        ...([["every day", "optEveryDay"], ["weekends only", "optWeekends"], ["rarely", "optRarely"]] as [string, Key][]).map(([v, k]) => h("option", { value: v, selected: v === pr.smartphone_days }, t(k))))),
       field("🔢", "p-budget", "pBudget", h("select", { id: "p-budget", onchange: (e: Event) => setProfile("budget", (e.target as HTMLSelectElement).value as typeof pr.budget) },
         ...([["very_small", "budgetVerySmall"], ["small", "budgetSmall"], ["some", "budgetSome"]] as [string, Key][]).map(([v, k]) => h("option", { value: v, selected: v === pr.budget }, t(k))))),
-      field("💬", "p-languages", "pLanguages", h("input", { type: "text", id: "p-languages", value: pr.host_languages.join(", "), onchange: (e: Event) => setProfile("host_languages", (e.target as HTMLInputElement).value.split(",").map((x) => x.trim()).filter(Boolean)) })),
-      field("👤", "p-helpers", "pHelpers", h("input", { type: "text", id: "p-helpers", value: pr.helpers, onchange: (e: Event) => setProfile("helpers", (e.target as HTMLInputElement).value.trim()) })),
+      field("👤", "p-helpers", "pHelpers", h("select", { id: "p-helpers", onchange: (e: Event) => setProfile("helpers", (e.target as HTMLSelectElement).value) },
+        ...([["", "optNoHelp"], ["a family member on weekends", "optHelpWeekends"], ["a family member every day", "optHelpDaily"]] as [string, Key][]).map(([v, k]) => h("option", { value: v, selected: v === pr.helpers }, t(k))))),
       h("div", { class: "field check" },
         h("input", { type: "checkbox", id: "p-wifi", checked: pr.has_wifi, onchange: (e: Event) => setProfile("has_wifi", (e.target as HTMLInputElement).checked) }),
         h("label", { for: "p-wifi" }, icon("🌐"), t("pWifi")))),

@@ -4,7 +4,7 @@ import { runChecks } from "../src/checks";
 import { datedThisWeek, fromJson, fromPaste, recent, WINDOW_DAYS } from "../src/messages";
 import { detectLang, guessLang, langName, scriptHint, writtenIn } from "../src/lang";
 import { labelOk, translateLabels } from "../src/ai/translate";
-import { ENGLISH, KEYS, setPacks, translate } from "../src/i18n";
+import { ENGLISH, KEYS, missingLabels, setPacks, translate } from "../src/i18n";
 import { applyGuardrails } from "../src/ai/guardrails";
 import { MOCK_ANALYSIS } from "../src/mock";
 import { refreshSampleContacts, repairLanguageLabels } from "../src/store";
@@ -127,22 +127,56 @@ describe("any language", () => {
     expect(labelOk("Delete", "Delete", "hi")).toBe(false);
     expect(labelOk("Delete", "हटाएँ", "hi")).toBe(true);
   });
-  it("labels are translated on the device; any that fail the check stay in English", async () => {
-    // Fake model: answers every label with a Hindi word, except it breaks one placeholder and leaves one in English.
+  // Fake model: answers every label with a Devanagari word, except it breaks one placeholder and leaves one in English.
+  const fakeModel = (failAfter = Infinity) => {
+    let calls = 0;
+    const asked: string[][] = [];
     vi.stubGlobal("fetch", vi.fn(async (_url: string, init: any) => {
+      if (++calls > failAfter) throw new TypeError("fetch failed"); // the model went away (out of memory)
       const labels = JSON.parse(JSON.parse(init.body).messages[1].content);
+      asked.push(Object.keys(labels));
       const out = Object.fromEntries(Object.entries(labels).map(([k, v]) => [k, k === "count" ? "सन्देश" : k === "add" ? "Add" : `शब्द ${(String(v).match(/\{\d\}/g) ?? []).join(" ")}`]));
       return new Response(JSON.stringify({ message: { content: JSON.stringify(out) } }));
     }));
-    const progress: number[] = [];
-    const pack = await translateLabels({ baseUrl: "", model: "fake", minMessages: 8, ownerLang: "hi" }, (done) => progress.push(done));
-    expect(Object.keys(pack).length).toBe(KEYS.length - 2);
-    expect([pack.count, pack.add]).toEqual([undefined, undefined]);
-    expect(progress.at(-1)).toBe(KEYS.length);
-    setPacks({ hi: pack });
-    expect(translate("hi", "count", 3)).toBe(ENGLISH.count.replace("{0}", "3")); // failed label → English
-    expect(translate("hi", "notEnough", 2, 8)).toBe("शब्द 2 8");
+    return asked;
+  };
+  const cfg = { baseUrl: "", model: "fake", minMessages: 8, ownerLang: "mr" };
+
+  it("labels are translated on the device; any that fail the check stay in English", async () => {
+    fakeModel();
+    const pack: Record<string, string> = {};
+    const left: number[] = [];
+    await translateLabels(cfg, {}, (done, n) => { Object.assign(pack, done); left.push(n); });
+    expect(Object.keys(pack).length).toBe(KEYS.length);
+    expect([pack.count, pack.add, left.at(-1)]).toEqual(["", "", 0]); // failed labels are recorded as "", so they are not retried
+    setPacks({ mr: pack });
+    expect(translate("mr", "count", 3)).toBe(ENGLISH.count.replace("{0}", "3")); // failed label → English
+    expect(translate("mr", "notEnough", 2, 8)).toBe("शब्द 2 8");
+    expect(missingLabels("mr")).toEqual([]);
     expect(translate("sw", "add")).toBe("Add"); // no labels yet for this language → English
     expect(translate("ne", "add")).toBe("थप्नुहोस्");
+  });
+
+  it("if the model stops part-way, what is done is kept and only the rest is asked for next time", async () => {
+    fakeModel(2); // two batches succeed, then the model is gone
+    const pack: Record<string, string> = {};
+    await expect(translateLabels(cfg, pack, (done) => Object.assign(pack, done))).rejects.toThrow();
+    const kept = Object.keys(pack).length;
+    expect(kept).toBe(32);
+    const asked = fakeModel();
+    await translateLabels(cfg, pack, (done) => Object.assign(pack, done));
+    expect(asked.flat().length).toBe(KEYS.length - kept);
+    expect(asked.flat().some((k) => KEYS.slice(0, kept).includes(k as any))).toBe(false);
+    expect(Object.keys(pack).length).toBe(KEYS.length);
+  });
+
+  it("shipped label sets are complete and pass the same checks as on-device ones", () => {
+    const shipped = load("label_packs.json");
+    for (const [lang, pack] of Object.entries(shipped) as [string, Record<string, string>][]) {
+      expect(Object.keys(pack).sort(), lang).toEqual([...KEYS].sort());
+      const bad = KEYS.filter((k) => !labelOk(ENGLISH[k], pack[k], lang) && !/^[\p{Script=Latin}\d\s\p{P}]+$/u.test(pack[k]));
+      const placeholders = KEYS.filter((k) => (pack[k].match(/\{\d\}/g) ?? []).sort().join() !== (ENGLISH[k].match(/\{\d\}/g) ?? []).sort().join());
+      expect([lang, bad, placeholders]).toEqual([lang, [], []]);
+    }
   });
 });

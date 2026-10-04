@@ -41,7 +41,7 @@ To use another language: **सेटिङ (Settings)** → "मेरो भा
 Other commands:
 
 ```bash
-npm test                     # 103 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
+npm test                     # 105 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
@@ -140,7 +140,7 @@ Results (`npm run eval:ideas`, details in EVAL.md): matching put 13 of 15 hand-w
 Nothing in the code is tied to a particular language.
 
 - **Guests:** a message's language is a plain language code. It is guessed from the script (Japanese, Arabic, Cyrillic, Thai and others, not only the original five) and can be changed per message to any of 41 listed languages; other codes in imported files are kept. Language names come from the browser's built-in data, so no language files are shipped.
-- **Owner:** "My language" in Settings sets the language of summaries, draft meanings, read-aloud and labels. The prompt, the output schema and the guardrail's script check are all built from that setting.
+- **Owner:** "My language" in Settings sets the language of summaries, draft meanings, read-aloud and labels. Labels are hand-written in Nepali and English; complete AI-translated sets for Hindi, Chinese and Korean ship with the app (`data/label_packs.json`, not yet checked by a native speaker), so those switch instantly. For any other language the on-device model translates the labels, saving each batch as it goes: if the model stops part-way, what is done is kept and the rest is retried. The prompt, the output schema and the guardrail's script check are all built from that setting.
 - **Right-to-left** languages (Arabic, Hebrew, Urdu, Persian) are laid out right-to-left.
 - **What stays the same for Nepali:** for a Nepali-reading owner the prompt is byte-for-byte the one that was evaluated (a test enforces this), and the dev score after this change is unchanged (1.650).
 
@@ -157,6 +157,7 @@ Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-rea
 | `data/ideas_library.json` | Quotes from public guides: PNG Guesthouse Development Guidebook, ASEAN Homestay Standard, APEC community tourism manual, Airbnb host articles, Caritas Nepal, Kantipur | Short quotations with source and page; the guides belong to their publishers | 30 ideas | Guidebook ideas |
 | `data/drafted_ideas.json` | **AI-drafted** at build time, not from any source | MIT (this repo) | 100 ideas | "Gauri's idea" cards |
 | `data/synthetic_final.json` + `synthetic_final_truth.json` | **Synthetic**, written by the team after the first two sets had been looked at | MIT (this repo) | 40 messages, 8 per language | Second held-out set, run once |
+| `data/label_packs.json` | The app's 152 labels in Hindi, Chinese and Korean, translated by a large AI model at build time; **not checked by a native speaker** | MIT (this repo) | 3 languages | Instant switching to those languages |
 | `data/real_messages.json` | Real guest comments, with consent, names removed | — | **0 (empty slot)** | Import works; no real data collected yet |
 
 The sample reviews follow patterns found by web search in: a Helvetas Nepal article on homestay water and sanitation (hot water is boiled on request; squat toilets), travel write-ups of Ghale Gaun, Sirubari and Panauti ("treated like family", eating together, home cooking, cooking momos), satisfaction studies on NepJOL (language barrier without a guide, facilities, access), and Community Homestay Network coffee-farm experiences. We read search summaries of these, not full review archives, and no reviewer is quoted.

@@ -13,7 +13,7 @@ export type Profile = {
   rooms: number; district: string; has_wifi: boolean; smartphone_days: string;
   budget: "very_small" | "small" | "some"; host_languages: string[]; helpers: string;
 };
-export const DEFAULT_PROFILE: Profile = { rooms: 3, district: "Gulmi", has_wifi: false, smartphone_days: "weekends only", budget: "very_small", host_languages: ["Nepali"], helpers: "daughter on weekends" };
+export const DEFAULT_PROFILE: Profile = { rooms: 3, district: "Gulmi", has_wifi: false, smartphone_days: "weekends only", budget: "very_small", host_languages: ["Nepali"], helpers: "a family member on weekends" };
 
 // "ok": the model's explanation passed the checks (per card). "fallback": model unavailable or invalid →
 // original ideas only. "no_match": nothing in the library fits → ask a person.

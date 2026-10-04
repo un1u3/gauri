@@ -1,7 +1,9 @@
+import shippedPacks from "../data/label_packs.json";
+
 // UI text: [Nepali, English]. Nepali is the default; English is for judges.
 const S = {
   app: ["गौरी", "Gauri"],
-  heroTitle: ["पछिल्लो ७ दिनका पाहुनाको कुरा", "What guests said in the last 7 days"],
+  heroTitle: ["पछिल्लो 7 दिनका पाहुनाको कुरा", "What guests said in the last 7 days"],
   statMessages: ["सन्देश", "messages"],
   statLangs: ["भाषा", "languages"],
   statContacts: ["सम्पर्क", "contacts"],
@@ -18,7 +20,7 @@ const S = {
 
   summaryTitle: ["सारांश", "Summary"],
   analyse: ["प्रतिक्रिया विश्लेषण गर्नुहोस्", "Analyse feedback"],
-  analysing: ["विश्लेषण हुँदैछ… १–३ मिनेट लाग्न सक्छ।", "Analysing… this may take 1–3 minutes."],
+  analysing: ["विश्लेषण हुँदैछ… 1–3 मिनेट लाग्न सक्छ।", "Analysing… this may take 1–3 minutes."],
   elapsed: ["बितेको समय: {0} सेकेन्ड", "Elapsed: {0} seconds"],
   notEnough: ["अझै पर्याप्त प्रतिक्रिया छैन — {0}/{1} सन्देश", "Not enough feedback yet — {0} of {1} messages"],
   notEnoughHelp: ["थोरै सन्देशबाट गौरीले अनुमान गर्दैन। थप सन्देश आएपछि फेरि हेर्नुहोस्।", "Gauri does not guess from a few messages. Check again when more arrive."],
@@ -70,7 +72,12 @@ const S = {
   budgetVerySmall: ["धेरै थोरै", "Very small"],
   budgetSmall: ["थोरै", "Small"],
   budgetSome: ["केही छ", "Some"],
-  pLanguages: ["मैले बोल्ने भाषा (अल्पविरामले छुट्याउनुहोस्)", "Languages I speak (separate with commas)"],
+  optEveryDay: ["हरेक दिन", "Every day"],
+  optWeekends: ["शनिबार–आइतबार मात्र", "Weekends only"],
+  optRarely: ["कहिलेकाहीँ मात्र", "Rarely"],
+  optNoHelp: ["कोही छैन", "Nobody"],
+  optHelpWeekends: ["परिवारको सदस्य, शनिबार–आइतबार", "A family member, at weekends"],
+  optHelpDaily: ["परिवारको सदस्य, हरेक दिन", "A family member, every day"],
   pHelpers: ["सघाउने मान्छे", "Helpers"],
 
   advanced: ["टोलीका लागि (थप सेटिङ र डेमो)", "For the team (advanced and demo)"],
@@ -90,7 +97,7 @@ const S = {
   add: ["थप्नुहोस्", "Add"],
   importFile: ["JSON फाइलबाट ल्याउनुहोस्", "Import from a JSON file"],
   importBad: ["यो फाइल पढ्न सकिएन। सन्देशको सूची भएको JSON फाइल चाहिन्छ।", "Could not read this file. It must be a JSON list of messages."],
-  loadSample: ["नमुना सन्देश राख्नुहोस् (बनावटी, ४० वटा, ९ भाषा)", "Load sample messages (synthetic, 40, 9 languages)"],
+  loadSample: ["नमुना सन्देश राख्नुहोस् (बनावटी, 40 वटा, 9 भाषा)", "Load sample messages (synthetic, 40, 9 languages)"],
   added: ["{0} सन्देश थपियो।", "{0} messages added."],
   language: ["भाषा", "Language"],
   synthetic: ["बनावटी", "synthetic"],
@@ -125,11 +132,12 @@ const S = {
   myLang: ["मेरो भाषा", "My language"],
   myLangHelp: ["सारांश, अर्थ र आवाज यही भाषामा आउँछ। पाहुनाले जुनसुकै भाषामा लेख्न सक्छन्।", "Summaries, meanings and read-aloud use this language. Guests can write in any language."],
   translateApp: ["एपका शब्द {0} मा अनुवाद गर्नुहोस्", "Translate the app's labels into {0}"],
-  translateHelp: ["यही यन्त्रको AI ले एक पटक अनुवाद गर्छ। १–३ मिनेट लाग्छ; त्यतिन्जेल एप अंग्रेजीमा देखिन्छ।", "The AI on this device translates the labels once. It takes 1–3 minutes; until then the app shows English."],
+  translateHelp: ["यही यन्त्रको AI ले एक पटक अनुवाद गर्छ। 1–3 मिनेट लाग्छ; त्यतिन्जेल एप अंग्रेजीमा देखिन्छ।", "The AI on this device translates the labels once. It takes 1–3 minutes; until then the app shows English."],
   translatingInto: ["एपलाई {0} मा बदल्दैछ… {1}/{2}", "Switching the app to {0}… {1} of {2}"],
   summaryOtherLang: ["यो सारांश {0} मा छ। {1} मा पाउन फेरि विश्लेषण गर्नुहोस्।", "This summary is in {0}. Analyse again to get it in {1}."],
   translated: ["अनुवाद भयो: {0}/{1} शब्द।", "Translated {0} of {1} labels."],
-  aiLabels: ["एपका यी शब्द AI ले अनुवाद गरेको हो; गल्ती हुन सक्छ।", "The app's labels in this language were translated by the on-device AI and may contain mistakes."],
+  translateLeft: ["{0} वटा शब्द अझै अंग्रेजीमा छन्। बटन थिच्दा बाँकी मात्र अनुवाद हुन्छ।", "{0} labels are still in English. The button translates only those."],
+  aiLabels: ["यस भाषामा एपका शब्द AI ले अनुवाद गरेको हो, मान्छेले जाँचेको छैन; गल्ती हुन सक्छ।", "The app's labels in this language were translated by AI and have not been checked by a person; they may contain mistakes."],
   unknownLang: ["थाहा छैन", "Not known"],
   textSize: ["अक्षरको आकार", "Text size"],
   sizeNormal: ["सामान्य", "Normal"],
@@ -159,13 +167,21 @@ export type Key = keyof typeof S;
 export const KEYS = Object.keys(S) as Key[];
 export const ENGLISH = Object.fromEntries(KEYS.map((k) => [k, S[k][1]])) as Record<Key, string>;
 
-// Label sets for other languages, translated on the device (see src/ai/translate.ts).
-let packs: Record<string, Partial<Record<Key, string>>> = {};
-export const setPacks = (p: typeof packs) => (packs = p);
-// Nepali and English are hand-written; any other language needs a translated set.
+// Label sets for other languages: some ship with the app (data/label_packs.json), the rest are
+// translated on the device (src/ai/translate.ts). What is on the device adds to what ships.
+type Packs = Record<string, Partial<Record<Key, string>>>;
+const shipped = shippedPacks as Packs;
+let packs: Packs = shipped;
+export function setPacks(onDevice: Packs) {
+  packs = Object.fromEntries([...new Set([...Object.keys(shipped), ...Object.keys(onDevice)])].map((l) => [l, { ...onDevice[l], ...shipped[l] }]));
+}
+// Nepali and English are hand-written; any other language needs a label set.
 export const hasLabels = (lang: string) => lang === "ne" || lang === "en" || !!packs[lang];
+// Labels not yet available in a language (none for Nepali and English).
+export const missingLabels = (lang: string): Key[] => (lang === "ne" || lang === "en" ? [] : KEYS.filter((k) => !(k in (packs[lang] ?? {}))));
+export const labelsFor = (lang: string) => packs[lang] ?? {};
 
 export function translate(lang: string, key: Key, ...args: (string | number)[]): string {
-  const text = lang === "ne" ? S[key][0] : lang === "en" ? S[key][1] : packs[lang]?.[key] ?? S[key][1];
+  const text = lang === "ne" ? S[key][0] : lang === "en" ? S[key][1] : packs[lang]?.[key] || S[key][1];
   return text.replace(/\{(\d)\}/g, (_, i) => String(args[+i]));
 }

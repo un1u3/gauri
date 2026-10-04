@@ -55,6 +55,8 @@ describe("rule 3: points with < 2 valid citations move to uncertain", () => {
 it("raw message ids are removed from the model's own 'not sure' notes", () => {
   const a = applyGuardrails(raw({ uncertain: [{ note_en: "Is the farm open in December? [m01]", note_own: "डिसेम्बरमा खुला छ? (m01)" }] }), messages, meta);
   expect(a.uncertain[0]).toEqual({ note_en: "Is the farm open in December?", note_own: "डिसेम्बरमा खुला छ?" });
+  const b = applyGuardrails(raw({ uncertain: [{ note_en: "Cash only was inconvenient.", note_own: "नगद मात्र चल्यो।\nmessage_ids\": [\"r27\"]" }] }), messages, meta);
+  expect(b.uncertain[0].note_own).toBe("नगद मात्र चल्यो।");
 });
 
 describe("rule 4: upgrade needs ≥ 2 citations", () => {

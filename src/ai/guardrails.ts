@@ -88,9 +88,10 @@ export function applyGuardrails(raw: RawAnalysis, messages: Message[], meta: { m
     demote(upgrade, "weak_upgrade");
     upgrade = null;
   }
-  // The model sometimes leaves a raw id like "[m01]" in a note; ids mean nothing to the owner.
-  const tidy = (t: string) => t.replace(/\s*[[(]\s*[a-z]{1,2}\d+\s*[\])]/gi, "").trim();
-  uncertain.push(...raw.uncertain.map((u) => ({ note_en: tidy(u.note_en), note_own: tidy(u.note_own) })));
+  // The model sometimes leaves raw output in a note: an id like "[m01]", or a stray `message_ids": [...]`
+  // after a line break. Ids and JSON mean nothing to the owner, so they are cut.
+  const tidy = (t: string) => t.split(/\n|"?message_ids/)[0].replace(/\s*[[(]\s*[a-z]{1,2}\d+\s*[\])]/gi, "").trim();
+  uncertain.push(...raw.uncertain.map((u) => ({ note_en: tidy(u.note_en), note_own: tidy(u.note_own) })).filter((u) => u.note_own));
 
   return { status: "ok", n_messages: messages.length, loved, wished, upgrade, uncertain, ...meta, created_at: new Date().toISOString() };
 }

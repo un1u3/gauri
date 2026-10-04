@@ -3,8 +3,10 @@
 Recovery: read this file, run `npm test`, continue from **Now**.
 
 ## Now
-- Steps 0–6b done and pushed (~10:30). Step 7 stretch needs the team: Android phone via Termux, TalkBack + Nepali voice test. FLORES score not started.
-- `npm run eval -- --set test` now keeps the hand-written part of EVAL.md (from "## What the numbers say"), but the numbers in that text and in README must then be updated by hand.
+- Feature-complete and pushed. Remaining work is the team's: record the video, review `data/review_sheet.csv` (all ideas still "pending"), fill the submission form. Code freeze 16:15.
+- Not done: FLORES Nepali translation score (stopped by the team), phone packaging, TalkBack / Nepali voice test on a real phone, real guest messages.
+- Before any model run check `free -h`; the model is OOM-killed when Brave + VS Code are open.
+- `npm run eval -- --set test` keeps the hand-written part of EVAL.md, but numbers quoted in that text and in README must be updated by hand.
 
 ## Done (one line each, with check result)
 - Step 0 (10:00–10:05): Ollama 0.32.1 up, `gemma4:e2b` answers. 3 prompts run: translation 17.6s (13s was model load), 6-message analysis 9.2s, Korean draft 5.2s. Nepali output readable.
@@ -29,6 +31,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Inbox (team request): Messages screen is an SMS inbox for the last 7 days (`WINDOW_DAYS`); summary, stats, thank-yous and badge all use the same window. Paste / JSON import / sample moved to Settings → For the team. Sample is re-dated across the last 7 days on load. Older messages hidden, deletable. 99 tests; inbox 9/9 and flow browser checks pass. Summary title is now just "सारांश" (not monthly).
 - Language switching fix (team report): choosing a language with no labels now starts the on-device label translation itself (progress on every screen, picker locked meanwhile); the EN switch is hidden when it has nothing to switch to; a summary in the previous language says so. Real-model check: Hindi in 153s, 10/10 pass.
 - Per-message language picker removed from the inbox (team question: the owner cannot read guest languages). Language is detected by script + common words (`detectLang`; 160/160 on bundled sets), drafts use the detected language when sure, impossible saved labels are repaired on load. Draft prompt wording unchanged (a reworded version made drafts worse: reverted).
+- Language consistency pass (team report: app stayed mostly English): label translation is now incremental and resumable (each batch saved, retried after a model crash); complete label sets for hi / zh / ko ship in `data/label_packs.json` (AI-translated, unchecked); profile fields are translated choices; one digit style in Nepali; raw `message_ids` junk stripped from "not sure" notes. 105 tests; dev SCORE 1.750; inbox 9/9, flow 10/10.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.
@@ -68,6 +71,9 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 
 - OOM: with Brave + VS Code + a second Claude session open, Ollama's runner gets killed (`journalctl -u ollama` shows oom-kill; the app shows "AI model is not running"). Check `free -h` before any model run; never leave headless Chrome running after a failed test (`pkill -f "[c]hrome.*--headless"` — the brackets stop pkill matching its own shell).
 - A crashed browser test leaves Chrome processes behind; the test script must not be left to throw.
+
+- Cause of "app is English after changing language": the model was OOM-killed mid label-translation and all progress was discarded. Never hold results of a long multi-call job only in memory.
+- New label keys must also be added to `data/label_packs.json` for hi / zh / ko (a test fails otherwise).
 
 ## Open questions for the team
 1. Is there an Android phone with a Nepali TTS voice for testing?
