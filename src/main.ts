@@ -21,6 +21,7 @@ let screen: Screen = "summary";
 let busySince: number | null = null; // analysis running since (ms)
 let error: string | null = null;
 let noVoice = false;
+let entering = false;
 let checks: Check[] | null = null;
 const open = new Set<string>(); // expanded source lists
 const drafting = new Set<string>(); // message ids being drafted
@@ -161,56 +162,77 @@ function listen() {
 }
 
 // ---------- screens ----------
-function pointItem(p: Point, key: string): HTMLElement {
+// Round language badge, like a profile picture. Decoration: the language name is always written next to it.
+const AVATAR: Record<Lang, string> = { en: "EN", ko: "한", hi: "हि", zh: "中", ne: "ने" };
+const avatar = (l: Lang, cls = "") => h("span", { class: `avatar ${l} ${cls}`, lang: l, "aria-hidden": "true" }, AVATAR[l]);
+const chip = (emoji: string, ...children: Child[]) => h("span", { class: "meta" }, icon(emoji), ...children);
+const alertBox = () => error && h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error);
+
+function pointItem(p: Point, key: string, emoji: string): HTMLElement {
   const langs = languagesOf(p, state.messages);
   const isOpen = open.has(key);
   const cited = p.message_ids.map((id) => state.messages.find((m) => m.id === id)).filter((m): m is Message => !!m);
-  return h("li", { class: "point" },
-    h("p", { lang: "ne", class: "big" }, p.point_ne),
-    state.settings.ui === "en" && h("p", { lang: "en" }, p.point_en),
+  return h("li", { class: `point ${key.replace(/\d+$/, "")}` },
+    h("div", { class: "point-head" },
+      h("span", { class: "badge" }, icon(emoji)),
+      h("div", {},
+        h("p", { lang: "ne", class: "big" }, p.point_ne),
+        state.settings.ui === "en" && h("p", { lang: "en", class: "small" }, p.point_en))),
     h("button", { type: "button", id: `src-${key}`, class: "link", "aria-expanded": String(isOpen), "aria-controls": `list-${key}`, onclick: () => { isOpen ? open.delete(key) : open.add(key); render(); } },
-      icon(isOpen ? "▼" : "▶"), t("basedOn", cited.length), " · ",
-      ...langs.flatMap((l, i) => [i ? ", " : "", h("span", { lang: l }, LANG_NAMES[l])])),
-    isOpen && h("ul", { id: `list-${key}`, class: "sources" }, ...cited.map(messageLine)),
+      h("span", { class: "pile" }, ...langs.map((l) => avatar(l, "mini"))),
+      h("span", { class: "link-text" }, t("basedOn", cited.length), " · ", ...langs.flatMap((l, i) => [i ? ", " : "", h("span", { lang: l }, LANG_NAMES[l])])),
+      icon(isOpen ? "▼" : "▶")),
+    isOpen && h("ul", { id: `list-${key}`, class: "sources" }, ...cited.map((m) =>
+      h("li", {}, avatar(m.lang), h("div", { class: "bubble" }, h("span", { class: "who", lang: m.lang }, LANG_NAMES[m.lang]), h("span", { lang: m.lang }, m.text))))),
   );
 }
 
-const messageLine = (m: Message) =>
-  h("li", {}, h("span", { class: "tag", lang: m.lang }, LANG_NAMES[m.lang]), " ", h("span", { lang: m.lang }, m.text));
-
 function section(titleKey: Key, emoji: string, points: Point[], prefix: string, emptyKey: Key): HTMLElement {
   return h("section", {},
-    h("h2", { class: `sec ${prefix}` }, icon(emoji), t(titleKey)),
-    points.length ? h("ul", { class: "points" }, ...points.map((p, i) => pointItem(p, `${prefix}${i}`))) : h("p", {}, t(emptyKey)),
+    h("h2", { class: `sec ${prefix}` }, icon(emoji), t(titleKey), points.length > 0 && h("span", { class: "count" }, String(points.length))),
+    points.length ? h("ul", { class: "points" }, ...points.map((p, i) => pointItem(p, `${prefix}${i}`, emoji))) : h("p", { class: "empty" }, t(emptyKey)),
   );
 }
 
 function summaryScreen(): Child[] {
   const a = state.analysis;
   const n = state.messages.length, min = state.settings.minMessages;
+  const present = LANGS.filter((l) => state.messages.some((m) => m.lang === l));
+  const stat = (emoji: string, value: number, label: Key) => h("li", {}, icon(emoji), h("strong", {}, String(value)), h("span", {}, t(label)));
   const out: Child[] = [
     h("h1", { tabindex: "-1" }, t("summaryTitle")),
     h("div", { class: "hero" },
-      h("p", {}, icon("💬"), t("count", n)),
-      button("analyse", "🔍", t("analyse"), runAnalysis, { class: "primary wide", disabled: busySince !== null })),
+      h("p", { class: "hero-title" }, icon("✨"), t("heroTitle")),
+      h("ul", { class: "stats" },
+        stat("💬", n, "statMessages"),
+        stat("🌐", present.length, "statLangs"),
+        stat("👤", state.messages.filter((m) => m.contact).length, "statContacts")),
+      button("analyse", "🔍", t("analyse"), runAnalysis, { class: "cta", disabled: busySince !== null })),
+    present.length > 0 && h("div", { class: "stories" },
+      h("p", { class: "label" }, t("guestLangs")),
+      h("ul", {}, ...present.map((l) =>
+        h("li", {}, h("span", { class: "ring" }, avatar(l, "story")), h("span", { class: "story-name", lang: l }, LANG_NAMES[l]), h("span", { class: "story-n" }, String(state.messages.filter((m) => m.lang === l).length)))))),
   ];
   if (busySince !== null) {
-    out.push(h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("analysing")), h("p", { id: "elapsed" }, t("elapsed", Math.round((Date.now() - busySince) / 1000)))));
+    out.push(
+      h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("analysing")), h("p", { id: "elapsed", class: "small" }, t("elapsed", Math.round((Date.now() - busySince) / 1000)))),
+      ...[0, 1, 2].map(() => h("div", { class: "skeleton", "aria-hidden": "true" }, h("span", {}), h("span", {}), h("span", {}))));
     return out;
   }
-  if (error) out.push(h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error));
+  out.push(alertBox());
   if (!hasEnoughFeedback(n, min) || a?.status === "not_enough_feedback") {
-    out.push(h("div", { class: "notice" }, h("p", { class: "big" }, icon("✋"), t("notEnough", n, min)), h("p", {}, t("notEnoughHelp"))));
+    out.push(h("div", { class: "notice" }, h("p", { class: "big" }, icon("✋"), t("notEnough", n, min)), h("p", {}, t("notEnoughHelp")),
+      h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${Math.min(100, (n / min) * 100)}%` }))));
     return out;
   }
   if (!a) {
-    out.push(h("p", {}, t("noAnalysis")));
+    out.push(h("p", { class: "empty" }, icon("ℹ️"), t("noAnalysis")));
     return out;
   }
   if (a.model === "demo") out.push(h("p", { class: "notice warn" }, icon("🎬"), t("demoOn")));
   out.push(
     h("div", { class: "row" },
-      button("listen", "🔊", t("listen"), listen),
+      button("listen", "🔊", t("listen"), listen, { class: "tonal" }),
       button("stop", "⏹", t("stop"), stopSpeaking)),
     noVoice && h("p", { class: "notice warn", role: "alert" }, icon("🔇"), t("noVoice")),
     section("loved", "❤️", a.loved, "loved", "none"),
@@ -218,16 +240,26 @@ function summaryScreen(): Child[] {
     section("upgrade", "💡", a.upgrade ? [a.upgrade] : [], "upgrade", "noUpgrade"),
     a.uncertain.length > 0 && h("section", { class: "uncertain" },
       h("h2", { class: "sec" }, icon("❓"), t("uncertain")),
-      h("ul", {}, ...a.uncertain.map((u) => h("li", {}, h("p", { lang: "ne" }, u.note_ne), state.settings.ui === "en" && h("p", { lang: "en" }, u.note_en))))),
+      h("ul", {}, ...a.uncertain.map((u) => h("li", {}, h("p", { lang: "ne" }, u.note_ne), state.settings.ui === "en" && h("p", { lang: "en", class: "small" }, u.note_en))))),
     h("footer", {},
       h("p", { class: "big" }, icon("🤝"), t("footer")),
-      h("p", { class: "small" }, t("info", a.model, a.seconds, a.n_messages))),
+      h("p", { class: "small" }, icon("🤖"), t("info", a.model, a.seconds, a.n_messages))),
   );
   return out;
 }
 
+// Header of a feed card: language avatar, who, and small facts with icons.
+const postHead = (m: Message, title: Child) =>
+  h("div", { class: "post-head" }, avatar(m.lang),
+    h("div", {},
+      h("strong", {}, title),
+      h("span", { class: "metas" },
+        chip("🌐", h("span", { lang: m.lang }, LANG_NAMES[m.lang])),
+        chip("📅", m.received_at),
+        m.synthetic && h("span", { class: "tag" }, icon("🧪"), t("synthetic")))));
+
 function messagesScreen(): Child[] {
-  const paste = h("textarea", { id: "paste", rows: "4" });
+  const paste = h("textarea", { id: "paste", rows: "3" });
   const file = h("input", { type: "file", id: "file", accept: ".json,application/json", onchange: async () => {
     error = null;
     try {
@@ -239,55 +271,53 @@ function messagesScreen(): Child[] {
     }
   } });
   return [
-    h("h1", { tabindex: "-1" }, t("messagesTitle")),
-    h("p", {}, t("count", state.messages.length)),
-    error && h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error),
-    h("label", { for: "paste" }, t("paste")),
-    paste,
-    button("add", "➕", t("add"), () => paste.value.trim() && addMessages(fromPaste(paste.value, state.messages)), { class: "primary" }),
-    h("label", { for: "file" }, icon("📂"), t("importFile")),
-    file,
-    button("sample", "🧪", t("loadSample"), () => addMessages(fromJson(sample, state.messages))),
-    state.messages.length === 0 && h("p", {}, t("noMessages")),
+    h("h1", { tabindex: "-1" }, t("messagesTitle"), h("span", { class: "count" }, String(state.messages.length))),
+    alertBox(),
+    h("div", { class: "card composer" },
+      h("label", { for: "paste" }, icon("✏️"), t("paste")),
+      paste,
+      button("add", "➕", t("add"), () => paste.value.trim() && addMessages(fromPaste(paste.value, state.messages)), { class: "primary wide" }),
+      h("label", { for: "file" }, icon("📂"), t("importFile")),
+      file,
+      button("sample", "🧪", t("loadSample"), () => addMessages(fromJson(sample, state.messages)), { class: "tonal wide" })),
+    state.messages.length === 0 && h("p", { class: "empty" }, icon("💬"), t("noMessages")),
     h("ul", { class: "cards" }, ...state.messages.map((m) =>
       h("li", {},
-        h("p", { lang: m.lang }, m.text),
-        h("p", { class: "small" }, m.received_at, m.synthetic && h("span", { class: "tag" }, icon("🧪"), t("synthetic"))),
-        h("div", { class: "row" },
-          h("label", { for: `lang-${m.id}` }, t("language")),
+        postHead(m, m.contact ?? t("guest")),
+        h("p", { lang: m.lang, class: "post-text" }, m.text),
+        h("div", { class: "actions" },
+          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" }),
+          h("label", { for: `lang-${m.id}` }, icon("🌐"), t("language")),
           h("select", { id: `lang-${m.id}`, onchange: (e: Event) => { m.lang = (e.target as HTMLSelectElement).value as Lang; commit(); } },
-            ...LANGS.map((l) => h("option", { value: l, lang: l, selected: l === m.lang }, LANG_NAMES[l]))),
-          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id) })),
+            ...LANGS.map((l) => h("option", { value: l, lang: l, selected: l === m.lang }, LANG_NAMES[l])))),
       ))),
   ];
 }
 
 function draftCard(d: Draft): HTMLElement {
-  const m = state.messages.find((x) => x.id === d.message_id);
+  const m = state.messages.find((x) => x.id === d.message_id)!;
   const setStatus = (s: Draft["status"]) => () => { d.status = s; editing.delete(d.id); commit(); };
   const box = h("textarea", { id: `edit-${d.id}`, rows: "4", lang: d.lang, value: d.text });
-  return h("li", {},
-    h("p", { class: "small" }, t("to"), ": ", m?.contact ?? "", " · ", h("span", { lang: d.lang }, LANG_NAMES[d.lang])),
-    h("h3", {}, t("meaning")),
-    h("p", { lang: "ne", class: "big" }, d.text_ne),
+  const approved = d.status === "approved";
+  return h("li", { class: approved ? "approved" : "" },
+    postHead(m, m.contact ?? t("guest")),
+    h("h3", {}, icon("💬"), t("theirMessage")),
+    h("p", { lang: m.lang, class: "quote" }, m.text),
+    h("h3", {}, icon("🌱"), t("meaning")),
+    h("p", { lang: "ne", class: "big reply" }, d.text_ne),
     edited.has(d.id) && h("p", { class: "small" }, icon("✏️"), t("edited")),
-    h("h3", {}, t("guestText")),
+    h("h3", {}, icon("🌐"), t("guestText")),
     editing.has(d.id)
       ? h("div", {}, h("label", { for: `edit-${d.id}` }, t("editLabel")), box,
-          button(`save-${d.id}`, "💾", t("saveEdit"), () => { d.text = box.value.trim() || d.text; edited.add(d.id); editing.delete(d.id); commit(); }, { class: "primary" }))
-      : h("p", { lang: d.lang }, d.text),
-    d.status === "approved"
-      ? h("div", {},
-          h("p", {}, icon("✅"), h("strong", {}, t("approved"))),
-          h("div", { class: "row" },
-            button(`copy-${d.id}`, "📋", t("copy"), () => copyDraft(d), { class: "primary" }),
-            button(`edit-btn-${d.id}`, "✏️", t("edit"), () => { d.status = "pending"; editing.add(d.id); commit(); }),
-            button(`discard-${d.id}`, "🗑", t("discard"), setStatus("discarded"))),
-          h("p", { id: `copied-${d.id}` }))
-      : h("div", { class: "row" },
-          button(`approve-${d.id}`, "✅", t("approve"), setStatus("approved"), { class: "primary" }),
-          button(`edit-btn-${d.id}`, "✏️", t("edit"), () => { editing.add(d.id); render(); }),
-          button(`discard-${d.id}`, "🗑", t("discard"), setStatus("discarded"))),
+          button(`save-${d.id}`, "💾", t("saveEdit"), () => { d.text = box.value.trim() || d.text; edited.add(d.id); editing.delete(d.id); commit(); }, { class: "primary wide" }))
+      : h("p", { lang: d.lang, class: "reply" }, d.text),
+    approved && h("p", { class: "status" }, icon("✅"), h("strong", {}, t("approved"))),
+    approved && button(`copy-${d.id}`, "📋", t("copy"), () => copyDraft(d), { class: "primary wide" }),
+    approved && h("p", { id: `copied-${d.id}`, class: "small" }),
+    h("div", { class: "actions three" },
+      !approved && button(`approve-${d.id}`, "✅", t("approve"), setStatus("approved"), { class: "ghost ok-text" }),
+      button(`edit-btn-${d.id}`, "✏️", t("edit"), () => { d.status = "pending"; editing.add(d.id); commit(); }, { class: "ghost" }),
+      button(`discard-${d.id}`, "🗑", t("discard"), setStatus("discarded"), { class: "ghost danger-text" })),
   );
 }
 
@@ -296,56 +326,60 @@ function followScreen(): Child[] {
   const waiting = state.messages.filter((m) => m.contact && !drafts.some((d) => d.message_id === m.id));
   return [
     h("h1", { tabindex: "-1" }, t("followTitle")),
-    h("p", { class: "notice" }, icon("✋"), t("neverSends")),
-    error && h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error),
-    h("h2", {}, t("drafts")),
-    drafts.length ? h("ul", { class: "cards" }, ...drafts.map(draftCard)) : h("p", {}, t("noDrafts")),
-    h("h2", {}, t("guests")),
+    h("p", { class: "notice safe" }, icon("🔒"), t("neverSends")),
+    alertBox(),
+    h("h2", { class: "sec" }, icon("📝"), t("drafts"), drafts.length > 0 && h("span", { class: "count" }, String(drafts.length))),
+    drafts.length ? h("ul", { class: "cards" }, ...drafts.map(draftCard)) : h("p", { class: "empty" }, t("noDrafts")),
+    h("h2", { class: "sec" }, icon("👤"), t("guests"), waiting.length > 0 && h("span", { class: "count" }, String(waiting.length))),
     waiting.length
       ? h("ul", { class: "cards" }, ...waiting.map((m) =>
           h("li", {},
-            h("p", { lang: m.lang }, m.text),
-            h("p", { class: "small" }, m.contact, " · ", h("span", { lang: m.lang }, LANG_NAMES[m.lang])),
+            postHead(m, m.contact),
+            h("p", { lang: m.lang, class: "post-text" }, m.text),
             drafting.has(m.id)
-              ? h("p", {}, icon("⏳"), t("drafting"))
-              : button(`draft-${m.id}`, "🙏", t("draft"), () => makeDraft(m), { "aria-label": `${t("draft")}: ${m.contact}` }))))
-      : h("p", {}, t("noGuests")),
+              ? h("p", { class: "notice busy" }, icon("⏳"), t("drafting"))
+              : button(`draft-${m.id}`, "🙏", t("draft"), () => makeDraft(m), { "aria-label": `${t("draft")}: ${m.contact}`, class: "tonal wide" }))))
+      : h("p", { class: "empty" }, t("noGuests")),
   ];
 }
 
 function settingsScreen(): Child[] {
   const s = state.settings;
   const set = <K extends keyof typeof s>(k: K, v: (typeof s)[K]) => { s[k] = v; commit(); };
-  const choice = (id: string, labelKey: Key, value: string, options: [string, string][], onchange: (v: string) => void) => [
-    h("label", { for: id }, t(labelKey)),
-    h("select", { id, onchange: (e: Event) => onchange((e.target as HTMLSelectElement).value) }, ...options.map(([v, text]) => h("option", { value: v, selected: v === value }, text))),
-  ];
+  const field = (emoji: string, id: string, labelKey: Key, control: HTMLElement) => h("div", { class: "field" }, h("label", { for: id }, icon(emoji), t(labelKey)), control);
+  const choice = (emoji: string, id: string, labelKey: Key, value: string, options: [string, string][], onchange: (v: string) => void) =>
+    field(emoji, id, labelKey, h("select", { id, onchange: (e: Event) => onchange((e.target as HTMLSelectElement).value) }, ...options.map(([v, text]) => h("option", { value: v, selected: v === value }, text))));
   return [
     h("h1", { tabindex: "-1" }, t("settingsTitle")),
-    ...choice("ui", "uiLang", s.ui, [["ne", "नेपाली"], ["en", "English"]], (v) => set("ui", v as typeof s.ui)),
-    ...choice("size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize)),
-    h("div", { class: "row" },
-      h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
-      h("label", { for: "demo" }, t("demo"))),
-    h("label", { for: "model" }, t("model")),
-    h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) }),
-    h("label", { for: "min" }, t("minMessages")),
-    h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) }),
-    h("h2", {}, icon("📝"), t("consentTitle")),
-    h("p", {}, t("consent")),
-    h("p", {}, icon("📱"), t("onDevice")),
-    button("checks", "🛡", t("openChecks"), () => go("checks")),
-    button("clear", "🗑", t("clear"), () => {
-      if (!confirm(t("clearConfirm"))) return;
-      state = clearAll();
-      error = null;
-      announce(t("cleared"));
-      render();
-    }, { class: "danger" }),
+    h("h2", { class: "sec" }, icon("🔤"), t("secAppearance")),
+    h("div", { class: "card" },
+      choice("🌐", "ui", "uiLang", s.ui, [["ne", "नेपाली"], ["en", "English"]], (v) => set("ui", v as typeof s.ui)),
+      choice("🔤", "size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize))),
+    h("h2", { class: "sec" }, icon("🤖"), t("secAi")),
+    h("div", { class: "card" },
+      field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
+      field("🔢", "min", "minMessages", h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) })),
+      h("div", { class: "field check" },
+        h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
+        h("label", { for: "demo" }, icon("🎬"), t("demo")))),
+    h("h2", { class: "sec" }, icon("🛡"), t("secPrivacy")),
+    h("div", { class: "card" },
+      h("h3", {}, icon("📝"), t("consentTitle")),
+      h("p", {}, t("consent")),
+      h("p", { class: "notice safe" }, icon("📱"), t("onDevice")),
+      button("checks", "🛡", t("openChecks"), () => go("checks"), { class: "tonal wide" }),
+      button("clear", "🗑", t("clear"), () => {
+        if (!confirm(t("clearConfirm"))) return;
+        state = clearAll();
+        error = null;
+        announce(t("cleared"));
+        render();
+      }, { class: "danger wide" })),
   ];
 }
 
 function checksScreen(): Child[] {
+  const passed = checks?.filter((c) => c.pass).length ?? 0;
   return [
     h("h1", { tabindex: "-1" }, t("checksTitle")),
     h("p", {}, t("checksIntro")),
@@ -353,11 +387,11 @@ function checksScreen(): Child[] {
       checks = await runChecks();
       announce(t("checksDone", checks.length, checks.filter((c) => c.pass).length));
       render();
-    }, { class: "primary" }),
-    checks && h("p", { class: "big" }, t("checksDone", checks.length, checks.filter((c) => c.pass).length)),
-    checks && h("ul", { class: "cards" }, ...checks.map((c) =>
-      h("li", {}, h("strong", { class: c.pass ? "pass" : "fail" }, icon(c.pass ? "✅" : "❌"), t(c.pass ? "pass" : "fail")), " — ", state.settings.ui === "ne" ? c.ne : c.en))),
-    button("back", "⬅", t("back"), () => go("settings")),
+    }, { class: "primary wide" }),
+    checks && h("p", { class: "notice safe big" }, icon("🛡"), t("checksDone", checks.length, passed)),
+    checks && h("ul", { class: "cards checks" }, ...checks.map((c) =>
+      h("li", {}, h("strong", { class: c.pass ? "pass" : "fail" }, icon(c.pass ? "✅" : "❌"), t(c.pass ? "pass" : "fail")), h("span", {}, state.settings.ui === "ne" ? c.ne : c.en)))),
+    button("back", "⬅", t("back"), () => go("settings"), { class: "wide" }),
   ];
 }
 
@@ -368,26 +402,33 @@ const NAV: [Screen, string, Key][] = [["summary", "📊", "navSummary"], ["messa
 function go(to: Screen) {
   screen = to;
   error = null;
+  entering = true; // slide-in only when changing tab, not on every update
   render();
+  entering = false;
+  window.scrollTo(0, 0);
   document.querySelector<HTMLElement>("h1")!.focus();
 }
 
 const app = document.querySelector("#app")!;
 function render() {
   const focused = document.activeElement?.id;
-  document.documentElement.lang = state.settings.ui;
+  const ui = state.settings.ui;
+  document.documentElement.lang = ui;
   document.documentElement.dataset.size = state.settings.textSize;
+  const badges: Partial<Record<Screen, number>> = { messages: state.messages.length, follow: state.drafts.filter((d) => d.status === "pending").length };
   app.replaceChildren(
     h("header", {},
       h("div", { class: "appbar" },
-        h("p", { class: "brand", lang: "ne" }, icon("🌱"), "गौरी"),
-        h("p", { class: "tagline" }, t("tagline"))),
+        h("p", { class: "brand", lang: "ne" }, h("span", { class: "logo" }, icon("🌱")), "गौरी"),
+        h("button", { type: "button", id: "ui-toggle", class: "pill", "aria-label": t("switchLang"), onclick: () => { state.settings.ui = ui === "ne" ? "en" : "ne"; commit(); } },
+          icon("🌐"), h("span", { lang: ui === "ne" ? "en" : "ne" }, ui === "ne" ? "EN" : "ने"))),
       h("nav", { "aria-label": t("navLabel") },
         h("ul", {}, ...NAV.map(([s, emoji, key]) =>
-          h("li", {}, button(`nav-${s}`, emoji, t(key), () => go(s), { "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null })))))),
-    h("main", {}, ...SCREENS[screen]()),
+          h("li", {}, h("button", { type: "button", id: `nav-${s}`, onclick: () => go(s), "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null },
+            h("span", { class: "tab-icon" }, icon(emoji), !!badges[s] && h("span", { class: "dot" }, String(badges[s]))), t(key))))))),
+    h("main", { class: entering ? `${screen} enter` : screen }, ...SCREENS[screen]()),
   );
-  document.title = `${t("app")} · ${document.querySelector("h1")!.textContent}`;
+  document.title = `${t("app")} · ${document.querySelector("h1")!.firstChild!.textContent}`;
   if (focused) document.getElementById(focused)?.focus(); // keep keyboard / TalkBack position across re-renders
 }
 

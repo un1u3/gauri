@@ -1,7 +1,17 @@
 // UI text: [Nepali, English]. Nepali is the default; English is for judges.
 const S = {
   app: ["गौरी", "Gauri"],
-  tagline: ["पाहुनाको कुरा, तपाईंको भाषामा", "Your guests' words, in your language"],
+  switchLang: ["Switch to English", "नेपालीमा हेर्नुहोस्"],
+  heroTitle: ["यो महिनाका पाहुनाको कुरा", "What this month's guests said"],
+  statMessages: ["सन्देश", "messages"],
+  statLangs: ["भाषा", "languages"],
+  statContacts: ["सम्पर्क", "contacts"],
+  guestLangs: ["पाहुनाका भाषा", "Guests' languages"],
+  guest: ["पाहुना", "Guest"],
+  theirMessage: ["पाहुनाले लेखेको", "The guest wrote"],
+  secAppearance: ["देखावट", "Appearance"],
+  secAi: ["AI मोडेल", "AI model"],
+  secPrivacy: ["गोपनीयता र सुरक्षा", "Privacy and safety"],
   navSummary: ["सारांश", "Summary"],
   navMessages: ["सन्देश", "Messages"],
   navFollow: ["धन्यवाद", "Thank-yous"],
