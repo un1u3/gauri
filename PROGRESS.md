@@ -34,6 +34,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Language consistency pass (team report: app stayed mostly English): label translation is now incremental and resumable (each batch saved, retried after a model crash); complete label sets for hi / zh / ko ship in `data/label_packs.json` (AI-translated, unchecked); profile fields are translated choices; one digit style in Nepali; raw `message_ids` junk stripped from "not sure" notes. 105 tests; dev SCORE 1.750; inbox 9/9, flow 10/10.
 - Hosted preview (team request): `npm run build:preview` / `npm run deploy:preview` → GitHub Pages at /gauri/. Preview is locked in demo mode, auto-loads the sample, and shows a "the AI does not run here" notice on every screen. 12/12 browser checks on the served preview build. Needs the team's GitHub login to publish, and Pages enabled on branch gh-pages.
 - Videos (team request): `video/gauri-demo-60s.mp4` and `video/gauri-tech-60s.mp4` (git-ignored), narrated with ElevenLabs; scene source `video/tech.html`.
+- Final cleanup: README rewritten from scratch (all numbers cross-checked against EVAL.md), unused label removed, 105 tests, clean-copy check passes.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

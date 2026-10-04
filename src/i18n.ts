@@ -118,7 +118,6 @@ const S = {
   draftReady: ["मस्यौदा तयार छ।", "Draft ready."],
   meaning: ["तपाईंको भाषामा अर्थ", "Meaning in your language"],
   guestText: ["पाहुनाको भाषामा", "In the guest's language"],
-  to: ["कसलाई", "To"],
   approve: ["स्वीकृत", "Approve"],
   edit: ["सम्पादन", "Edit"],
   discard: ["हटाउनुहोस्", "Discard"],
