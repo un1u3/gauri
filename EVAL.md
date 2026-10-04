@@ -60,6 +60,33 @@ yours." and why every point opens the original messages.
 **Model.** These runs used the text-only copy of gemma4:e2b (same weights without the unused image/audio part, 3.6 GB).
 The first test run used the full 4.6 GB model; on the dev set the two give identical scores.
 
+## A fresh held-out set (the cleanest number we have)
+
+Because the test set above had been inspected, we wrote a third set of 40 messages (`data/synthetic_final.json`, same
+planted themes, new wording and guests) and ran the final version on it **once**, with `npm run eval -- --set final`.
+Nothing was changed afterwards.
+
+| Metric | Result (mean of 2 runs: 1.45, 1.40) |
+|---|---|
+| Theme recall (4 planted themes) | 100% |
+| Per-language recall en / ko / hi / zh / ne | 100% / 100% / 60% / 100% / 90% |
+| Weakest language | Hindi, 60% |
+| Citation precision | 98% (one wrong citation in one run) |
+| Single mention (Wi-Fi) not shown as a point | yes, both runs |
+| Single mention (Wi-Fi) listed as uncertain | in 1 of 2 runs |
+| Fewest citations on any displayed point | 4 |
+| Seconds per analysis | 85 (the laptop was short of memory during this run) |
+| **SCORE** | **1.425** |
+
+What it shows:
+- The themes, the "no single-guest trends" rule and the source links hold on unseen data.
+- The weak language moved: Korean is fully cited here, Hindi is not (2 to 3 of 5 Hindi theme messages missed). The
+  honest summary is that **which language is under-counted varies from set to set**; none is reliably safe, and the
+  per-point language list is there so the owner can see it.
+- The one wrong citation: a Hindi message about a *morning* walk in the coffee garden was cited under "breakfast too
+  late". It came from the first pass. A cited message that does not support its point is the failure the owner can
+  catch by opening the sources, but it does happen.
+
 ## Dev set and the improvement loop
 
 | | dev SCORE | en / ko / hi / zh / ne |
@@ -67,7 +94,8 @@ The first test run used the full 4.6 GB model; on the dev set the two give ident
 | Baseline prompt | 1.475 | 80 / 80 / 100 / 70 / 70 |
 | After the prompt loop (1 kept change of 3 tried) | 1.650 | 100 / 80 / 80 / 100 / 80 |
 | With the second look | 1.750 (maximum) | 100 / 100 / 100 / 100 / 100 |
-| **Held-out test, final version** | **1.525** | **80 / 80 / 100 / 100 / 100** |
+| Held-out test (inspected before the final version), final version | 1.525 | 80 / 80 / 100 / 100 / 100 |
+| **Fresh held-out set, final version, run once** | **1.425** | **100 / 100 / 60 / 100 / 90** |
 
 Details of each iteration are in LOOP_LOG.md. The gap between dev and test is the reason we keep a held-out set: the dev
 number alone hid the Korean weakness the first time, and still flatters the final version.

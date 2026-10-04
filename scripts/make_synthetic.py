@@ -102,6 +102,49 @@ TEST = [
     ("ne", "-", "फोटोहरू पठाउँदै छु।"),
 ]
 
+# Written after the first two sets had been looked at, to have one set nobody has seen results for.
+FINAL = [
+    ("en", "T1", "We spent an afternoon in the kitchen learning to make momos with our host. Best memory of Nepal."),
+    ("en", "T2", "Seeing where coffee actually comes from, walking between the bushes with the family, was special."),
+    ("en", "T3", "One thing: breakfast was not ready until quite late and we had to rush to catch our ride."),
+    ("en", "T4", "The directions we were given were confusing and we walked the wrong way for a long time."),
+    ("en", "T4", "Maybe put a marker at the junction? We nearly gave up looking for the house."),
+    ("en", "-", "Greetings from London! We are back home now."),
+    ("en", "-", "My phone battery died on the way so I have no pictures, sadly."),
+    ("en", "-", "Is the farm open during Dashain?"),
+    ("ko", "T1", "호스트 가족과 같이 저녁을 만들어 본 요리 체험이 가장 기억에 남습니다."),
+    ("ko", "T2", "커피나무 사이를 걸으며 농장을 구경한 게 참 좋았어요."),
+    ("ko", "T2", "커피 농장 산책 덕분에 커피 한 잔이 어디서 오는지 알게 됐어요."),
+    ("ko", "T3", "아침을 너무 늦게 먹게 되어서 일정이 밀렸어요."),
+    ("ko", "T4", "가는 길 안내가 없어서 한참 헤맸습니다."),
+    ("ko", "-", "덕분에 잘 쉬다 갑니다."),
+    ("ko", "-", "돌아오는 길에 비가 많이 왔어요."),
+    ("ko", "-", "다음에는 부모님을 모시고 가고 싶어요."),
+    ("hi", "T1", "आंटी के साथ मोमो बनाना सीखा, कुकिंग क्लास में बहुत मज़ा आया।"),
+    ("hi", "T1", "रसोई में साथ बैठकर खाना बनाना सीखना हमारे बच्चों को बहुत पसंद आया।"),
+    ("hi", "T2", "कॉफ़ी के बाग़ में सुबह की सैर बहुत सुकून देने वाली थी।"),
+    ("hi", "T3", "सुबह का खाना बहुत देर से तैयार हुआ, हमारी बस छूटते-छूटते बची।"),
+    ("hi", "T4", "घर ढूँढने में बहुत परेशानी हुई, रास्ते में कहीं कोई निशान नहीं था।"),
+    ("hi", "-", "हम सकुशल लखनऊ पहुँच गए।"),
+    ("hi", "-", "आपके गाँव की हवा बहुत साफ़ है।"),
+    ("hi", "-", "अगली बार कब आ सकते हैं?"),
+    ("zh", "T1", "和女主人一起下厨学做菜,是我们最开心的时光。"),
+    ("zh", "T2", "跟着主人逛咖啡园,第一次看到咖啡树,很有意思。"),
+    ("zh", "T3", "早餐准备得太慢了,我们差点赶不上车。"),
+    ("zh", "T3", "希望早饭能早一点,我们七点就要出发。"),
+    ("zh", "T5", "如果有无线网络就更好了。"),
+    ("zh", "-", "我们已经到博卡拉了,一切顺利。"),
+    ("zh", "-", "路上风景很美。"),
+    ("zh", "-", "请代我向您的家人问好。"),
+    ("ne", "T1", "दिदीले भान्सामा बसाएर सेल रोटी पकाउन सिकाउनुभयो, खुब रमाइलो भयो।"),
+    ("ne", "T1", "खाना पकाउन सिक्ने कार्यक्रम हाम्रो परिवारलाई सबैभन्दा मन पर्‍यो।"),
+    ("ne", "T2", "कफीको बोटबिरुवा हेर्दै बारीमा डुल्दा आनन्द आयो।"),
+    ("ne", "T3", "बिहानको खाना तयार हुन निकै ढिलो भयो, हामी हतारमा हिँड्नुपर्‍यो।"),
+    ("ne", "T4", "घर खोज्दा खोज्दा हैरान भइयो, बाटो देखाउने केही थिएन।"),
+    ("ne", "-", "हामी सकुशल घर आइपुग्यौं, धन्यवाद।"),
+    ("ne", "-", "यसपालि चिसो अलि बढी रहेछ।"),
+    ("ne", "-", "दसैंमा फेरि भेटौंला।"),
+]
 
 def build(rows, prefix, seed, month):
     rows = rows[:]
@@ -128,8 +171,8 @@ def dump(path, obj):
         f.write("\n")
 
 
-for rows, prefix, seed, month, name in [(DEV, "m", 1, 8, "synthetic"), (TEST, "t", 2, 9, "synthetic_test")]:
+for rows, prefix, seed, month, name in [(DEV, "m", 1, 8, "synthetic"), (TEST, "t", 2, 9, "synthetic_test"), (FINAL, "f", 3, 10, "synthetic_final")]:
     messages, truth = build(rows, prefix, seed, month)
-    dump(f"data/{name if name == 'synthetic_test' else 'synthetic_messages'}.json", messages)
+    dump(f"data/{'synthetic_messages' if name == 'synthetic' else name}.json", messages)
     dump(f"data/{name}_truth.json", truth)
     print(name, len(messages), {t["id"]: len(t["message_ids"]) for t in truth["themes"]})

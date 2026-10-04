@@ -520,5 +520,275 @@
     }
    }
   ]
+ },
+ "final": {
+  "summary": {
+   "set": "final",
+   "model": "gemma4-e2b-text",
+   "model_size_gb": 3.6,
+   "n_messages": 40,
+   "runs": 2,
+   "at": "2026-10-04T07:43:38.557Z",
+   "SCORE": 1.425,
+   "theme_recall": 1,
+   "per_language": {
+    "en": 1,
+    "ko": 1,
+    "hi": 0.6,
+    "zh": 1,
+    "ne": 0.9
+   },
+   "min_language": 0.6,
+   "t5_correct": false,
+   "t5_not_a_point": true,
+   "t5_in_uncertain": false,
+   "citation_validity": 1,
+   "citation_precision": 0.976,
+   "second_look": true,
+   "min_citations_per_point": 4,
+   "seconds": 84.5,
+   "not_enough_ok": true,
+   "themes_found": [
+    {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
+    {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    }
+   ]
+  },
+  "runs": [
+   {
+    "SCORE": 1.45,
+    "theme_recall": 1,
+    "themes_found": {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
+    "per_language": {
+     "en": 1,
+     "ko": 1,
+     "hi": 0.4,
+     "zh": 1,
+     "ne": 0.8
+    },
+    "min_language": 0.4,
+    "t5_correct": true,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": true,
+    "citation_validity": 1,
+    "citation_precision": 0.9523809523809523,
+    "min_citations": 4,
+    "n_points": 5,
+    "seconds": 90,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Guests loved walking between the coffee bushes and seeing where coffee comes from.",
+       "point_own": "कफीको बोटबिरुवा हेर्दै बारीमा डुल्दा आनन्द आयो।",
+       "message_ids": [
+        "f10",
+        "f12",
+        "f13",
+        "f38",
+        "f23"
+       ]
+      },
+      {
+       "point_en": "Guests loved the cooking experience, especially learning to make momos with the host.",
+       "point_own": "होस्टसँग मिलेर मोमो बनाउन सिक्नु सबैभन्दा खुसीको समय थियो।",
+       "message_ids": [
+        "f14",
+        "f20",
+        "f24",
+        "f33",
+        "f37",
+        "f17"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Guests wished for earlier breakfast as it was ready too late.",
+       "point_own": "बिहानको खाना अलि चाँडो तयार भएको भए राम्रो हुन्थ्यो।",
+       "message_ids": [
+        "f03",
+        "f05",
+        "f07",
+        "f11",
+        "f15",
+        "f18"
+       ]
+      },
+      {
+       "point_en": "Guests wished for clearer directions to find the farm/house.",
+       "point_own": "घर वा फार्म पत्ता लगाउनका लागि स्पष्ट दिशा निर्देशनहरू चाहिने रहेछ।",
+       "message_ids": [
+        "f04",
+        "f22",
+        "f31",
+        "f34"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade: Improve the speed of breakfast preparation to ensure it is ready earlier, as several guests mentioned delays.",
+      "point_own": "अपग्रेड: बिहानको खाना तयार गर्ने गति सुधार गर्नुहोस् ताकि यो अगाडि नै तयार होस्, किनकि धेरै अतिथिहरूले ढिलाइको बारेमा उल्लेख गरेका छन्।",
+      "message_ids": [
+       "f05",
+       "f07",
+       "f11",
+       "f15",
+       "f18"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "Guests enjoyed the fresh air in the village.",
+       "note_own": "गाउँको हावा धेरै सफा छ।",
+       "reason": "single_guest"
+      },
+      {
+       "note_en": "Guests wished for better internet connectivity.",
+       "note_own": "अनलाइन इन्टरनेट भए थप राम्रो हुन्थ्यो।",
+       "reason": "single_guest"
+      },
+      {
+       "note_en": "The feedback mentions confusing directions and difficulty finding the house, but doesn't specify if this was for the farm or a specific location.",
+       "note_own": "फिडब्याकले भ्रमित गर्ने दिशा निर्देशनहरू र घर फेला पार्न गाह्रोताको बारेमा उल्लेख गरेको छ, तर यो फार्म वा कुनै विशेष स्थानको लागि थियो कि थिएन भन्ने स्पष्ट छैन।"
+      },
+      {
+       "note_en": "There is a question about whether the farm is open during Dashain.",
+       "note_own": "दशैंको समयमा फार्म खुला छ कि छैन भन्ने प्रश्न छ।"
+      }
+     ],
+     "model": "gemma4-e2b-text",
+     "seconds": 90,
+     "lang": "ne",
+     "created_at": "2026-10-04T07:42:07.310Z"
+    }
+   },
+   {
+    "SCORE": 1.4,
+    "theme_recall": 1,
+    "themes_found": {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
+    "per_language": {
+     "en": 1,
+     "ko": 1,
+     "hi": 0.8,
+     "zh": 1,
+     "ne": 1
+    },
+    "min_language": 0.8,
+    "t5_correct": false,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": false,
+    "citation_validity": 1,
+    "citation_precision": 1,
+    "min_citations": 4,
+    "n_points": 5,
+    "seconds": 79,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Guests loved walking between the coffee bushes and seeing where coffee comes from.",
+       "point_own": "कफीको बोटबिरुवा हेर्दै बारीमा डुल्दा आनन्द आयो।",
+       "message_ids": [
+        "f10",
+        "f12",
+        "f13",
+        "f38",
+        "f03",
+        "f23"
+       ]
+      },
+      {
+       "point_en": "Guests enjoyed learning to cook, especially making momos with the host.",
+       "point_own": "होस्टसँग मिलेर मोमो बनाउन सिक्नु धेरै रमाइलो भयो।",
+       "message_ids": [
+        "f14",
+        "f20",
+        "f24",
+        "f33",
+        "f37",
+        "f17"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Guests wished for breakfast to be ready earlier.",
+       "point_own": "बिहानको खाना अलि चाँडै तयार भएको भए राम्रो हुन्थ्यो।",
+       "message_ids": [
+        "f07",
+        "f11",
+        "f15",
+        "f18",
+        "f05",
+        "f08"
+       ]
+      },
+      {
+       "point_en": "Guests wished for clearer directions to the farm/house.",
+       "point_own": "घर वा बाटोको लागि स्पष्ट निर्देशनहरू चाहिने रहेछ।",
+       "message_ids": [
+        "f04",
+        "f22",
+        "f31",
+        "f34",
+        "f21"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade: Provide clearer signage or markers at junctions to help guests find the location.",
+      "point_own": "सुधार: ठाउँ पत्ता लगाउन मद्दत गर्नका लागि जंक्शनहरूमा स्पष्ट चिन्ह वा मार्कर राख्नुहोस्।",
+      "message_ids": [
+       "f04",
+       "f22",
+       "f31",
+       "f34"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "Guests enjoyed the experience of cooking together in the kitchen.",
+       "note_own": "भोजन बनाउन सँगै बसेर सिक्नु बच्चाहरूलाई धेरै मन पर्यो।",
+       "reason": "single_guest"
+      },
+      {
+       "note_en": "Guests found the air in the village to be very clean.",
+       "note_own": "गाउँको हावा धेरै सफा छ।",
+       "reason": "single_guest"
+      },
+      {
+       "note_en": "It is unclear if the farm is open during Dashain.",
+       "note_own": "दसैंमा फार्म खुला छ कि छैन भन्ने कुरा स्पष्ट छैन।"
+      }
+     ],
+     "model": "gemma4-e2b-text",
+     "seconds": 79,
+     "lang": "ne",
+     "created_at": "2026-10-04T07:43:20.228Z"
+    }
+   }
+  ]
  }
 }

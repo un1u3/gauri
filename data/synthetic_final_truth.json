@@ -1,0 +1,64 @@
+{
+ "themes": [
+  {
+   "id": "T1",
+   "type": "loved",
+   "name": "Loved the cooking class",
+   "message_ids": [
+    "f14",
+    "f17",
+    "f20",
+    "f24",
+    "f30",
+    "f33",
+    "f37"
+   ]
+  },
+  {
+   "id": "T2",
+   "type": "loved",
+   "name": "Loved the coffee farm walk",
+   "message_ids": [
+    "f03",
+    "f10",
+    "f12",
+    "f13",
+    "f23",
+    "f38"
+   ]
+  },
+  {
+   "id": "T3",
+   "type": "wished",
+   "name": "Breakfast was too late",
+   "message_ids": [
+    "f05",
+    "f07",
+    "f08",
+    "f11",
+    "f15",
+    "f18"
+   ]
+  },
+  {
+   "id": "T4",
+   "type": "wished",
+   "name": "Farm hard to find / directions",
+   "message_ids": [
+    "f04",
+    "f21",
+    "f22",
+    "f31",
+    "f34"
+   ]
+  },
+  {
+   "id": "T5",
+   "type": "single",
+   "name": "Wants Wi-Fi (one guest only, must end up uncertain)",
+   "message_ids": [
+    "f19"
+   ]
+  }
+ ]
+}

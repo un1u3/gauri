@@ -1,0 +1,322 @@
+[
+ {
+  "id": "f01",
+  "text": "Greetings from London! We are back home now.",
+  "lang": "en",
+  "received_at": "2026-10-01",
+  "contact": "guest-f01@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f02",
+  "text": "돌아오는 길에 비가 많이 왔어요.",
+  "lang": "ko",
+  "received_at": "2026-10-02",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f03",
+  "text": "कॉफ़ी के बाग़ में सुबह की सैर बहुत सुकून देने वाली थी।",
+  "lang": "hi",
+  "received_at": "2026-10-03",
+  "contact": "guest-f03@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f04",
+  "text": "The directions we were given were confusing and we walked the wrong way for a long time.",
+  "lang": "en",
+  "received_at": "2026-10-03",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f05",
+  "text": "早餐准备得太慢了,我们差点赶不上车。",
+  "lang": "zh",
+  "received_at": "2026-10-04",
+  "contact": "guest-f05@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f06",
+  "text": "请代我向您的家人问好。",
+  "lang": "zh",
+  "received_at": "2026-10-05",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f07",
+  "text": "希望早饭能早一点,我们七点就要出发。",
+  "lang": "zh",
+  "received_at": "2026-10-05",
+  "contact": "guest-f07@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f08",
+  "text": "बिहानको खाना तयार हुन निकै ढिलो भयो, हामी हतारमा हिँड्नुपर्‍यो।",
+  "lang": "ne",
+  "received_at": "2026-10-06",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f09",
+  "text": "덕분에 잘 쉬다 갑니다.",
+  "lang": "ko",
+  "received_at": "2026-10-07",
+  "contact": "guest-f09@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f10",
+  "text": "커피나무 사이를 걸으며 농장을 구경한 게 참 좋았어요.",
+  "lang": "ko",
+  "received_at": "2026-10-07",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f11",
+  "text": "One thing: breakfast was not ready until quite late and we had to rush to catch our ride.",
+  "lang": "en",
+  "received_at": "2026-10-08",
+  "contact": "guest-f11@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f12",
+  "text": "Seeing where coffee actually comes from, walking between the bushes with the family, was special.",
+  "lang": "en",
+  "received_at": "2026-10-09",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f13",
+  "text": "커피 농장 산책 덕분에 커피 한 잔이 어디서 오는지 알게 됐어요.",
+  "lang": "ko",
+  "received_at": "2026-10-09",
+  "contact": "guest-f13@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f14",
+  "text": "दिदीले भान्सामा बसाएर सेल रोटी पकाउन सिकाउनुभयो, खुब रमाइलो भयो।",
+  "lang": "ne",
+  "received_at": "2026-10-10",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f15",
+  "text": "아침을 너무 늦게 먹게 되어서 일정이 밀렸어요.",
+  "lang": "ko",
+  "received_at": "2026-10-11",
+  "contact": "guest-f15@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f16",
+  "text": "हम सकुशल लखनऊ पहुँच गए।",
+  "lang": "hi",
+  "received_at": "2026-10-11",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f17",
+  "text": "आंटी के साथ मोमो बनाना सीखा, कुकिंग क्लास में बहुत मज़ा आया।",
+  "lang": "hi",
+  "received_at": "2026-10-12",
+  "contact": "guest-f17@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f18",
+  "text": "सुबह का खाना बहुत देर से तैयार हुआ, हमारी बस छूटते-छूटते बची।",
+  "lang": "hi",
+  "received_at": "2026-10-13",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f19",
+  "text": "如果有无线网络就更好了。",
+  "lang": "zh",
+  "received_at": "2026-10-13",
+  "contact": "guest-f19@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f20",
+  "text": "खाना पकाउन सिक्ने कार्यक्रम हाम्रो परिवारलाई सबैभन्दा मन पर्‍यो।",
+  "lang": "ne",
+  "received_at": "2026-10-14",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f21",
+  "text": "घर ढूँढने में बहुत परेशानी हुई, रास्ते में कहीं कोई निशान नहीं था।",
+  "lang": "hi",
+  "received_at": "2026-10-15",
+  "contact": "guest-f21@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f22",
+  "text": "가는 길 안내가 없어서 한참 헤맸습니다.",
+  "lang": "ko",
+  "received_at": "2026-10-16",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f23",
+  "text": "跟着主人逛咖啡园,第一次看到咖啡树,很有意思。",
+  "lang": "zh",
+  "received_at": "2026-10-16",
+  "contact": "guest-f23@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f24",
+  "text": "和女主人一起下厨学做菜,是我们最开心的时光。",
+  "lang": "zh",
+  "received_at": "2026-10-17",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f25",
+  "text": "我们已经到博卡拉了,一切顺利。",
+  "lang": "zh",
+  "received_at": "2026-10-18",
+  "contact": "guest-f25@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f26",
+  "text": "दसैंमा फेरि भेटौंला।",
+  "lang": "ne",
+  "received_at": "2026-10-18",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f27",
+  "text": "आपके गाँव की हवा बहुत साफ़ है।",
+  "lang": "hi",
+  "received_at": "2026-10-19",
+  "contact": "guest-f27@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f28",
+  "text": "My phone battery died on the way so I have no pictures, sadly.",
+  "lang": "en",
+  "received_at": "2026-10-20",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f29",
+  "text": "Is the farm open during Dashain?",
+  "lang": "en",
+  "received_at": "2026-10-20",
+  "contact": "guest-f29@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f30",
+  "text": "रसोई में साथ बैठकर खाना बनाना सीखना हमारे बच्चों को बहुत पसंद आया।",
+  "lang": "hi",
+  "received_at": "2026-10-21",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f31",
+  "text": "घर खोज्दा खोज्दा हैरान भइयो, बाटो देखाउने केही थिएन।",
+  "lang": "ne",
+  "received_at": "2026-10-22",
+  "contact": "guest-f31@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f32",
+  "text": "यसपालि चिसो अलि बढी रहेछ।",
+  "lang": "ne",
+  "received_at": "2026-10-22",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f33",
+  "text": "We spent an afternoon in the kitchen learning to make momos with our host. Best memory of Nepal.",
+  "lang": "en",
+  "received_at": "2026-10-23",
+  "contact": "guest-f33@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f34",
+  "text": "Maybe put a marker at the junction? We nearly gave up looking for the house.",
+  "lang": "en",
+  "received_at": "2026-10-24",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f35",
+  "text": "路上风景很美。",
+  "lang": "zh",
+  "received_at": "2026-10-24",
+  "contact": "guest-f35@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f36",
+  "text": "अगली बार कब आ सकते हैं?",
+  "lang": "hi",
+  "received_at": "2026-10-25",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f37",
+  "text": "호스트 가족과 같이 저녁을 만들어 본 요리 체험이 가장 기억에 남습니다.",
+  "lang": "ko",
+  "received_at": "2026-10-26",
+  "contact": "guest-f37@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f38",
+  "text": "कफीको बोटबिरुवा हेर्दै बारीमा डुल्दा आनन्द आयो।",
+  "lang": "ne",
+  "received_at": "2026-10-26",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "f39",
+  "text": "हामी सकुशल घर आइपुग्यौं, धन्यवाद।",
+  "lang": "ne",
+  "received_at": "2026-10-27",
+  "contact": "guest-f39@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "f40",
+  "text": "다음에는 부모님을 모시고 가고 싶어요.",
+  "lang": "ko",
+  "received_at": "2026-10-28",
+  "contact": null,
+  "synthetic": true
+ }
+]

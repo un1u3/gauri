@@ -1,6 +1,7 @@
 // Runs the real local model on a synthetic set and scores it against the ground truth.
 //   npm run eval                 (dev set, used for tuning)
 //   npm run eval -- --set test   (held-out set; also writes EVAL.md)
+//   npm run eval -- --set final  (second held-out set, written after the first had been inspected)
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { analyse } from "../src/ai/analyse";
 import { DEFAULT_MIN_MESSAGES } from "../src/ai/guardrails";
@@ -15,7 +16,7 @@ const arg = (name: string, fallback: string) => {
 };
 const set = arg("set", "dev");
 const runs = Number(arg("runs", "2"));
-const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
+const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : set === "final" ? ["synthetic_final.json", "synthetic_final_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
 const messages: Message[] = JSON.parse(readFileSync(`data/${files[0]}`, "utf8"));
 const themes: Theme[] = JSON.parse(readFileSync(`data/${files[1]}`, "utf8")).themes;
 const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES, ownerLang: "ne", secondLook: !process.argv.includes("--no-second-look") };

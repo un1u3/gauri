@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { EVAL_LANGS as LANGS, type Message } from "../src/types";
 
 const load = (f: string) => JSON.parse(readFileSync(`data/${f}`, "utf8"));
-const sets = [["synthetic_messages.json", "synthetic_truth.json"], ["synthetic_test.json", "synthetic_test_truth.json"]];
+const sets = [["synthetic_messages.json", "synthetic_truth.json"], ["synthetic_test.json", "synthetic_test_truth.json"], ["synthetic_final.json", "synthetic_final_truth.json"]];
 
 describe.each(sets)("%s", (messagesFile, truthFile) => {
   const messages: Message[] = load(messagesFile);
@@ -29,9 +29,9 @@ describe.each(sets)("%s", (messagesFile, truthFile) => {
   });
 });
 
-it("dev and test share no message text", () => {
-  const dev = new Set((load("synthetic_messages.json") as Message[]).map((m) => m.text));
-  expect((load("synthetic_test.json") as Message[]).filter((m) => dev.has(m.text))).toEqual([]);
+it("the three sets share no message text", () => {
+  const texts = ["synthetic_messages.json", "synthetic_test.json", "synthetic_final.json"].flatMap((f) => (load(f) as Message[]).map((m) => m.text));
+  expect(new Set(texts).size).toBe(120);
 });
 it("real data slot exists and is a Message[]", () => {
   expect(Array.isArray(load("real_messages.json"))).toBe(true);
