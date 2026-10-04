@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:preview": "tsc --noEmit && VITE_PREVIEW=1 vite build --base=/gauri/ --outDir dist-preview",
+    "deploy:preview": "sh scripts/deploy_preview.sh",
     "test": "vitest run",
     "eval": "tsx scripts/eval.ts",
     "eval:ideas": "tsx scripts/eval_ideas.ts",

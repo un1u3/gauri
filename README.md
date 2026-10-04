@@ -21,6 +21,14 @@ Built for the World Bank "Small AI for Development" hackathon (tourism).
 
 Noor runs a coffee farm-stay in Nepal's mid-hills. Six or seven visitors a month find her by word of mouth. She reads Nepali but not her guests' languages. She has no Wi-Fi and occasional 3G, and uses the household smartphone mostly at weekends. Her guests leave happy, but she never learns why, what they wished were different, or how to turn a good visit into a return visit or a referral.
 
+## Hosted preview
+
+**https://un1u3.github.io/gauri/** shows the interface without installing anything, and https://un1u3.github.io/gauri/flow.html shows the guest phone and Gauri side by side.
+
+**The AI does not run there, and the page says so on every screen.** Gauri's model runs only on a device that has it installed; a public web page has no model behind it. The preview is therefore fixed in demo mode: it opens with the sample messages loaded and shows a saved, unedited output that the model produced earlier on that sample. Ideas appear as the original library entries, and thank-you drafts are saved texts. To see the real model work, run Gauri on your own machine as described below.
+
+Publish or update it with `npm run deploy:preview` (builds with `VITE_PREVIEW=1` and pushes to the `gh-pages` branch).
+
 ## How to run
 
 Needs Node 20+ and [Ollama](https://ollama.com).

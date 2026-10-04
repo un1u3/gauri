@@ -22,6 +22,11 @@ import { hasVoice, speak, stopSpeaking } from "./voice";
 
 type Screen = "summary" | "messages" | "follow" | "settings" | "checks";
 
+// A hosted preview (a public web page, built with `npm run build:preview`) has no model behind it:
+// the model only runs on a device that has it installed. The preview therefore always uses demo mode
+// (a saved, real model output), opens with the sample loaded, and says so on every screen.
+const PREVIEW = import.meta.env.VITE_PREVIEW === "1";
+
 let state = load();
 let screen: Screen = "summary";
 let busySince: number | null = null; // analysis running since (ms)
@@ -572,7 +577,7 @@ function settingsScreen(): Child[] {
         field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
         field("🔢", "min", "minMessages", h("input", { type: "number", id: "min", min: "2", max: "100", value: String(s.minMessages), onchange: (e: Event) => set("minMessages", Math.max(2, Number((e.target as HTMLInputElement).value) || s.minMessages)) })),
         h("div", { class: "field check" },
-          h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
+          h("input", { type: "checkbox", id: "demo", checked: s.demo, disabled: PREVIEW, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
           h("label", { for: "demo" }, icon("🎬"), t("demo")))),
       h("div", { class: "card" },
         h("p", { class: "small" }, t("demoHelp")),
@@ -633,6 +638,7 @@ function render() {
           h("li", {}, h("button", { type: "button", id: `nav-${s}`, onclick: () => go(s), "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null },
             h("span", { class: "tab-icon" }, icon(emoji), !!badges[s] && h("span", { class: "dot" }, String(badges[s]))), t(key))))))),
     h("main", { class: entering ? `${screen} enter` : screen },
+      PREVIEW && h("p", { class: "notice warn" }, icon("ℹ️"), t("previewNote")),
       translating && h("div", { class: "notice busy", role: "status" },
         h("p", {}, icon("⏳"), t("translatingInto", nameInUi(owner()), translating[0], translating[1])),
         h("p", { class: "small" }, t("translateHelp")),
@@ -661,6 +667,12 @@ window.addEventListener("storage", (e) => {
   clearTimeout(toastTimer);
   toastTimer = window.setTimeout(() => (toast.hidden = true), 8000);
 });
+
+if (PREVIEW) {
+  state.settings.demo = true;
+  if (!state.messages.length) state.messages = datedThisWeek(fromJson(sample, []));
+  save(state);
+}
 
 document.body.append(live, toast);
 setPacks(state.packs);

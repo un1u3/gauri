@@ -151,7 +151,8 @@
   "optRarely": "कभी-कभार",
   "optNoHelp": "कोई नहीं",
   "optHelpWeekends": "परिवार का सदस्य, शनिवार–रविवार को",
-  "optHelpDaily": "परिवार का सदस्य, हर दिन"
+  "optHelpDaily": "परिवार का सदस्य, हर दिन",
+  "previewNote": "यह ऑनलाइन नमूना है: यहाँ AI नहीं चलता। दिखाया गया सारांश मॉडल का पहले से बनाया हुआ सहेजा नमूना है। असली AI के लिए गौरी को अपने डिवाइस पर चलाएँ।"
  },
  "zh": {
   "app": "Gauri",
@@ -305,7 +306,8 @@
   "optRarely": "很少",
   "optNoHelp": "没有人",
   "optHelpWeekends": "家人,周末",
-  "optHelpDaily": "家人,每天"
+  "optHelpDaily": "家人,每天",
+  "previewNote": "这是在线预览:这里不运行AI。显示的总结是模型之前生成并保存的结果。要使用真正的AI,请在您自己的设备上运行Gauri。"
  },
  "ko": {
   "app": "Gauri",
@@ -459,6 +461,7 @@
   "optRarely": "가끔",
   "optNoHelp": "없음",
   "optHelpWeekends": "가족, 주말에",
-  "optHelpDaily": "가족, 매일"
+  "optHelpDaily": "가족, 매일",
+  "previewNote": "온라인 미리보기입니다: 여기서는 AI가 실행되지 않습니다. 보이는 요약은 모델이 이전에 만들어 저장해 둔 결과입니다. 실제 AI를 쓰려면 Gauri를 본인 기기에서 실행하세요."
  }
 }

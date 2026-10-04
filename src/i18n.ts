@@ -86,6 +86,7 @@ const S = {
   older: ["{0} वटा पुराना सन्देश ({1} दिनभन्दा अघिका) यो फोनमा छन्। ती देखाइँदैनन् र विश्लेषणमा पर्दैनन्।", "{0} older messages (more than {1} days old) are kept on this phone. They are not shown and not analysed."],
   deleteOlder: ["पुराना सन्देश मेटाउनुहोस्", "Delete older messages"],
   addByHand: ["हातले सन्देश थप्ने (सेटअप र परीक्षणका लागि)", "Add messages by hand (set-up and testing)"],
+  previewNote: ["यो अनलाइन नमुना हो: यहाँ AI चल्दैन। देखिने सारांश मोडेलले पहिले नै बनाएको सुरक्षित नमुना हो। साँच्चैको AI का लागि गौरी आफ्नै यन्त्रमा चलाउनुहोस्।", "Hosted preview: the AI does not run here. The summary shown is a saved result that the model produced earlier. To use the real AI, run Gauri on your own device (see the README)."],
   newMessage: ["नयाँ सन्देश आयो", "New message received"],
   demoHelp: ["पाहुनाको फोनको नक्कल: त्यहाँ लेखेको सन्देश सिधै यहाँ आउँछ। साँच्चैको SMS जाँदैन।", "A simulated guest phone: a message written there arrives here at once. No real SMS is sent."],
   openGuest: ["पाहुनाको फोन खोल्नुहोस्", "Open the guest's phone"],
