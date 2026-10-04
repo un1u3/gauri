@@ -1,0 +1,11 @@
+{
+  "name": "गौरी · Gauri",
+  "short_name": "गौरी",
+  "lang": "ne",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6efe2",
+  "theme_color": "#155e3b",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/gauri/icon.svg" type="image/svg+xml" />
+    <title>The flow: guest's phone → Gauri (demo)</title>
+    <style>body{color:#2a1c12;background:#e7dcc6;margin:0;font-family:system-ui,sans-serif}h1{text-align:center;margin:1rem 1rem .2rem;font-size:1.2rem}p.note{text-align:center;color:#5e4c3e;margin:0 1rem 1rem;font-size:.9rem}.stage{flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem;padding:0 1rem 2rem;display:flex}figure{text-align:center;margin:0}figcaption{margin-bottom:.5rem;font-weight:700}figcaption small{color:#5e4c3e;font-weight:400;display:block}iframe{background:#fff;border:10px solid #1d1b19;border-radius:2.4rem;width:390px;max-width:94vw;height:780px;box-shadow:0 18px 40px #281e0a4d}.arrow{color:#155e3b;font-size:2.5rem;font-weight:700}@media (width<=900px){.arrow{transform:rotate(90deg)}}</style>
+  </head>
+  <body>
+    <h1>From a guest's message to the owner's summary</h1>
+    <p class="note">Demo with a simulated guest phone: no real SMS is sent. In real use the guest's SMS or WhatsApp message is shared or pasted into Gauri.</p>
+    <div class="stage">
+      <figure>
+        <figcaption>1. The guest's phone <small>writes in their own language</small></figcaption>
+        <iframe src="guest.html" title="Guest's phone (simulated messaging app)"></iframe>
+      </figure>
+      <div class="arrow" aria-hidden="true">→</div>
+      <figure>
+        <figcaption>2. Noor's phone: Gauri <small>reads it on the device, in her language</small></figcaption>
+        <iframe src="./" title="Gauri on the owner's phone"></iframe>
+      </figure>
+    </div>
+  </body>
+</html>
