@@ -1,5 +1,6 @@
 // The two AI features: the summary analysis and thank-you drafts.
 // Model output passes through `validated` and the guardrails before it is returned.
+import { detectLang } from "../lang";
 import type { Analysis, Draft, Lang, Message } from "../types";
 import { addCitations, applyGuardrails, hasEnoughFeedback, NotSureError, notEnoughFeedback, validateAnalysis, validateDraft, validateSecondLook, validated } from "./guardrails";
 import { chat, lastModel, OllamaError } from "./ollama";
@@ -36,8 +37,12 @@ async function secondLook(analysis: Analysis, messages: Message[], cfg: AiConfig
   }
 }
 
-export async function draftThanks(m: Message, cfg: AiConfig): Promise<Draft> {
+export async function draftThanks(message: Message, cfg: AiConfig): Promise<Draft> {
   const lang = cfg.ownerLang;
+  // Reply in the language the guest actually wrote in. The stored label is used only when the text
+  // itself does not settle it (a very short message).
+  const detected = detectLang(message.text);
+  const m = detected.sure ? { ...message, lang: detected.lang } : message;
   const raw = await validated(() => chat(cfg.baseUrl, cfg.model, draftSystem(lang), draftUser(m), draftSchema(lang)), (x) => validateDraft(x, lang));
   return { id: `d-${m.id}-${Date.now()}`, message_id: m.id, lang: m.lang, ...raw, own_lang: lang, status: "pending" };
 }

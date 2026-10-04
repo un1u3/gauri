@@ -1,6 +1,7 @@
 // Everything the app knows lives in this one localStorage entry on the device (hard rule 7).
 import sample from "../data/sample_reviews.json";
 import { DEFAULT_MIN_MESSAGES } from "./ai/guardrails";
+import { guessLang, writtenIn } from "./lang";
 import { DEFAULT_MODEL } from "./ai/prompts";
 import { DEFAULT_PROFILE, type IdeasResult, type Profile } from "./ideas/ideas";
 import type { Analysis, Draft, Lang, Message } from "./types";
@@ -29,10 +30,17 @@ export function refreshSampleContacts(messages: Message[]): Message[] {
   return messages;
 }
 
+// A label that cannot be right (an English message marked as Marathi: the script does not even match)
+// is replaced by what the text itself says. Labels that could be right are left alone.
+export function repairLanguageLabels(messages: Message[]): Message[] {
+  for (const m of messages) if (!writtenIn(m.text, m.lang)) m.lang = guessLang(m.text);
+  return messages;
+}
+
 export function load(): State {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
-    if (saved?.messages) refreshSampleContacts(saved.messages);
+    if (saved?.messages) repairLanguageLabels(refreshSampleContacts(saved.messages));
     return saved ? { ...defaults(), ...saved, settings: { ...defaults().settings, ...saved.settings }, profile: { ...DEFAULT_PROFILE, ...saved.profile } } : defaults();
   } catch {
     return defaults();

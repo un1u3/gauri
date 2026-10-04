@@ -3,7 +3,7 @@
 // in real use the guest's message is shared or pasted into Gauri. Messages made here are marked synthetic.
 import "@fontsource/noto-sans-devanagari/400.css";
 import "./guest.css";
-import { guessLang, langName, writtenIn } from "./lang";
+import { detectLang, langName, writtenIn } from "./lang";
 import { fromPaste } from "./messages";
 import { load, save, STORE_KEY } from "./store";
 import type { Lang } from "./types";
@@ -54,7 +54,10 @@ function send(text: string) {
   const state = load();
   const [message] = fromPaste(clean, state.messages);
   message.contact = guest.number;
-  message.lang = writtenIn(clean, guest.lang) ? guest.lang : guessLang(clean); // the guest's language, unless they wrote in another script
+  // Worked out from the text itself. Only when the words do not decide it (a very short message) is the
+  // selected guest's language used, and only if the script fits.
+  const guess = detectLang(clean);
+  message.lang = !guess.sure && writtenIn(clean, guest.lang) ? guest.lang : guess.lang;
   message.synthetic = true; // typed in a demo, not a real guest's message
   state.messages.push(message);
   save(state); // Gauri, open in another window or frame, hears this through the browser's storage event

@@ -41,7 +41,7 @@ To use another language: **सेटिङ (Settings)** → "मेरो भा
 Other commands:
 
 ```bash
-npm test                     # 99 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
+npm test                     # 103 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
@@ -222,7 +222,7 @@ The first test run exposed a language bias: only 1 of 5 Korean theme messages wa
 - **Other languages are unmeasured.** All scores are for a Nepali-reading owner and five guest languages. Other languages run through exactly the same code, but how well a 4.6B-parameter model reads or writes a given language varies, and for small languages (Maithili, Bhojpuri, Nepal Bhasa, Dzongkha) it may be poor.
 - **The language check is by script.** It catches "the Nepali text came back in English", but cannot tell French from Spanish, or Nepali from Hindi; for Latin-script languages it only rejects text identical to the English.
 - **AI-translated labels can be wrong.** In a Hindi trial one label put "{0} of {1}" in the wrong order. Translated labels are marked as AI-translated in Settings; Nepali and English labels are hand-written.
-- **Message language is guessed from the script only**, so French, Spanish or German messages are first labelled English, and Hindi ones Nepali, until changed by hand. The model still reads them correctly; only the label is wrong.
+- **Message language is worked out by Gauri, and the owner is not asked to correct it** (she cannot read those languages). It goes by script, then by a few very common words for languages that share a script (English, French, German, Spanish, Italian, Portuguese; Hindi and Nepali). That is right on all 160 bundled sample messages, which we wrote ourselves; real messages will be harder, and a language outside those lists that uses Latin or Devanagari script (Dutch, Marathi, Maithili) will be labelled as English or Nepali. The model still reads the text itself, and thank-you drafts follow the detected language.
 - **Editing a draft** changes only the guest-language text; the Nepali meaning is then marked as possibly out of date, since the owner cannot verify the edit herself.
 - **Setup defaults used** (no team answers at build time): 6 GB RAM laptop, one model loaded; no Android phone with a Nepali voice; no real guest comments.
 

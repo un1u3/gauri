@@ -2,12 +2,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { runChecks } from "../src/checks";
 import { datedThisWeek, fromJson, fromPaste, recent, WINDOW_DAYS } from "../src/messages";
-import { guessLang, langName, scriptHint, writtenIn } from "../src/lang";
+import { detectLang, guessLang, langName, scriptHint, writtenIn } from "../src/lang";
 import { labelOk, translateLabels } from "../src/ai/translate";
 import { ENGLISH, KEYS, setPacks, translate } from "../src/i18n";
 import { applyGuardrails } from "../src/ai/guardrails";
 import { MOCK_ANALYSIS } from "../src/mock";
-import { refreshSampleContacts } from "../src/store";
+import { refreshSampleContacts, repairLanguageLabels } from "../src/store";
 
 const load = (f: string) => JSON.parse(readFileSync(`data/${f}`, "utf8"));
 
@@ -48,6 +48,32 @@ it("sample messages saved with an old placeholder e-mail get the sample's phone 
   expect(withContact.contact).toMatch(/^\+\d/);
 });
 
+describe("language is worked out from the message, with nobody correcting it", () => {
+  it("tells apart languages that share a script", () => {
+    expect([
+      "The shower was cold but the family was lovely.", "La route est longue et la maison est difficile à trouver.",
+      "Nachts war es im Zimmer sehr kalt und die Decke war dünn.", "La familia nos trató muy bien y la comida fue excelente.",
+      "नहाने के लिए गरम पानी नहीं था।", "राति कोठा धेरै चिसो भयो, ओढ्ने पातलो थियो।",
+    ].map(guessLang)).toEqual(["en", "fr", "de", "es", "hi", "ne"]);
+  });
+  it("gets the labelled language right on the bundled sets", () => {
+    const all = ["sample_reviews", "synthetic_messages", "synthetic_test", "synthetic_final"].flatMap((f) => load(`${f}.json`));
+    const wrong = all.filter((m: any) => guessLang(m.text) !== m.lang);
+    expect([all.length, wrong.length]).toEqual([160, 0]);
+  });
+  it("a saved label that cannot be right is repaired; plausible labels are kept", () => {
+    const m = (text: string, lang: string) => ({ id: "x", text, lang, received_at: "", contact: null, synthetic: true });
+    const fixed = repairLanguageLabels([m("Roasting our own coffee by the fire was the best part.", "mr"), m("धन्यवाद दिदी", "hi"), m("Gracias", "en")]);
+    expect(fixed.map((x) => x.lang)).toEqual(["en", "hi", "en"]);
+  });
+  it("says when it is only going by the script", () => {
+    expect(detectLang("OK!")).toEqual({ lang: "en", sure: false });
+    expect(detectLang("Merci !")).toEqual({ lang: "fr", sure: true });
+    expect(detectLang("감사합니다")).toEqual({ lang: "ko", sure: true });
+    expect(detectLang("Merci pour tout, nous avons adoré la ferme.")).toEqual({ lang: "fr", sure: true });
+  });
+});
+
 describe("the 7-day window", () => {
   const now = new Date(2026, 9, 4, 14, 0); // 4 October 2026, afternoon
   const on = (received_at: string) => ({ id: received_at, text: "x", lang: "en", received_at, contact: null, synthetic: true });
@@ -84,7 +110,7 @@ describe("any language", () => {
   afterEach(() => { vi.unstubAllGlobals(); setPacks({}); });
 
   it("guesses many scripts; unknown script → 'und'", () => {
-    expect(["ありがとう", "Спасибо", "شكرا", "ขอบคุณ", "ধন্যবাদ", "Merci", "…!"].map(guessLang)).toEqual(["ja", "ru", "ar", "th", "bn", "en", "und"]);
+    expect(["ありがとう", "Спасибо", "شكرا", "ขอบคุณ", "ধন্যবাদ", "Merci", "…!"].map(guessLang)).toEqual(["ja", "ru", "ar", "th", "bn", "fr", "und"]);
   });
   it("names any language in its own script, with no data files", () => {
     expect(["ne", "ko", "fr", "ar", "ja"].map((l) => langName(l))).toEqual(["नेपाली", "한국어", "Français", "العربية", "日本語"]);

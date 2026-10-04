@@ -389,11 +389,9 @@ const postHead = (m: Message, title: Child) =>
         chip("📅", m.received_at),
         m.synthetic && h("span", { class: "tag" }, icon("🧪"), t("synthetic")))));
 
-// Every language can be picked; one that came in with imported data is kept in the list too.
-const langOptions = (current: Lang, withUnknown = true) =>
-  [...new Set([current, ...COMMON_LANGS, ...languagesIn(state.messages), ...(withUnknown ? [UNKNOWN] : [])])]
-    .filter((l) => withUnknown || l !== UNKNOWN)
-    .map((l) => h("option", { value: l, lang: l === UNKNOWN ? null : l, selected: l === current }, l === UNKNOWN ? `? ${t("unknownLang")}` : `${langName(l)} (${l})`));
+// The languages the owner can choose for herself.
+const langOptions = (current: Lang) =>
+  [...new Set([current, ...COMMON_LANGS])].map((l) => h("option", { value: l, lang: l, selected: l === current }, `${langName(l)} (${l})`));
 
 // The owner's inbox: what guests sent by SMS in the last WINDOW_DAYS days. She does not type messages in;
 // adding by hand (paste, file, sample) is a set-up tool and lives in Settings → "For the team".
@@ -408,11 +406,10 @@ function messagesScreen(): Child[] {
       h("li", {},
         postHead(m, m.contact ?? t("guest")),
         h("p", { lang: m.lang, class: "post-text" }, m.text),
+        // The language shown above is worked out by Gauri. The owner is not asked to correct it:
+        // she cannot read the guests' languages.
         h("div", { class: "actions" },
-          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" }),
-          h("label", { for: `lang-${m.id}` }, icon("🌐"), t("language")),
-          h("select", { id: `lang-${m.id}`, onchange: (e: Event) => { m.lang = (e.target as HTMLSelectElement).value as Lang; commit(); } },
-            ...langOptions(m.lang))),
+          button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" })),
       ))),
     // Older messages stay on the phone until she removes them; they are not shown and not analysed.
     older > 0 && h("div", { class: "card" },
@@ -518,7 +515,7 @@ function settingsScreen(): Child[] {
         set("ownerLang", (e.target as HTMLSelectElement).value);
         // No labels in this language yet: translate them now, so choosing a language is all it takes.
         if (!hasLabels(s.ownerLang) && !s.demo) translateApp();
-      } }, ...langOptions(s.ownerLang, false))),
+      } }, ...langOptions(s.ownerLang))),
       h("p", { class: "small" }, t("myLangHelp")),
       // Shown only if the translation did not run or failed (model off, demo mode): try again by hand.
       !hasLabels(s.ownerLang) && !translating && h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp"))),
