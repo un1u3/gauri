@@ -70,6 +70,6 @@ The 15 points were written by hand before running and are not taken from the syn
 | Model runs that returned a valid answer | 5 of 5 (others fell back to the original ideas) |
 | Points where every shown idea is one of the candidates | 5 of 5 (enforced in code) |
 | Chosen ideas whose model text was rejected by the guardrails | 0 of 9 (0%); those cards show the original idea |
-| Median seconds per point | 10 |
+| Median seconds per point | 11 |
 
 Not measured: whether the Nepali explanations are good advice or natural Nepali. Every idea in the data files is still marked "not yet checked" by a person.

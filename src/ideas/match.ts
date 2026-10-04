@@ -6,8 +6,20 @@ export const MIN_SCORE = 2;
 
 const STOPWORDS = new Set("a an the and or but of to in on at for with from by as is are was were be been it its this that these those we our us they their them i my me you your he she his her not no so too very there here had has have did do does would could should will can just than then also when which who what how more most some any all into out up down over after before about".split(" "));
 
-// "cooking" and "cooks" count as "cook"; "loved" as "lov"; enough to line up a point with keywords.
-const stem = (w: string) => (w.length > 4 ? w.replace(/(ing|ed|es|s)$/, "") : w.length > 3 ? w.replace(/s$/, "") : w);
+// Light word endings: "cooking", "cooks", "cooked" → "cook"; "earlier" → "early"; "times" → "time"; "cherries" → "cherry".
+// The same rule is applied to the point and to the keywords, so it only has to be consistent.
+function stem(w: string): string {
+  if (w.length > 4 && w.endsWith("ies")) w = `${w.slice(0, -3)}y`;
+  else if (w.length > 5 && w.endsWith("ier")) w = `${w.slice(0, -3)}y`;
+  else if (w.length > 4 && /(ss|x|z|ch|sh)es$/.test(w)) w = w.slice(0, -2);
+  else if (w.length > 4 && w.endsWith("ing")) w = w.slice(0, -3);
+  else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0, -2);
+  else if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0, -1);
+  w = SAME[w] ?? w;
+  return w.length > 3 && w.endsWith("e") ? w.slice(0, -1) : w;
+}
+// Words the model often uses for a keyword in the catalog.
+const SAME: Record<string, string> = { lesson: "class", signage: "sign", signboard: "sign", tour: "walk" };
 
 export function tokenize(text: string): string[] {
   return text.toLowerCase().replace(/[^a-z\s-]/g, " ").split(/[\s-]+/).filter((w) => w && !STOPWORDS.has(w)).map(stem);

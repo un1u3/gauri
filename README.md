@@ -105,7 +105,7 @@ summary point ──► keyword match to a problem (code, no model) ──► no
 - **Her situation** (rooms, district, Wi-Fi, smartphone access, budget, languages, helpers) is set under Settings → "मेरो होमस्टे" and given to the model in words.
 - **It works with the model off.** Matching and candidates are code, so the original ideas still appear.
 
-Results (`npm run eval:ideas`, details in EVAL.md): matching put 13 of 15 hand-written points under the right problem area; on 5 points the real model answered all 5 in a median of 10 seconds, every shown idea was one of the candidates, and none of its 9 explanations was rejected by the guardrails. Not measured: whether the Nepali explanations are good advice.
+Results (`npm run eval:ideas`, details in EVAL.md): matching put 13 of 15 hand-written points under the right problem area, and all 11 distinct points the model wrote in our evaluation runs got ideas. On 5 points the real model answered 5 of 5 in a median of 11 seconds, every shown idea was one of the candidates, and 0 of its 9 explanations were rejected by the guardrails. Not measured: whether the explanations are good advice.
 
 ## Any language
 
