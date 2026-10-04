@@ -23,6 +23,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Ideas matcher: stemmer fixed; 11/11 real model points get ideas; hand-written set 13/15.
 - Fresh held-out set (`--set final`), run once: SCORE 1.425, themes 4/4, per-language 100/100/60/100/90, precision 98%. No tuning after it. Do not tune on it.
 - Theme (team request): farm-derived palette — leaf green, cherry red accent, bean-brown text, lokta cream, marigold highlight. All text pairs ≥ 4.5:1 (computed). Only colour tokens changed.
+- Realistic sample set (team request): `data/sample_reviews.json`, 40 msgs, 9 languages, 7 themes + 3 singles; used by "Load sample" and demo mode (MOCK = saved model run). `--set sample`: SCORE 1.036, themes 79%, precision 99%. Not tuned on. Getting-started card on empty summary.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

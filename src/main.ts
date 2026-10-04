@@ -1,7 +1,7 @@
 import "@fontsource/noto-sans-devanagari/400.css";
 import "@fontsource/noto-sans-devanagari/700.css";
 import "./style.css";
-import sample from "../data/synthetic_messages.json";
+import sample from "../data/sample_reviews.json";
 import { analyse, draftThanks } from "./ai/analyse";
 import { translateLabels } from "./ai/translate";
 import { applyGuardrails, hasEnoughFeedback, languagesOf, NotSureError, notEnoughFeedback } from "./ai/guardrails";
@@ -338,6 +338,12 @@ function summaryScreen(): Child[] {
     return out;
   }
   out.push(alertBox());
+  if (n === 0) // first visit: say what to do, and offer the sample so the app can be tried in one tap
+    out.push(h("div", { class: "card start" },
+      h("h2", {}, icon("🌱"), t("startTitle")),
+      h("ol", {}, ...(["startStep1", "startStep2", "startStep3"] as Key[]).map((k, i) => h("li", {}, h("span", { class: "step", "aria-hidden": "true" }, String(i + 1)), t(k)))),
+      button("start-sample", "🧪", t("loadSample"), () => addMessages(fromJson(sample, state.messages)), { class: "primary wide" }),
+      button("start-messages", "💬", t("startMessages"), () => go("messages"), { class: "tonal wide" })));
   if (!hasEnoughFeedback(n, min) || a?.status === "not_enough_feedback") {
     out.push(h("div", { class: "notice" }, h("p", { class: "big" }, icon("✋"), t("notEnough", n, min)), h("p", {}, t("notEnoughHelp")),
       h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${Math.min(100, (n / min) * 100)}%` }))));

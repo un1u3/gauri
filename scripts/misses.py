@@ -3,7 +3,7 @@
 Usage: python3 scripts/misses.py [dev|test]"""
 import json, sys
 which = sys.argv[1] if len(sys.argv) > 1 else "dev"
-files = {"test": ("synthetic_test.json", "synthetic_test_truth.json"), "final": ("synthetic_final.json", "synthetic_final_truth.json")}.get(which, ("synthetic_messages.json", "synthetic_truth.json"))
+files = {"test": ("synthetic_test.json", "synthetic_test_truth.json"), "final": ("synthetic_final.json", "synthetic_final_truth.json"), "sample": ("sample_reviews.json", "sample_reviews_truth.json")}.get(which, ("synthetic_messages.json", "synthetic_truth.json"))
 msgs = {m["id"]: m for m in json.load(open(f"data/{files[0]}"))}
 themes = json.load(open(f"data/{files[1]}"))["themes"]
 for i, run in enumerate(json.load(open("eval_results.json"))[which]["runs"], 1):

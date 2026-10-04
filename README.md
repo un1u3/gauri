@@ -32,7 +32,7 @@ npm run model:text         # recommended: text-only copy of the model, about 1 G
 npm run dev                # open http://localhost:5173
 ```
 
-In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes about a minute on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
+In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages: 40 realistic reviews in 9 languages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes one to two minutes on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
 
 To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
 
@@ -131,6 +131,7 @@ Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-rea
 
 | Dataset | Source | License | Size | Use |
 |---|---|---|---|---|
+| `data/sample_reviews.json` + `sample_reviews_truth.json` | **Synthetic**, written by the team; modelled on what public write-ups and studies say homestay guests in Nepal praise and complain about (sources below). No real review text was copied. | MIT (this repo) | 40 messages in 9 languages (en, ne, hi, zh, ko, ja, fr, de, es); 7 themes, 3 single mentions | The sample loaded in the app and used for demo mode |
 | `data/synthetic_messages.json` + `synthetic_truth.json` | **Synthetic**, written by the team (`scripts/make_synthetic.py`) | MIT (this repo) | 40 messages, 8 per language | Dev set: tuning the prompt |
 | `data/synthetic_test.json` + `synthetic_test_truth.json` | **Synthetic**, written by the team, different wording and guests | MIT (this repo) | 40 messages, 8 per language | Held-out test set: final numbers only |
 | `data/problem_catalog.json` | Written with a large AI model at build time, for this project | MIT (this repo) | 100 problems in 15 areas | Matching a summary point to ideas |
@@ -139,7 +140,9 @@ Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-rea
 | `data/synthetic_final.json` + `synthetic_final_truth.json` | **Synthetic**, written by the team after the first two sets had been looked at | MIT (this repo) | 40 messages, 8 per language | Second held-out set, run once |
 | `data/real_messages.json` | Real guest comments, with consent, names removed | — | **0 (empty slot)** | Import works; no real data collected yet |
 
-Each synthetic set has four planted themes spread across languages (loved the cooking class, loved the coffee farm walk, breakfast too late, farm hard to find), one single mention (Wi-Fi) that must *not* become a point, and 14 neutral messages. Every synthetic message is flagged `synthetic: true` and shown with a "बनावटी / synthetic" badge.
+The sample reviews follow patterns found by web search in: a Helvetas Nepal article on homestay water and sanitation (hot water is boiled on request; squat toilets), travel write-ups of Ghale Gaun, Sirubari and Panauti ("treated like family", eating together, home cooking, cooking momos), satisfaction studies on NepJOL (language barrier without a guide, facilities, access), and Community Homestay Network coffee-farm experiences. We read search summaries of these, not full review archives, and no reviewer is quoted.
+
+Each of the three evaluation sets has four planted themes spread across languages (loved the cooking class, loved the coffee farm walk, breakfast too late, farm hard to find), one single mention (Wi-Fi) that must *not* become a point, and 14 neutral messages. Every synthetic message is flagged `synthetic: true` and shown with a "बनावटी / synthetic" badge.
 
 The ideas data is English only and **has not yet been checked by a person** (`data/review_sheet.csv` is the checklist). Only two of the 30 guidebook ideas are from Nepal.
 
@@ -162,6 +165,8 @@ Held-out **test set**, text-only `gemma4:e2b` (3.6 GB on disk), mean of 2 runs, 
 | SCORE (max 1.75) | **1.525** |
 
 **On a fresh set nobody had seen results for** (`data/synthetic_final.json`, run once, nothing changed afterwards): SCORE **1.425**, themes 4 of 4, per-language recall 100 / 100 / 60 / 100 / 90, precision 98%. This is the cleanest number we have. Hindi was the weak language here, not Korean, and one Hindi message was cited under the wrong point in one run: which language is under-counted varies from set to set.
+
+**On the realistic sample set** (`data/sample_reviews.json`, 7 themes, 9 languages, longer and mixed messages; run after everything else, no tuning on it): SCORE **1.036**. The model found 5 to 6 of the 7 themes; the two it struggled with (the rough road, with 3 messages, and talking without the guide) were put under "not sure" in some runs instead of being shown as points. Precision 99%, no single-guest remark shown as a point, about 110 seconds. More themes and more languages are clearly harder for a model this size, and it fails in the cautious direction.
 
 **How we got there** ([LOOP_LOG.md](LOOP_LOG.md)): we measured on the dev set, changed one thing at a time, and kept only what helped.
 

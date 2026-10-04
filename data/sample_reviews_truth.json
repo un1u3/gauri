@@ -1,0 +1,114 @@
+{
+ "themes": [
+  {
+   "id": "R1",
+   "type": "loved",
+   "name": "Treated like family / warm hospitality",
+   "message_ids": [
+    "r03",
+    "r06",
+    "r12",
+    "r16",
+    "r18",
+    "r20",
+    "r35",
+    "r40"
+   ]
+  },
+  {
+   "id": "R2",
+   "type": "loved",
+   "name": "Home-cooked food from the farm",
+   "message_ids": [
+    "r11",
+    "r14",
+    "r23",
+    "r24",
+    "r29",
+    "r32"
+   ]
+  },
+  {
+   "id": "R3",
+   "type": "loved",
+   "name": "Coffee farm walk, roasting and tasting",
+   "message_ids": [
+    "r09",
+    "r22",
+    "r28",
+    "r36",
+    "r37",
+    "r39"
+   ]
+  },
+  {
+   "id": "R4",
+   "type": "wished",
+   "name": "No hot water for washing",
+   "message_ids": [
+    "r07",
+    "r15",
+    "r19",
+    "r26",
+    "r30",
+    "r32"
+   ]
+  },
+  {
+   "id": "R5",
+   "type": "wished",
+   "name": "Room cold at night",
+   "message_ids": [
+    "r02",
+    "r17",
+    "r25",
+    "r31"
+   ]
+  },
+  {
+   "id": "R6",
+   "type": "wished",
+   "name": "Could not talk with the hosts without the guide",
+   "message_ids": [
+    "r01",
+    "r05",
+    "r20",
+    "r33"
+   ]
+  },
+  {
+   "id": "R7",
+   "type": "wished",
+   "name": "Rough road / house hard to find",
+   "message_ids": [
+    "r10",
+    "r13",
+    "r34"
+   ]
+  },
+  {
+   "id": "S1",
+   "type": "single",
+   "name": "Wants Wi-Fi (one guest only)",
+   "message_ids": [
+    "r38"
+   ]
+  },
+  {
+   "id": "S2",
+   "type": "single",
+   "name": "Could not pay by card (one guest only)",
+   "message_ids": [
+    "r27"
+   ]
+  },
+  {
+   "id": "S3",
+   "type": "single",
+   "name": "Squat toilet outside the house (one guest only)",
+   "message_ids": [
+    "r04"
+   ]
+  }
+ ]
+}

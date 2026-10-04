@@ -145,11 +145,70 @@ FINAL = [
     ("ne", "-", "यसपालि चिसो अलि बढी रहेछ।"),
     ("ne", "-", "दसैंमा फेरि भेटौंला।"),
 ]
+# The sample shown in the app ("Load sample messages") and used for demo mode. Still invented by the
+# team — no real guest wrote these and no review text was copied — but modelled on what public
+# write-ups and studies of Nepali village homestays say guests praise and complain about
+# (README, "Data"). Nine languages; some messages hold praise and a wish together, like real reviews.
+SAMPLE_THEMES = {
+    "R1": ("loved", "Treated like family / warm hospitality"),
+    "R2": ("loved", "Home-cooked food from the farm"),
+    "R3": ("loved", "Coffee farm walk, roasting and tasting"),
+    "R4": ("wished", "No hot water for washing"),
+    "R5": ("wished", "Room cold at night"),
+    "R6": ("wished", "Could not talk with the hosts without the guide"),
+    "R7": ("wished", "Rough road / house hard to find"),
+    "S1": ("single", "Wants Wi-Fi (one guest only)"),
+    "S2": ("single", "Could not pay by card (one guest only)"),
+    "S3": ("single", "Squat toilet outside the house (one guest only)"),
+}
+SAMPLE = [
+    ("en", "R1", "We were treated like family from the first cup of tea. Aama even walked us to the bus on our last morning."),
+    ("en", "R2+R4", "The dal bhat with greens from the garden was the best food of our whole trip. Only wish: the shower was cold, a bucket of warm water would have been perfect."),
+    ("en", "R3", "Picking coffee cherries and then roasting them over the fire with the family was unforgettable."),
+    ("en", "R4", "Beautiful place, but there was no hot water at all and it was hard to wash after a long hike."),
+    ("en", "R6", "Once our guide left we could not really talk to our hosts. We had so many questions about the farm."),
+    ("en", "R7", "The last hour of road was very rough and our driver had trouble finding the house."),
+    ("en", "S1", "It would help to have Wi-Fi, I needed to send one work email."),
+    ("en", "R5", "Nights were colder than we expected and the blanket was thin."),
+    ("en", "-", "Back in Kathmandu now. Thank you again!"),
+    ("ne", "R1", "आफ्नै घर जस्तो माया पाइयो। आमाले छोराछोरीलाई जस्तै ख्याल गर्नुभयो।"),
+    ("ne", "R2", "करेसाबारीको सागसब्जी र घरको घिउ हालेको दालभात असाध्यै मीठो थियो।"),
+    ("ne", "R3", "कफी बारी घुमाएर आफ्नै हातले भुटेको कफी खुवाउनुभयो, नयाँ अनुभव भयो।"),
+    ("ne", "R5", "राति निकै जाडो भयो, ओढ्ने अलि पातलो थियो।"),
+    ("ne", "R4", "नुहाउन तातो पानी भए अझ राम्रो हुन्थ्यो।"),
+    ("ne", "-", "फेरि आउने मन छ, छिट्टै भेटौंला।"),
+    ("hi", "R1", "परिवार ने हमें मेहमान नहीं, अपने घर के लोगों की तरह रखा। बहुत अपनापन मिला।"),
+    ("hi", "R2", "घर का बना खाना, खासकर दाल-भात और अचार, लाजवाब था।"),
+    ("hi", "R4", "नहाने के लिए गरम पानी नहीं था, ठंड में मुश्किल हुई।"),
+    ("hi", "R7", "रास्ता बहुत खराब था और घर ढूँढने में काफ़ी समय लगा।"),
+    ("hi", "R3", "कॉफ़ी के बाग़ में घूमना और वहीं की ताज़ी कॉफ़ी पीना बहुत अच्छा लगा।"),
+    ("zh", "R1", "主人一家把我们当成家人,非常热情。"),
+    ("zh", "R2", "用自家菜园的菜做的饭特别好吃,每顿都吃得很饱。"),
+    ("zh", "R4", "没有热水洗澡,晚上洗冷水很冷。"),
+    ("zh", "R6", "向导走了以后,我们和主人没法交流,只能靠手势。"),
+    ("zh", "S2", "只能付现金,不能刷卡,有点不方便。"),
+    ("ko", "R3", "커피 농장을 돌아보고 직접 볶은 커피를 마신 것이 가장 좋았습니다."),
+    ("ko", "R1", "가족처럼 대해 주셔서 떠날 때 눈물이 났어요."),
+    ("ko", "R5", "밤에 방이 많이 추웠어요. 이불이 더 있었으면 좋겠어요."),
+    ("ko", "R6", "말이 통하지 않아서 궁금한 것을 물어볼 수 없었던 점이 아쉬웠어요."),
+    ("ja", "R2", "畑でとれた野菜を使った家庭料理がとてもおいしかったです。"),
+    ("ja", "R3", "コーヒー畑を歩いて、自分で豆を焙煎する体験が楽しかったです。"),
+    ("ja", "R4", "お湯が出なかったので、シャワーが冷たくて大変でした。"),
+    ("ja", "R1", "家族の一員のように迎えてくれて、本当に温かいおもてなしでした。"),
+    ("fr", "R1+R6", "Un accueil très chaleureux, on se sentait comme en famille. Dommage que nous n'ayons pas pu parler avec nos hôtes sans le guide."),
+    ("fr", "R2", "Les repas faits maison avec les légumes du jardin étaient délicieux."),
+    ("fr", "R7", "La route pour arriver est longue et très cahoteuse, et la maison est difficile à trouver."),
+    ("de", "R3", "Die Führung durch die Kaffeefarm und das gemeinsame Rösten am Feuer waren das Highlight."),
+    ("de", "R5", "Nachts war es im Zimmer sehr kalt, eine zweite Decke wäre gut gewesen."),
+    ("es", "R1", "La familia nos trató como a sus propios hijos. ¡Volveremos!"),
+    ("es", "S3", "El baño es de tipo turco y está fuera de la casa; nos costó acostumbrarnos."),
+]
 
-def build(rows, prefix, seed, month):
+
+def build(rows, prefix, seed, month, themes=THEMES):
     rows = rows[:]
     random.Random(seed).shuffle(rows)
-    messages, truth = [], {t: [] for t in THEMES}
+    messages, truth = [], {t: [] for t in themes}
     for i, (lang, theme, text) in enumerate(rows, 1):
         mid = f"{prefix}{i:02d}"
         messages.append({
@@ -159,10 +218,10 @@ def build(rows, prefix, seed, month):
             "contact": f"guest-{mid}@example.invalid" if i % 2 else None,
             "synthetic": True,
         })
-        if theme in truth:
-            truth[theme].append(mid)
-    themes = [{"id": t, "type": THEMES[t][0], "name": THEMES[t][1], "message_ids": ids} for t, ids in truth.items()]
-    return messages, {"themes": themes}
+        for t in theme.split("+"):  # a message may express two themes
+            if t in truth:
+                truth[t].append(mid)
+    return messages, {"themes": [{"id": t, "type": themes[t][0], "name": themes[t][1], "message_ids": ids} for t, ids in truth.items()]}
 
 
 def dump(path, obj):
@@ -176,3 +235,8 @@ for rows, prefix, seed, month, name in [(DEV, "m", 1, 8, "synthetic"), (TEST, "t
     dump(f"data/{'synthetic_messages' if name == 'synthetic' else name}.json", messages)
     dump(f"data/{name}_truth.json", truth)
     print(name, len(messages), {t["id"]: len(t["message_ids"]) for t in truth["themes"]})
+
+messages, truth = build(SAMPLE, "r", 4, 9, SAMPLE_THEMES)
+dump("data/sample_reviews.json", messages)
+dump("data/sample_reviews_truth.json", truth)
+print("sample_reviews", len(messages), {t["id"]: len(t["message_ids"]) for t in truth["themes"]})

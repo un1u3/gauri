@@ -790,5 +790,327 @@
     }
    }
   ]
+ },
+ "sample": {
+  "summary": {
+   "set": "sample",
+   "model": "gemma4-e2b-text",
+   "model_size_gb": 3.6,
+   "n_messages": 40,
+   "runs": 2,
+   "at": "2026-10-04T08:03:26.495Z",
+   "SCORE": 1.036,
+   "theme_recall": 0.786,
+   "per_language": {
+    "en": 0.75,
+    "ko": 0.875,
+    "hi": 0.7,
+    "zh": 0.5,
+    "ne": 0.9,
+    "de": 1,
+    "es": 1,
+    "fr": 0.5,
+    "ja": 1
+   },
+   "min_language": 0.5,
+   "t5_correct": false,
+   "t5_not_a_point": true,
+   "t5_in_uncertain": false,
+   "citation_validity": 1,
+   "citation_precision": 0.985,
+   "second_look": true,
+   "min_citations_per_point": 3,
+   "seconds": 113,
+   "not_enough_ok": true,
+   "themes_found": [
+    {
+     "R1": true,
+     "R2": true,
+     "R3": true,
+     "R4": true,
+     "R5": true,
+     "R6": true,
+     "R7": false
+    },
+    {
+     "R1": true,
+     "R2": true,
+     "R3": true,
+     "R4": true,
+     "R5": true,
+     "R6": false,
+     "R7": false
+    }
+   ]
+  },
+  "runs": [
+   {
+    "SCORE": 1.1071428571428572,
+    "theme_recall": 0.8571428571428571,
+    "themes_found": {
+     "R1": true,
+     "R2": true,
+     "R3": true,
+     "R4": true,
+     "R5": true,
+     "R6": true,
+     "R7": false
+    },
+    "per_language": {
+     "en": 0.875,
+     "ko": 1,
+     "hi": 0.8,
+     "zh": 0.5,
+     "ne": 1,
+     "de": 1,
+     "es": 1,
+     "fr": 0.5,
+     "ja": 1
+    },
+    "min_language": 0.5,
+    "t5_correct": false,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": false,
+    "citation_validity": 1,
+    "citation_precision": 0.9696969696969697,
+    "min_citations": 3,
+    "n_points": 8,
+    "seconds": 125,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Picking coffee cherries and roasting them over the fire with the family was unforgettable.",
+       "point_own": "कफी बेरी टिप्नु र परिवारसँग आगोमा रोस्ट गर्नु अविस्मरणीय थियो।",
+       "message_ids": [
+        "r09",
+        "r37",
+        "r22",
+        "r31"
+       ]
+      },
+      {
+       "point_en": "The homemade food, especially the dal bhat and pickles, was amazing.",
+       "point_own": "घरको खाना, विशेष गरी दाल-भात र अचार, अद्भुत थियो।",
+       "message_ids": [
+        "r14",
+        "r24",
+        "r29",
+        "r32",
+        "r23"
+       ]
+      },
+      {
+       "point_en": "Guests felt treated like family and received warm hospitality.",
+       "point_own": "अतिथिहरूलाई परिवार जस्तै व्यवहार गरियो र न्यानो आतिथ्य प्राप्त भयो।",
+       "message_ids": [
+        "r03",
+        "r12",
+        "r18",
+        "r20",
+        "r35",
+        "r40",
+        "r06",
+        "r16"
+       ]
+      },
+      {
+       "point_en": "The tour of the coffee farm and roasting coffee over the fire was a highlight.",
+       "point_own": "कफी फार्मको भ्रमण र आगोमा कफी रोस्ट गर्नु मुख्य आकर्षण थियो।",
+       "message_ids": [
+        "r28",
+        "r37",
+        "r39",
+        "r36"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Guests wished for better communication with hosts when the guide left.",
+       "point_own": "गाइड गएपछि होस्टहरूसँग राम्रो सञ्चार गर्न चाहन्थे।",
+       "message_ids": [
+        "r01",
+        "r05",
+        "r33"
+       ]
+      },
+      {
+       "point_en": "Guests wished for hot water for showering.",
+       "point_own": "उनीहरूले नुहाउनका लागि तातो पानी चाहन्थे।",
+       "message_ids": [
+        "r15",
+        "r19",
+        "r26",
+        "r30",
+        "r32"
+       ]
+      },
+      {
+       "point_en": "Guests wished for warmer rooms or extra blankets due to cold nights.",
+       "point_own": "चिसो रातिहरूका लागि उनीहरूले अझ न्यानो कोठा वा अतिरिक्त कम्बल चाहन्थे।",
+       "message_ids": [
+        "r02",
+        "r17",
+        "r25",
+        "r31"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade to provide hot water for showers.",
+      "point_own": "नुहाउनका लागि तातो पानी उपलब्ध गराउन अपग्रेड गर्नुहोस्।",
+      "message_ids": [
+       "r15",
+       "r19",
+       "r26",
+       "r30",
+       "r32"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "The method of communication with hosts after the guide left was difficult (could not talk).",
+       "note_own": "गाइड गएपछि होस्टहरूसँग सञ्चार गर्ने तरिका गाह्रो थियो (बोल्न सकिएन)।"
+      },
+      {
+       "note_en": "The difficulty in finding the house and the rough road on the last hour of the journey.",
+       "note_own": "घर फेला पार्नको कठिनाई र यात्राको अन्तिम घण्टामा खराब सडक।"
+      }
+     ],
+     "model": "gemma4-e2b-text",
+     "seconds": 125,
+     "lang": "ne",
+     "created_at": "2026-10-04T08:01:30.359Z"
+    }
+   },
+   {
+    "SCORE": 0.9642857142857143,
+    "theme_recall": 0.7142857142857143,
+    "themes_found": {
+     "R1": true,
+     "R2": true,
+     "R3": true,
+     "R4": true,
+     "R5": true,
+     "R6": false,
+     "R7": false
+    },
+    "per_language": {
+     "en": 0.625,
+     "ko": 0.75,
+     "hi": 0.6,
+     "zh": 0.5,
+     "ne": 0.8,
+     "de": 1,
+     "es": 1,
+     "fr": 0.5,
+     "ja": 1
+    },
+    "min_language": 0.5,
+    "t5_correct": false,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": false,
+    "citation_validity": 1,
+    "citation_precision": 1,
+    "min_citations": 4,
+    "n_points": 6,
+    "seconds": 101,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Picking coffee cherries and roasting them over the fire with the family was unforgettable.",
+       "point_own": "परिवारसँग मिलेर कफी चेरी टिप्नु र आगोमा भुट्नु अविस्मरणीय थियो।",
+       "message_ids": [
+        "r09",
+        "r37",
+        "r22",
+        "r36",
+        "r28"
+       ]
+      },
+      {
+       "point_en": "The food made with garden vegetables was delicious and filling.",
+       "point_own": "बाटोमा पाएको तरकारीले बनाएको खाना मिठो र पेट भरिदिने थियो।",
+       "message_ids": [
+        "r11",
+        "r23",
+        "r24",
+        "r29",
+        "r32"
+       ]
+      },
+      {
+       "point_en": "The hosts treated guests like family and provided a very warm welcome.",
+       "point_own": "मेजबानहरूले अतिथिहरूलाई परिवार जस्तै व्यवहार गरे र धेरै न्यानो स्वागत गरे।",
+       "message_ids": [
+        "r03",
+        "r12",
+        "r18",
+        "r20",
+        "r35",
+        "r40",
+        "r06"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Guests wished for hot water for showering.",
+       "point_own": "अतिथिहरूले नुहाउनका लागि तातो पानी चाहन्थे।",
+       "message_ids": [
+        "r15",
+        "r19",
+        "r26",
+        "r30",
+        "r32"
+       ]
+      },
+      {
+       "point_en": "Guests wished for more blankets/extra bedding because the nights were cold.",
+       "point_own": "अतिथिहरूले धेरै चिसो भएकाले थप कम्बल चाहन्थे।",
+       "message_ids": [
+        "r02",
+        "r17",
+        "r25",
+        "r31"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade: Provide hot water for showers.",
+      "point_own": "अपग्रेड: नुहाउनका लागि तातो पानी उपलब्ध गराउनुहोस्।",
+      "message_ids": [
+       "r15",
+       "r19",
+       "r26",
+       "r30",
+       "r32"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "The method of communication with the host after the guide left was difficult (could only use gestures).",
+       "note_own": "गाइड गएपछि मेजबानसँग कुराकानी गर्न गाह्रो थियो (केवल इशारा प्रयोग गर्न सकिन्थ्यो)।\nmessage_ids\": [\"r01\", \"r05\", \"r33\"]"
+      },
+      {
+       "note_en": "The difficulty in finding the house/road conditions were mentioned.",
+       "note_own": "घर फेला पार्नको कठिनाई/सडकको अवस्था उल्लेख गरिएको छ।\nmessage_ids\": [\"r10\", \"r13\", \"r34\"]"
+      },
+      {
+       "note_en": "Payment method was cash only, which was inconvenient for some.",
+       "note_own": "भुक्तानी विधि नगद मात्र थियो, जुन केहीका लागि असुविधाजनक थियो।\nmessage_ids\": [\"r27\"]"
+      }
+     ],
+     "model": "gemma4-e2b-text",
+     "seconds": 101,
+     "lang": "ne",
+     "created_at": "2026-10-04T08:03:11.201Z"
+    }
+   }
+  ]
  }
 }

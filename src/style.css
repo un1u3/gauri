@@ -151,6 +151,13 @@ button.cta { width: 100%; min-height: 3.4rem; margin: 0; border: 0; background: 
 .skeleton span:nth-child(3) { width: 55%; }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
+/* Getting-started card on an empty summary */
+.start h2 { margin: 0 0 0.6rem; display: flex; align-items: center; }
+.start h2 .icon { color: var(--green); }
+.start ol { list-style: none; padding: 0; margin: 0 0 0.8rem; }
+.start ol li { display: flex; align-items: center; gap: 0.7rem; padding: 0.4rem 0; }
+.step { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--gold); color: var(--ink); font-weight: 700; }
+
 /* Section titles: icon in a tinted chip. The title text carries the meaning. */
 .sec { display: flex; align-items: center; }
 .sec > .icon { width: 2.2rem; height: 2.2rem; align-items: center; justify-content: center; border-radius: 0.75rem; margin-inline-end: 0.6rem; background: var(--green-tint); color: var(--green-dark); }

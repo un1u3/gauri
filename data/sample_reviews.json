@@ -1,0 +1,322 @@
+[
+ {
+  "id": "r01",
+  "text": "말이 통하지 않아서 궁금한 것을 물어볼 수 없었던 점이 아쉬웠어요.",
+  "lang": "ko",
+  "received_at": "2026-09-01",
+  "contact": "guest-r01@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r02",
+  "text": "밤에 방이 많이 추웠어요. 이불이 더 있었으면 좋겠어요.",
+  "lang": "ko",
+  "received_at": "2026-09-02",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r03",
+  "text": "가족처럼 대해 주셔서 떠날 때 눈물이 났어요.",
+  "lang": "ko",
+  "received_at": "2026-09-03",
+  "contact": "guest-r03@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r04",
+  "text": "El baño es de tipo turco y está fuera de la casa; nos costó acostumbrarnos.",
+  "lang": "es",
+  "received_at": "2026-09-03",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r05",
+  "text": "向导走了以后,我们和主人没法交流,只能靠手势。",
+  "lang": "zh",
+  "received_at": "2026-09-04",
+  "contact": "guest-r05@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r06",
+  "text": "La familia nos trató como a sus propios hijos. ¡Volveremos!",
+  "lang": "es",
+  "received_at": "2026-09-05",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r07",
+  "text": "没有热水洗澡,晚上洗冷水很冷。",
+  "lang": "zh",
+  "received_at": "2026-09-05",
+  "contact": "guest-r07@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r08",
+  "text": "फेरि आउने मन छ, छिट्टै भेटौंला।",
+  "lang": "ne",
+  "received_at": "2026-09-06",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r09",
+  "text": "Picking coffee cherries and then roasting them over the fire with the family was unforgettable.",
+  "lang": "en",
+  "received_at": "2026-09-07",
+  "contact": "guest-r09@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r10",
+  "text": "रास्ता बहुत खराब था और घर ढूँढने में काफ़ी समय लगा।",
+  "lang": "hi",
+  "received_at": "2026-09-07",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r11",
+  "text": "用自家菜园的菜做的饭特别好吃,每顿都吃得很饱。",
+  "lang": "zh",
+  "received_at": "2026-09-08",
+  "contact": "guest-r11@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r12",
+  "text": "家族の一員のように迎えてくれて、本当に温かいおもてなしでした。",
+  "lang": "ja",
+  "received_at": "2026-09-09",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r13",
+  "text": "La route pour arriver est longue et très cahoteuse, et la maison est difficile à trouver.",
+  "lang": "fr",
+  "received_at": "2026-09-09",
+  "contact": "guest-r13@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r14",
+  "text": "करेसाबारीको सागसब्जी र घरको घिउ हालेको दालभात असाध्यै मीठो थियो।",
+  "lang": "ne",
+  "received_at": "2026-09-10",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r15",
+  "text": "नुहाउन तातो पानी भए अझ राम्रो हुन्थ्यो।",
+  "lang": "ne",
+  "received_at": "2026-09-11",
+  "contact": "guest-r15@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r16",
+  "text": "We were treated like family from the first cup of tea. Aama even walked us to the bus on our last morning.",
+  "lang": "en",
+  "received_at": "2026-09-11",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r17",
+  "text": "Nachts war es im Zimmer sehr kalt, eine zweite Decke wäre gut gewesen.",
+  "lang": "de",
+  "received_at": "2026-09-12",
+  "contact": "guest-r17@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r18",
+  "text": "主人一家把我们当成家人,非常热情。",
+  "lang": "zh",
+  "received_at": "2026-09-13",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r19",
+  "text": "Beautiful place, but there was no hot water at all and it was hard to wash after a long hike.",
+  "lang": "en",
+  "received_at": "2026-09-13",
+  "contact": "guest-r19@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r20",
+  "text": "Un accueil très chaleureux, on se sentait comme en famille. Dommage que nous n'ayons pas pu parler avec nos hôtes sans le guide.",
+  "lang": "fr",
+  "received_at": "2026-09-14",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r21",
+  "text": "Back in Kathmandu now. Thank you again!",
+  "lang": "en",
+  "received_at": "2026-09-15",
+  "contact": "guest-r21@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r22",
+  "text": "कफी बारी घुमाएर आफ्नै हातले भुटेको कफी खुवाउनुभयो, नयाँ अनुभव भयो।",
+  "lang": "ne",
+  "received_at": "2026-09-16",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r23",
+  "text": "畑でとれた野菜を使った家庭料理がとてもおいしかったです。",
+  "lang": "ja",
+  "received_at": "2026-09-16",
+  "contact": "guest-r23@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r24",
+  "text": "घर का बना खाना, खासकर दाल-भात और अचार, लाजवाब था।",
+  "lang": "hi",
+  "received_at": "2026-09-17",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r25",
+  "text": "Nights were colder than we expected and the blanket was thin.",
+  "lang": "en",
+  "received_at": "2026-09-18",
+  "contact": "guest-r25@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r26",
+  "text": "お湯が出なかったので、シャワーが冷たくて大変でした。",
+  "lang": "ja",
+  "received_at": "2026-09-18",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r27",
+  "text": "只能付现金,不能刷卡,有点不方便。",
+  "lang": "zh",
+  "received_at": "2026-09-19",
+  "contact": "guest-r27@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r28",
+  "text": "Die Führung durch die Kaffeefarm und das gemeinsame Rösten am Feuer waren das Highlight.",
+  "lang": "de",
+  "received_at": "2026-09-20",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r29",
+  "text": "Les repas faits maison avec les légumes du jardin étaient délicieux.",
+  "lang": "fr",
+  "received_at": "2026-09-20",
+  "contact": "guest-r29@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r30",
+  "text": "नहाने के लिए गरम पानी नहीं था, ठंड में मुश्किल हुई।",
+  "lang": "hi",
+  "received_at": "2026-09-21",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r31",
+  "text": "राति निकै जाडो भयो, ओढ्ने अलि पातलो थियो।",
+  "lang": "ne",
+  "received_at": "2026-09-22",
+  "contact": "guest-r31@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r32",
+  "text": "The dal bhat with greens from the garden was the best food of our whole trip. Only wish: the shower was cold, a bucket of warm water would have been perfect.",
+  "lang": "en",
+  "received_at": "2026-09-22",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r33",
+  "text": "Once our guide left we could not really talk to our hosts. We had so many questions about the farm.",
+  "lang": "en",
+  "received_at": "2026-09-23",
+  "contact": "guest-r33@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r34",
+  "text": "The last hour of road was very rough and our driver had trouble finding the house.",
+  "lang": "en",
+  "received_at": "2026-09-24",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r35",
+  "text": "आफ्नै घर जस्तो माया पाइयो। आमाले छोराछोरीलाई जस्तै ख्याल गर्नुभयो।",
+  "lang": "ne",
+  "received_at": "2026-09-24",
+  "contact": "guest-r35@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r36",
+  "text": "コーヒー畑を歩いて、自分で豆を焙煎する体験が楽しかったです。",
+  "lang": "ja",
+  "received_at": "2026-09-25",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r37",
+  "text": "커피 농장을 돌아보고 직접 볶은 커피를 마신 것이 가장 좋았습니다.",
+  "lang": "ko",
+  "received_at": "2026-09-26",
+  "contact": "guest-r37@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r38",
+  "text": "It would help to have Wi-Fi, I needed to send one work email.",
+  "lang": "en",
+  "received_at": "2026-09-26",
+  "contact": null,
+  "synthetic": true
+ },
+ {
+  "id": "r39",
+  "text": "कॉफ़ी के बाग़ में घूमना और वहीं की ताज़ी कॉफ़ी पीना बहुत अच्छा लगा।",
+  "lang": "hi",
+  "received_at": "2026-09-27",
+  "contact": "guest-r39@example.invalid",
+  "synthetic": true
+ },
+ {
+  "id": "r40",
+  "text": "परिवार ने हमें मेहमान नहीं, अपने घर के लोगों की तरह रखा। बहुत अपनापन मिला।",
+  "lang": "hi",
+  "received_at": "2026-09-28",
+  "contact": null,
+  "synthetic": true
+ }
+]

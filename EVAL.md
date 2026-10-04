@@ -87,6 +87,31 @@ What it shows:
   late". It came from the first pass. A cited message that does not support its point is the failure the owner can
   catch by opening the sources, but it does happen.
 
+## The realistic sample set (harder)
+
+`data/sample_reviews.json` is the sample shown in the app: 40 invented messages modelled on what public write-ups and
+studies say homestay guests in Nepal praise and complain about. It is harder than the evaluation sets: 7 themes instead
+of 4, 9 languages instead of 5, longer messages, and four messages that hold praise and a wish together. Run with
+`npm run eval -- --set sample` after everything else; nothing was tuned on it.
+
+| Metric | Result (mean of 2 runs: 1.11, 0.96) |
+|---|---|
+| Theme recall (7 planted themes) | 79% (6 of 7, then 5 of 7) |
+| Per-language recall en / ko / hi / zh / ne / de / es / fr / ja | 75 / 88 / 70 / 50 / 90 / 100 / 100 / 50 / 100 |
+| Citation precision | 99% |
+| Single mentions (Wi-Fi, card payment, squat toilet) shown as a point | none |
+| Fewest citations on any displayed point | 3 |
+| Seconds per analysis | 113 |
+| **SCORE** | **1.036** |
+
+What it shows:
+- With more themes and languages the model misses more. "Rough road / hard to find" (3 messages) was never shown as a
+  point, and "could not talk without the guide" (4 messages) only in one run; both times the model put them under
+  "not sure" instead. In one run it also split the coffee experience into two overlapping points.
+- It fails in the cautious direction: under-reporting a real theme, not inventing one. The owner still sees those
+  remarks, in the "not sure — please check yourself" box.
+- Languages outside the evaluated five (Japanese, German, Spanish, French) were cited correctly; French recall was 50%.
+
 ## Dev set and the improvement loop
 
 | | dev SCORE | en / ko / hi / zh / ne |

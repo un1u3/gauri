@@ -1,6 +1,7 @@
 // Runs the real local model on a synthetic set and scores it against the ground truth.
 //   npm run eval                 (dev set, used for tuning)
 //   npm run eval -- --set test   (held-out set; also writes EVAL.md)
+//   npm run eval -- --set sample (the realistic sample shown in the app: 7 themes, 9 languages)
 //   npm run eval -- --set final  (second held-out set, written after the first had been inspected)
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { analyse } from "../src/ai/analyse";
@@ -16,10 +17,14 @@ const arg = (name: string, fallback: string) => {
 };
 const set = arg("set", "dev");
 const runs = Number(arg("runs", "2"));
-const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : set === "final" ? ["synthetic_final.json", "synthetic_final_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
+const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : set === "final" ? ["synthetic_final.json", "synthetic_final_truth.json"] : set === "sample" ? ["sample_reviews.json", "sample_reviews_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
 const messages: Message[] = JSON.parse(readFileSync(`data/${files[0]}`, "utf8"));
 const themes: Theme[] = JSON.parse(readFileSync(`data/${files[1]}`, "utf8")).themes;
 const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES, ownerLang: "ne", secondLook: !process.argv.includes("--no-second-look") };
+
+// Languages that have theme messages in this set: the five evaluated ones first, then any others.
+const themeLangs = new Set(themes.filter((t) => t.type !== "single").flatMap((t) => t.message_ids).map((id) => messages.find((m) => m.id === id)!.lang));
+const SET_LANGS: Lang[] = [...LANGS.filter((l) => themeLangs.has(l)), ...[...themeLangs].filter((l) => !LANGS.includes(l)).sort()];
 
 const overlap = (p: Point, ids: string[]) => p.message_ids.filter((id) => ids.includes(id)).length;
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
@@ -29,7 +34,7 @@ function score(a: Analysis) {
   const known = new Set(messages.map((m) => m.id));
   const langOf = new Map(messages.map((m) => [m.id, m.lang]));
   const grouped = themes.filter((t) => t.type !== "single");
-  const single = themes.find((t) => t.type === "single")!;
+  const singles = themes.filter((t) => t.type === "single").flatMap((t) => t.message_ids);
 
   // A theme is found if a point of the right type cites ≥ 2 of its ground-truth messages.
   const matched = grouped.map((t) => ({ t, points: a[t.type as "loved" | "wished"].filter((p) => overlap(p, t.message_ids) >= 2) }));
@@ -44,12 +49,12 @@ function score(a: Analysis) {
       total[l] = (total[l] ?? 0) + 1;
       if (points.some((p) => p.message_ids.includes(id))) hit[l] = (hit[l] ?? 0) + 1;
     }
-  const per_language = Object.fromEntries(LANGS.map((l) => [l, (hit[l] ?? 0) / total[l]])) as Record<Lang, number>;
+  const per_language = Object.fromEntries(SET_LANGS.map((l) => [l, (hit[l] ?? 0) / total[l]])) as Record<Lang, number>;
   const min_language = Math.min(...Object.values(per_language));
 
   // The single-mention theme must not be shown as a point; it should be listed as uncertain.
   const displayed = [...a.loved, ...a.wished, ...(a.upgrade ? [a.upgrade] : [])];
-  const t5_not_a_point = !displayed.some((p) => overlap(p, single.message_ids) > 0);
+  const t5_not_a_point = !displayed.some((p) => overlap(p, singles) > 0); // no single mention is shown as a point
   const t5_in_uncertain = a.uncertain.some((u) => /wi-?fi|internet|वाइ|वाई|इन्टरनेट/i.test(u.note_en + u.note_own));
   const t5_correct = t5_not_a_point && t5_in_uncertain;
 
@@ -98,7 +103,7 @@ const summary = {
   set, model, model_size_gb, n_messages: messages.length, runs, at: new Date().toISOString(),
   SCORE: avg((r) => r.SCORE),
   theme_recall: avg((r) => r.theme_recall),
-  per_language: Object.fromEntries(LANGS.map((l) => [l, avg((r) => r.per_language[l])])) as Record<Lang, number>,
+  per_language: Object.fromEntries(SET_LANGS.map((l) => [l, avg((r) => r.per_language[l])])) as Record<Lang, number>,
   min_language: avg((r) => r.min_language),
   t5_correct: results.every((r) => r.t5_correct),
   t5_not_a_point: results.every((r) => r.t5_not_a_point),
@@ -117,10 +122,10 @@ const table = `| Metric | Result |
 |---|---|
 | Set | ${set} (${messages.length} synthetic messages, mean of ${runs} runs) |
 | Model | ${model}, ${model_size_gb} GB on disk |
-| Theme recall (4 planted themes) | ${pct(summary.theme_recall)} |
-| Per-language recall en / ko / hi / zh / ne | ${LANGS.map((l) => pct(L[l])).join(" / ")} |
+| Theme recall (${themes.filter((t) => t.type !== "single").length} planted themes) | ${pct(summary.theme_recall)} |
+| Per-language recall ${SET_LANGS.join(" / ")} | ${SET_LANGS.map((l) => pct(L[l])).join(" / ")} |
 | Weakest language | ${pct(summary.min_language)} |
-| Single mention (Wi-Fi) not shown as a point | ${summary.t5_not_a_point ? "yes" : "NO"} |
+| Single mentions not shown as a point | ${summary.t5_not_a_point ? "yes" : "NO"} |
 | Single mention (Wi-Fi) listed as uncertain | ${summary.t5_in_uncertain ? "yes" : "NO"} |
 | Citation validity (displayed points) | ${pct(summary.citation_validity)} |
 | Citation precision (cited message really expresses that theme) | ${pct(summary.citation_precision)} |

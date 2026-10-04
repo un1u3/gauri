@@ -23,6 +23,8 @@ describe("messages", () => {
     expect(fromJson(load("synthetic_messages.json"), []).length).toBe(40);
     expect(fromJson(load("synthetic_test.json"), []).every((m) => m.synthetic)).toBe(true);
     expect(fromJson(load("real_messages.json"), [])).toEqual([]);
+    const sample = fromJson(load("sample_reviews.json"), []);
+    expect([sample.length, new Set(sample.map((m) => m.lang)).size, sample.every((m) => m.synthetic)]).toEqual([40, 9, true]);
   });
   it("import fills defaults, avoids ID clashes, rejects non-lists", () => {
     const first = fromJson([{ text: "Lovely farm" }, { nonsense: 1 }, { id: "x", text: "좋아요", lang: "xx" }], []);
@@ -42,7 +44,8 @@ describe("checks page and demo mode", () => {
   it("demo analysis is guarded too: shows nothing when its messages are not on the device", () => {
     const a = applyGuardrails(MOCK_ANALYSIS, [], { model: "demo", seconds: 0, lang: "ne" });
     expect([a.loved, a.wished, a.upgrade]).toEqual([[], [], null]);
-    expect(applyGuardrails(MOCK_ANALYSIS, load("synthetic_messages.json"), { model: "demo", seconds: 0, lang: "ne" }).loved.length).toBe(2);
+    const demo = applyGuardrails(MOCK_ANALYSIS, load("sample_reviews.json"), { model: "demo", seconds: 0, lang: "ne" });
+    expect([demo.loved.length, demo.wished.length, demo.upgrade !== null]).toEqual([MOCK_ANALYSIS.loved.length, MOCK_ANALYSIS.wished.length, true]);
   });
 });
 
