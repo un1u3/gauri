@@ -1,6 +1,6 @@
 // The Checks screen: runs every guardrail on fixed inputs, with no model call, and reports PASS/FAIL.
 import { analyse } from "./ai/analyse";
-import { applyGuardrails, languagesOf, NotSureError, validateAnalysis, validateDraft, validated } from "./ai/guardrails";
+import { addCitations, applyGuardrails, languagesOf, NotSureError, validateAnalysis, validateDraft, validated } from "./ai/guardrails";
 import { gatherCandidates } from "./ideas/candidates";
 import { IDEAS } from "./ideas/data";
 import { applyIdeaGuardrails } from "./ideas/guardrails";
@@ -43,6 +43,10 @@ export async function runChecks(): Promise<Check[]> {
     refused = e instanceof NotSureError;
   }
 
+  // Second look: may only add real, not-yet-cited messages to a point that is already shown.
+  const shown = applyGuardrails(raw({ loved: [point(["a1", "a2"])] }), MSGS, meta);
+  addCitations(shown, [{ label: "P1", point: shown.loved[0] }], [{ id: "a3", point: "P1" }, { id: "a1", point: "P1" }, { id: "zz9", point: "P1" }, { id: "a4", point: "P9" }, { id: "a5", point: "none" }], MSGS.slice(2));
+
   // ---- "What can I improve?" ----
   const BREAKFAST = "Breakfast was too late for our early bus";
   const candidates = gatherCandidates(matchProblems(BREAKFAST, "wished", IDEAS.problems), IDEAS);
@@ -84,6 +88,7 @@ export async function runChecks(): Promise<Check[]> {
     { en: "Broken model output → one retry → “not sure”, never displayed", ne: "बिग्रेको उत्तर → एक पटक फेरि प्रयास → “निश्चित छैन”, कहिल्यै देखाइँदैन", pass: refused && tries === 2 },
     { en: "Text in the owner's language must really be in that language (tested: Nepali, Arabic, Korean)", ne: "मालिकको भाषाको पाठ साँच्चै त्यही भाषामा हुनुपर्छ (जाँचिएको: नेपाली, अरबी, कोरियाली)", pass: ownLanguageChecked },
     { en: "Languages behind a point are computed from the messages, not by the model", ne: "भाषाको सूची सन्देशबाट गनिन्छ, मोडेलबाट होइन", pass: languagesOf(point(["a1", "a2", "a3"]), MSGS).join() === "en,ko,ne" },
+    { en: "The second look can only add real, not-yet-cited messages to a point already shown", ne: "दोस्रो हेराइले पहिल्यै देखाइएको कुरामा साँच्चैका, नजोडिएका सन्देश मात्र थप्न सक्छ", pass: shown.loved[0].message_ids.join() === "a1,a2,a3" && shown.loved.length === 1 },
     { en: "Ideas: “breakfast too late” is matched to a meal-time problem by keywords, with no model", ne: "उपाय: “बिहानको खाना ढिलो” लाई खानाको समयको समस्यासँग मोडेलबिनै मिलाइन्छ", pass: matchProblems(BREAKFAST, "wished", IDEAS.problems)[0]?.tag === "food_timing" },
     { en: "Ideas: a “loved” point never gets a complaint's ideas", ne: "उपाय: “मन परेको” कुरामा गुनासोको उपाय आउँदैन", pass: IDEAS.problems.every((p) => matchProblems(p.problem_en, "loved", IDEAS.problems).every((m) => m.type === "loved")) },
     { en: "Ideas: an idea the model made up is dropped; text with a number, money or a legal claim is never shown", ne: "उपाय: मोडेलले आफैं बनाएको उपाय हटाइन्छ; अंक, पैसा वा कानुनी कुरा भएको पाठ देखाइँदैन", pass: cards.length === 3 && cards.every((c) => c.how === undefined && c.first_step === undefined) },

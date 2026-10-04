@@ -32,7 +32,7 @@ npm run model:text         # recommended: text-only copy of the model, about 1 G
 npm run dev                # open http://localhost:5173
 ```
 
-In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes about 30–60 seconds on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
+In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes about a minute on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
 
 To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
 
@@ -41,7 +41,7 @@ To use another language: **सेटिङ (Settings)** → "मेरो भा
 Other commands:
 
 ```bash
-npm test                     # 91 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
+npm test                     # 93 tests: guardrails, offline rule, data, import, prompts, any-language, ideas
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 npm run eval:ideas           # ideas feature: matching accuracy + real model on 5 points
@@ -62,7 +62,13 @@ messages (on device) ──► fewer than 8? ──► "not enough feedback yet"
  schema check ──fail──► retry once ──fail──► "not sure — try again"
         │
         ▼
- guardrails in code ──► summary in Nepali, every point with its source messages
+ guardrails in code
+        │
+        ▼
+ second look: which shown point does each uncited message support, or none? (adds citations only)
+        │
+        ▼
+ summary in the owner's language, every point with its source messages
 ```
 
 The guardrails (`src/ai/guardrails.ts`) are applied to every model output before anything is displayed:
@@ -76,6 +82,7 @@ The guardrails (`src/ai/guardrails.ts`) are applied to every model output before
 | Validated output only | Output must match the schema, and text for the owner must really be in her language's script (Devanagari for Nepali, Arabic script for Arabic, and so on, for any language). One retry, then an error. |
 | Translated labels | Each label translated by the model must be non-empty, keep its `{0}` placeholders and use the right script; a label that fails stays in English. |
 | Languages per point | Computed in code from the cited messages, never taken from the model. |
+| Second look | May only add messages that exist and are not yet cited, and only to a point already shown. It cannot create a point or remove a citation. |
 
 The **जाँच (Checks)** screen (from Settings) runs these rules on fixed inputs in the browser and shows PASS/FAIL for each.
 
@@ -137,20 +144,29 @@ The ideas data is English only and **has not yet been checked by a person** (`da
 
 ## Evaluation results
 
-Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU with 6 GB RAM. Full table in [EVAL.md](EVAL.md).
+Held-out **test set**, text-only `gemma4:e2b` (3.6 GB on disk), mean of 2 runs, laptop CPU with 6 GB RAM. Full table and discussion in [EVAL.md](EVAL.md).
 
 | Metric | Result |
 |---|---|
 | Planted themes found | 4 of 4 (100%) |
-| Per-language recall en / ko / hi / zh / ne | 80% / **20%** / 80% / 80% / 100% |
-| Single Wi-Fi mention kept out of the points, listed as "not sure" | yes |
+| Per-language recall en / ko / hi / zh / ne | 80% / 80% / 100% / 100% / 100% |
+| Citation precision (cited message really expresses the theme) | 100% |
+| Single Wi-Fi mention kept out of the points | yes, both runs (listed as "not sure" in 1 of 2; left out in the other) |
 | Displayed citations that exist | 100% (enforced in code) |
-| Fewest citations on any displayed point | 3 |
+| Fewest citations on any displayed point | 4 |
 | 5 messages → "not enough feedback", no model call | yes |
-| Seconds per analysis | 38.5 |
-| SCORE (max 1.75) | **1.350** |
+| Seconds per analysis | 56 |
+| SCORE (max 1.75) | **1.525** |
 
-**The improvement loop** ([LOOP_LOG.md](LOOP_LOG.md)): we measured the prompt on the dev set, changed one thing at a time, and kept only what helped. One of three changes was kept. It raised dev SCORE from 1.475 to 1.650 and the weakest language's recall on dev from 70% to 80%. On the held-out test set the same prompt scores 1.350.
+**How we got there** ([LOOP_LOG.md](LOOP_LOG.md)): we measured on the dev set, changed one thing at a time, and kept only what helped.
+
+| Version | dev SCORE | test SCORE | Korean recall on test |
+|---|---|---|---|
+| First prompt | 1.475 | not run | not run |
+| After the prompt loop (1 of 3 changes kept) | 1.650 | 1.350 | 20% |
+| With the second look (final) | 1.750 | **1.525** | **80%** |
+
+The first test run exposed a language bias: only 1 of 5 Korean theme messages was cited. The fix was a **second look**: after the summary, the model is asked about each not-yet-cited message, one simple question at a time, which shown point it supports or none. Only real, uncited messages can be added, and precision stayed at 100%. Caveat: the earlier test misses had been inspected before this fix was built, so the test set is no longer strictly unseen (details in EVAL.md).
 
 ## Responsible AI
 
@@ -159,8 +175,8 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 - **Uncertain states.** "Not enough feedback yet", "Not sure — please check yourself" and "Not sure — try again" are real screens, and they are marked by wording, icon and border, not colour alone.
 - **Consent.** The farm card guests receive says: *"Your message may be read by the owner to improve her tours. It stays on her phone."* The same note is shown in Settings.
 - **Data stays on the device** (localStorage). The owner can delete any message, or everything, in one tap. Deleting a message also removes the summary that cited it.
-- **Language bias, measured.** Korean messages are under-cited: 20% recall on the test set against 80–100% for the others (dev set: 90%). Themes are still found, but Korean guests are under-counted in the evidence. We report this rather than hide it; the per-point language list makes it visible to the owner.
-- **Known hallucination risk.** The guardrails check *sources*, not *wording*. In one test run the suggestion said "earlier breakfast, perhaps around 9 AM"; guests had said breakfast came after nine. That is why every point opens its source messages and the screen ends with "यो सुझाव मात्र हो। निर्णय तपाईंको।" (This is only a suggestion. The decision is yours.)
+- **Language bias, measured and reduced.** Per-language recall is reported for every run. The first held-out run showed Korean guests under-counted (20% recall against 80–100% for the others); the second look raised that to 80% with no wrong citations. The per-point language list keeps any remaining gap visible to the owner.
+- **Known hallucination risk.** The guardrails check *sources*, not *wording*. In an earlier test run the suggestion said "earlier breakfast, perhaps around 9 AM"; guests had said breakfast came after nine. That is why every point opens its source messages and the screen ends with "यो सुझाव मात्र हो। निर्णय तपाईंको।" (This is only a suggestion. The decision is yours.)
 - **Inclusivity.** Nepali by default, simple wording, icons paired with text, 48 px touch targets, three text sizes, semantic HTML with `lang` on every piece of text so TalkBack picks the right voice, an `aria-live` announcement when the summary is ready, and read-aloud. If the phone has no voice for the owner's language, Gauri says so instead of reading it with the wrong voice. The owner's language can be any language, including right-to-left ones.
 
 ## Limitations and trade-offs
@@ -185,7 +201,7 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 
 1. Package for Android (model + app on the phone, no laptop).
 2. Collect real messages with consent, fill `data/real_messages.json`, and re-run the evaluation.
-3. Fix Korean recall: try a per-language pass, or translate-then-group, and measure both on the test set.
+3. Build a fresh held-out set (the current one has been looked at) and re-measure; two coffee-walk messages are still missed.
 4. Test with TalkBack and a Nepali voice on a real phone, with a real owner.
 5. Romanized Nepali and mother-tongue messages.
 6. Score more guest and owner languages (the code is language-neutral; the evidence is not yet).

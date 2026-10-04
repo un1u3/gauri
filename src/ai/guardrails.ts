@@ -95,6 +95,24 @@ export function applyGuardrails(raw: RawAnalysis, messages: Message[], meta: { m
   return { status: "ok", n_messages: messages.length, loved, wished, upgrade, uncertain, ...meta, created_at: new Date().toISOString() };
 }
 
+// Second look: add citations the first pass missed. Only messages that exist and are not yet cited by
+// any point can be added, and only to a displayed point. Nothing is removed and no point is created.
+export function validateSecondLook(x: any): { id: string; point: string }[] | null {
+  if (!x || !Array.isArray(x.matches) || !x.matches.every((m: any) => m && typeof m.id === "string" && typeof m.point === "string")) return null;
+  return x.matches;
+}
+
+export function addCitations(analysis: Analysis, labelled: { label: string; point: Point }[], matches: { id: string; point: string }[], uncited: Message[]): Analysis {
+  const allowed = new Set(uncited.map((m) => m.id));
+  for (const m of matches) {
+    const id = normalizeId(m.id), target = labelled.find((l) => l.label === m.point);
+    if (!target || !allowed.has(id)) continue; // "none", an unknown label, an unknown id, or already cited
+    allowed.delete(id); // a message supports at most one point
+    target.point.message_ids.push(id);
+  }
+  return analysis;
+}
+
 // The model sometimes echoes the brackets it saw in the prompt: "[m12]" → "m12".
 function normalizeId(id: string): string {
   return id.trim().replace(/^\[|\]$/g, "");

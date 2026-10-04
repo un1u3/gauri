@@ -42,6 +42,26 @@ Rules:
 - Output JSON only.`;
 }
 
+// ---- second look: which point does each not-yet-cited message support? ----
+// The first pass finds the themes reliably but lists too few of the messages behind each one
+// (worst for paraphrased, non-English messages). Asking about one message at a time is an easier question.
+export const SECOND_LOOK_SYSTEM = `You match guest messages to summary points. The messages may be in any language.
+For each message, give the label of the point it supports. A message supports a point only if it says the same thing as that point.
+If it supports none of the points, or you are not sure, answer "none". Greetings, thanks and travel news are "none".
+Output JSON only: one entry for every message.`;
+
+export function secondLookUser(points: { label: string; kind: string; text: string }[], messages: Message[]): string {
+  return `Points:\n${points.map((p) => `${p.label} (${p.kind}): ${p.text}`).join("\n")}\n\nMessages:\n${analysisUser(messages)}`;
+}
+
+export function secondLookSchema(labels: string[]) {
+  return {
+    type: "object",
+    properties: { matches: { type: "array", items: { type: "object", properties: { id: { type: "string" }, point: { type: "string", enum: [...labels, "none"] } }, required: ["id", "point"] } } },
+    required: ["matches"],
+  };
+}
+
 export function analysisUser(messages: Message[]): string {
   return messages.map((m) => `[${m.id}] (${m.lang}) ${m.text.replace(/\s+/g, " ").trim()}`).join("\n");
 }

@@ -36,7 +36,7 @@ describe("messages", () => {
 describe("checks page and demo mode", () => {
   it("every guardrail check passes", async () => {
     const checks = await runChecks();
-    expect(checks.length).toBe(14);
+    expect(checks.length).toBe(15);
     expect(checks.filter((c) => !c.pass)).toEqual([]);
   });
   it("demo analysis is guarded too: shows nothing when its messages are not on the device", () => {

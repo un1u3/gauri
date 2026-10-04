@@ -18,7 +18,7 @@ const runs = Number(arg("runs", "2"));
 const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
 const messages: Message[] = JSON.parse(readFileSync(`data/${files[0]}`, "utf8"));
 const themes: Theme[] = JSON.parse(readFileSync(`data/${files[1]}`, "utf8")).themes;
-const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES, ownerLang: "ne" };
+const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES, ownerLang: "ne", secondLook: !process.argv.includes("--no-second-look") };
 
 const overlap = (p: Point, ids: string[]) => p.message_ids.filter((id) => ids.includes(id)).length;
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
@@ -52,12 +52,22 @@ function score(a: Analysis) {
   const t5_in_uncertain = a.uncertain.some((u) => /wi-?fi|internet|वाइ|वाई|इन्टरनेट/i.test(u.note_en + u.note_own));
   const t5_correct = t5_not_a_point && t5_in_uncertain;
 
+  // Precision: of the messages cited under loved / wished points, the share that truly express that point's theme.
+  let cited = 0, right = 0;
+  for (const kind of ["loved", "wished"] as const)
+    for (const p of a[kind]) {
+      const best = Math.max(0, ...grouped.filter((t) => t.type === kind).map((t) => overlap(p, t.message_ids)));
+      cited += p.message_ids.length;
+      right += best;
+    }
+  const citation_precision = cited ? right / cited : 1;
+
   const cites = displayed.flatMap((p) => p.message_ids);
   const citation_validity = cites.length ? cites.filter((id) => known.has(id)).length / cites.length : 1;
   const min_citations = displayed.length ? Math.min(...displayed.map((p) => p.message_ids.length)) : 0;
 
   const SCORE = theme_recall + 0.5 * min_language + (t5_correct ? 0.25 : 0) - (citation_validity < 1 ? 1 : 0);
-  return { SCORE, theme_recall, themes_found, per_language, min_language, t5_correct, t5_not_a_point, t5_in_uncertain, citation_validity, min_citations, n_points: displayed.length, seconds: a.seconds };
+  return { SCORE, theme_recall, themes_found, per_language, min_language, t5_correct, t5_not_a_point, t5_in_uncertain, citation_validity, citation_precision, min_citations, n_points: displayed.length, seconds: a.seconds };
 }
 
 
@@ -93,6 +103,8 @@ const summary = {
   t5_not_a_point: results.every((r) => r.t5_not_a_point),
   t5_in_uncertain: results.every((r) => r.t5_in_uncertain),
   citation_validity: avg((r) => r.citation_validity),
+  citation_precision: avg((r) => r.citation_precision),
+  second_look: cfg.secondLook,
   min_citations_per_point: Math.min(...results.map((r) => r.min_citations)),
   seconds: avg((r) => r.seconds),
   not_enough_ok,
@@ -110,6 +122,7 @@ const table = `| Metric | Result |
 | Single mention (Wi-Fi) not shown as a point | ${summary.t5_not_a_point ? "yes" : "NO"} |
 | Single mention (Wi-Fi) listed as uncertain | ${summary.t5_in_uncertain ? "yes" : "NO"} |
 | Citation validity (displayed points) | ${pct(summary.citation_validity)} |
+| Citation precision (cited message really expresses that theme) | ${pct(summary.citation_precision)} |
 | Fewest citations on any displayed point | ${summary.min_citations_per_point} |
 | 5 messages → "not enough feedback", no model call | ${not_enough_ok ? "yes" : "NO"} |
 | Seconds per analysis | ${summary.seconds} |`;
@@ -120,6 +133,8 @@ all[set] = { summary, runs: results };
 writeFileSync("eval_results.json", JSON.stringify(all, null, 1) + "\n");
 
 if (set === "test") {
+  // Everything from "## What the numbers say" on is written by hand (and by eval:ideas): keep it.
+  const kept = existsSync("EVAL.md") ? readFileSync("EVAL.md", "utf8").split("\n## What the numbers say")[1] : undefined;
   writeFileSync("EVAL.md", `# Evaluation (held-out test set)
 
 Produced by \`npm run eval -- --set test\` on ${summary.at.slice(0, 10)}. The test set was never read while tuning prompts;
@@ -132,6 +147,7 @@ ${table}
 How to read this:
 - *Theme recall*: a planted theme counts as found if a point of the right kind (loved / wished) cites at least 2 of its messages.
 - *Per-language recall*: of the messages that express a planted theme in that language, the share the model cited under the right point. This is our language-bias check.
+- *Citation precision*: of the messages cited under a point, the share that really express that point's theme. It guards against raising recall by citing everything.
 - Citation validity is enforced in code (guardrails), so it is 100% by construction; the model cannot display an uncited point.
-`);
+${kept === undefined ? "" : `\n## What the numbers say${kept}`}`);
 }

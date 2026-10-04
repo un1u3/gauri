@@ -7,7 +7,7 @@ import { OllamaError } from "../src/ai/ollama";
 import type { Message } from "../src/types";
 
 const messages: Message[] = JSON.parse(readFileSync("data/synthetic_messages.json", "utf8"));
-const cfg = { baseUrl: "http://localhost:11434", model: "fake", minMessages: 8, ownerLang: "ne" };
+const cfg = { baseUrl: "http://localhost:11434", model: "fake", minMessages: 8, ownerLang: "ne", secondLook: false };
 const reply = (content: string) => new Response(JSON.stringify({ message: { content } }));
 const fakeFetch = (...contents: string[]) => {
   const f = vi.fn();
@@ -61,6 +61,38 @@ describe("analyse", () => {
   it("Ollama stopped → clear OllamaError", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("fetch failed")));
     await expect(analyse(messages, cfg)).rejects.toBeInstanceOf(OllamaError);
+  });
+});
+
+describe("second look: citations the first pass missed", () => {
+  const first = JSON.stringify({
+    loved: [{ point_en: "Cooking class", point_ne: "खाना पकाउने कक्षा", message_ids: ["m04", "m18"] }],
+    wished: [{ point_en: "Breakfast late", point_ne: "खाना ढिलो", message_ids: ["m03", "m20"] }],
+    upgrade: [], uncertain: [],
+  });
+  const on = { ...cfg, secondLook: true };
+  it("adds only real, not-yet-cited messages, each to one displayed point", async () => {
+    const f = fakeFetch(first, JSON.stringify({ matches: [
+      { id: "m06", point: "P1" }, { id: "[m15]", point: "P2" },   // genuine additions
+      { id: "m04", point: "P2" },                                  // already cited → ignored
+      { id: "zz9", point: "P1" },                                  // no such message → ignored
+      { id: "m27", point: "none" }, { id: "m31", point: "P7" },    // none / unknown point → ignored
+      { id: "m06", point: "P2" },                                  // a message supports one point only
+    ] }));
+    const a = await analyse(messages, on);
+    expect(a.loved[0].message_ids).toEqual(["m04", "m18", "m06"]);
+    expect(a.wished[0].message_ids).toEqual(["m03", "m20", "m15"]);
+    const second = JSON.parse(f.mock.calls[1][1].body);
+    expect(second.messages[1].content).toContain("P1 (guests loved): Cooking class");
+    expect(second.messages[1].content).not.toContain("[m04]"); // only uncited messages are asked about
+    expect(second.format.properties.matches.items.properties.point.enum).toEqual(["P1", "P2", "none"]);
+  });
+  it("if the second look fails, the first-pass summary stands", async () => {
+    fakeFetch(first, "not json", "still not json");
+    const a = await analyse(messages, on);
+    expect([a.status, a.loved[0].message_ids, a.wished[0].message_ids]).toEqual(["ok", ["m04", "m18"], ["m03", "m20"]]);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(reply(first)).mockRejectedValue(new TypeError("fetch failed")));
+    expect((await analyse(messages, on)).loved[0].message_ids).toEqual(["m04", "m18"]);
   });
 });
 
