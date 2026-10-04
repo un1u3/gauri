@@ -3,7 +3,8 @@
 Recovery: read this file, run `npm test`, continue from **Now**.
 
 ## Now
-- Step 6b (inner loop, max 4 iterations) in progress. Then: eval on test ONCE → EVAL.md, README, push.
+- Steps 0–6b done and pushed (~10:30). Step 7 stretch needs the team: Android phone via Termux, TalkBack + Nepali voice test. FLORES score not started.
+- Do NOT re-run `npm run eval -- --set test`: it overwrites the hand-written findings in EVAL.md, and the test set is meant to be run once.
 
 ## Done (one line each, with check result)
 - Step 0 (10:00–10:05): Ollama 0.32.1 up, `gemma4:e2b` answers. 3 prompts run: translation 17.6s (13s was model load), 6-message analysis 9.2s, Korean draft 5.2s. Nepali output readable.
@@ -13,6 +14,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Step 3: Ollama client + analyse + draft + `scripts/eval.ts`. Real run: validated output in 57s, 4/4 themes.
 - Steps 4–5: all screens, voice, drafts, Checks. Headless-Chrome run with the real model: 37/37 checks pass after fixes (a11y audit on every screen, keyboard, aria-live, 0 external requests, 8/8 Checks PASS). 34 unit tests pass.
 - Step 6: baseline dev SCORE 1.475 (mean of 2; runs 1.30 and 1.65).
+- Step 6b: loop ran 3 iterations, 1 kept: dev 1.475 → 1.650. Stopped (2 non-improving in a row). Held-out test: SCORE 1.350, themes 4/4, per-language 80/20/80/80/100. EVAL.md + README written.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.
@@ -38,10 +40,15 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - UI test recipe: `npx vite --port 5199` + scratchpad `ui.mjs` (playwright-core, `channel: "chrome"`).
 - Biggest model weakness: incomplete citation lists (stops at ~5 IDs per point), not wrong themes.
 
+- This model is very prompt-sensitive: adding a `labels` scaffold or an end-of-input reminder each dropped dev SCORE to 0.95. Keep prompts short; measure every change.
+
 ## Open questions for the team
 1. Is there an Android phone with a Nepali TTS voice for testing?
 2. Any real guest comments (with consent, names removed)? → `data/real_messages.json`
 3. OK to keep Gemma's Nepali without a translation fallback?
 
 ## Known issues / cut list
-- none yet
+- Korean recall 20% on test (dev 90%). Not fixable by prompt wording in the loop; next idea: per-language pass. Reported in README/EVAL.
+- Guardrails check sources, not wording: one test run's upgrade said "around 9 AM", which no guest said.
+- TalkBack and Nepali TTS untested on a real phone (no voice on this laptop; fallback message verified).
+- Model is 4.6 GB, not ~2.6 GB; README states the measured size.
