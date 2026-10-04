@@ -10,7 +10,7 @@ const isText = (x: unknown): x is string => typeof x === "string" && x.trim().le
 
 // The model is asked for each text twice: in English ("point_en") and in the owner's language
 // under a key named after that language ("point_ne", "point_fr", …).
-export const ownKey = (prefix: "point" | "note" | "text", lang: Lang) => `${prefix}_${lang.replace(/[^a-z]/g, "")}`;
+export const ownKey = (prefix: "point" | "note" | "text" | "how" | "first_step", lang: Lang) => `${prefix}_${lang.replace(/[^a-z]/g, "")}`;
 
 // Text that claims to be in the owner's language must use that language's script, and
 // (unless the owner reads English) must not simply be the English text again.

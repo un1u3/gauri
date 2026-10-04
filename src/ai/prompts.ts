@@ -76,6 +76,30 @@ export function draftUser(m: Message): string {
 
 export const draftSchema = (owner: Lang) => strings(["text", ownKey("text", owner)]);
 
+// ---- "What can I improve?": choosing among given ideas and explaining them for this owner ----
+export function ideasSystem(situation: string, owner: Lang): string {
+  const hk = ownKey("how", owner), sk = ownKey("first_step", owner);
+  return `You help a small farm-stay owner in rural Nepal improve her guests' experience.
+Her situation: ${situation}
+
+You get what her guests said and a list of candidate ideas, each with an id.
+Rules:
+- Choose up to 3 ideas that fit her situation. You may only use these ideas. Do not add new ideas, places, prices, numbers, rules or promises.
+- For each chosen idea write, in short, simple ${written(owner)}: "${hk}" (at most 40 words): how she could do it with what she has; and "${sk}" (at most 15 words): one small first step.
+- Do not write any digits. Do not mention money, law or medicine.
+- If an idea needs internet or English and she does not have it, either skip it or say plainly which part she cannot do yet.
+- If none fit, return an empty list.
+- Output JSON only.`;
+}
+
+export function ideasUser(pointEn: string, candidates: { id: string; from: string; text: string; needs: string[] }[]): string {
+  return `Guests said: ${pointEn}\n\nCandidate ideas:\n` + candidates.map((c) => `[${c.id}] (${c.from}) ${c.text}${c.needs.length ? ` (needs ${c.needs.join(" and ")})` : ""}`).join("\n");
+}
+
+export function ideasSchema(owner: Lang) {
+  return { type: "object", properties: { chosen: { type: "array", maxItems: 3, items: strings(["candidate_id", ownKey("how", owner), ownKey("first_step", owner)]) } }, required: ["chosen"] };
+}
+
 // ---- translating the app's own labels into the owner's language (Settings) ----
 export function uiSystem(owner: Lang): string {
   return `Translate the labels of a phone app from English into ${written(owner)}. The app helps a farm-stay owner read her guests' messages.
