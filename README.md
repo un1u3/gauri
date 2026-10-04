@@ -1,19 +1,20 @@
 # Gauri (गौरी)
 
-**Gauri helps a small farm-stay owner in Nepal learn from her guests' messages, in Nepali, on her own device, with no internet.**
+**Gauri helps a small farm-stay owner learn from her guests' messages, in her own language, on her own device, with no internet.** Nepali is the default; neither the owner's language nor the guests' languages are fixed.
 
 Built for the World Bank "Small AI for Development" hackathon (tourism).
 
 ## What it does
 
-1. Guests send a short message after their visit, in their own language (English, Korean, Hindi, Chinese, Nepali). In this prototype the messages are pasted or imported.
-2. Once a month the owner presses one button. A small model running on the device reads all the messages and shows her, **in Nepali**: what guests loved, what they wished for, and one suggested upgrade.
+1. Guests send a short message after their visit, in their own language — any language. In this prototype the messages are pasted or imported.
+2. Once a month the owner presses one button. A small model running on the device reads all the messages and shows her, **in her language** (Nepali by default): what guests loved, what they wished for, and one suggested upgrade.
 3. **Every point links to the exact messages behind it** and shows which languages those messages were in.
-4. Gauri drafts a thank-you / come-back message in each guest's language and shows its meaning in Nepali. The owner approves, edits or discards. Approved drafts are **copied**; Gauri never sends anything.
+4. Gauri drafts a thank-you / come-back message in each guest's language and shows its meaning in the owner's language. The owner approves, edits or discards. Approved drafts are **copied**; Gauri never sends anything.
 5. With too little evidence, Gauri says so instead of guessing.
-6. Everything works with a screen reader (TalkBack), and the summary can be read aloud in Nepali.
+6. Everything works with a screen reader (TalkBack), and the summary can be read aloud in the owner's language.
+7. The app's own buttons and labels are hand-written in Nepali and English. For any other language, the on-device model translates them once (1–2 minutes), each label is checked, and the result is saved on the device.
 
-**Why AI and not a spreadsheet:** the messages arrive in five languages and four scripts, and the owner reads one of them. A spreadsheet can store them; it cannot tell her that a Korean, a Hindi and a Chinese message are all saying "breakfast was too late".
+**Why AI and not a spreadsheet:** the messages arrive in many languages and scripts, and the owner reads one of them. A spreadsheet can store them; it cannot tell her that a Korean, a Hindi and a Chinese message are all saying "breakfast was too late".
 
 ## Who it's for
 
@@ -29,12 +30,14 @@ npm install
 npm run dev                # open http://localhost:5173
 ```
 
-In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes about 30–60 seconds on a laptop CPU. An English interface is under **सेटिङ (Settings)** → "एपको भाषा".
+In the app: **सन्देश (Messages)** → "नमुना सन्देश राख्नुहोस्" (Load sample messages) → **सारांश (Summary)** → "प्रतिक्रिया विश्लेषण गर्नुहोस्" (Analyse feedback). Analysis takes about 30–60 seconds on a laptop CPU. The **EN** button in the top bar switches the interface to English and back.
+
+To use another language: **सेटिङ (Settings)** → "मेरो भाषा" (My language) → pick one. Summaries and meanings follow it immediately; press "Translate the app's labels" to have the buttons translated on the device too.
 
 Other commands:
 
 ```bash
-npm test                     # 34 tests: guardrails, offline rule, data, import
+npm test                     # 51 tests: guardrails, offline rule, data, import, prompts, any-language
 npm run eval                 # real model on the dev set
 npm run eval -- --set test   # real model on the held-out test set, rewrites EVAL.md
 ```
@@ -64,7 +67,8 @@ The guardrails (`src/ai/guardrails.ts`) are applied to every model output before
 | No invented sources | Citation IDs that do not exist are removed. |
 | No single-guest "trends" | A point needs ≥ 2 real messages. With 1 it moves to "निश्चित छैन — आफैं हेर्नुहोस्" (Not sure — please check yourself). With 0 it is dropped. |
 | Grounded suggestion | An upgrade with < 2 citations is not shown as a suggestion. |
-| Validated output only | Output must match the schema, and Nepali fields must really be in Devanagari. One retry, then an error. |
+| Validated output only | Output must match the schema, and text for the owner must really be in her language's script (Devanagari for Nepali, Arabic script for Arabic, and so on, for any language). One retry, then an error. |
+| Translated labels | Each label translated by the model must be non-empty, keep its `{0}` placeholders and use the right script; a label that fails stays in English. |
 | Languages per point | Computed in code from the cited messages, never taken from the model. |
 
 The **जाँच (Checks)** screen (from Settings) runs these rules on fixed inputs in the browser and shows PASS/FAIL for each.
@@ -72,6 +76,17 @@ The **जाँच (Checks)** screen (from Settings) runs these rules on fixed i
 The interface is laid out as a phone app (app bar with a one-tap language switch, bottom tab bar with count badges, a home feed with stats and language avatars, post-style cards, inline SVG icons) and ships a web-app manifest, so on a phone it can be added to the home screen and opens full-screen.
 
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.
+
+## Any language
+
+Nothing in the code is tied to a particular language.
+
+- **Guests:** a message's language is a plain language code. It is guessed from the script (Japanese, Arabic, Cyrillic, Thai and others, not only the original five) and can be changed per message to any of 41 listed languages; other codes in imported files are kept. Language names come from the browser's built-in data, so no language files are shipped.
+- **Owner:** "My language" in Settings sets the language of summaries, draft meanings, read-aloud and labels. The prompt, the output schema and the guardrail's script check are all built from that setting.
+- **Right-to-left** languages (Arabic, Hebrew, Urdu, Persian) are laid out right-to-left.
+- **What stays the same for Nepali:** for a Nepali-reading owner the prompt is byte-for-byte the one that was evaluated (a test enforces this), and the dev score after this change is unchanged (1.650).
+
+Tried on the real model, not scored: a Hindi-, French-, Spanish- and English-reading owner each got a summary in their language from 46 messages that included Japanese, French, Spanish, Arabic, German and Russian ones, and those messages were cited under the right points. Labels were translated into Spanish and Hindi in about 75–105 seconds with all 107 labels passing their checks.
 
 ## Data
 
@@ -83,7 +98,7 @@ Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the brows
 
 Each synthetic set has four planted themes spread across languages (loved the cooking class, loved the coffee farm walk, breakfast too late, farm hard to find), one single mention (Wi-Fi) that must *not* become a point, and 14 neutral messages. Every synthetic message is flagged `synthetic: true` and shown with a "बनावटी / synthetic" badge.
 
-**What the data does not cover:** real Nepali farm-stay guests at any scale; Romanized Nepali ("khana mitho thiyo"); mother tongues such as Gurung, Tamang or Newar; voice input; very short or sarcastic messages; mixed-language messages; messages that hold two themes at once. The synthetic messages were written by the same people who built the tool, so they are cleaner and more on-topic than real ones will be.
+**What the data does not cover:** real Nepali farm-stay guests at any scale; **any guest language beyond English, Korean, Hindi, Chinese and Nepali, and any owner language other than Nepali** (these work, but were only tried by hand, not scored); Romanized Nepali ("khana mitho thiyo"); mother tongues such as Gurung, Tamang or Newar; voice input; very short or sarcastic messages; mixed-language messages; messages that hold two themes at once. The synthetic messages were written by the same people who built the tool, so they are cleaner and more on-topic than real ones will be.
 
 ## Evaluation results
 
@@ -111,7 +126,7 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 - **Data stays on the device** (localStorage). The owner can delete any message, or everything, in one tap. Deleting a message also removes the summary that cited it.
 - **Language bias, measured.** Korean messages are under-cited: 20% recall on the test set against 80–100% for the others (dev set: 90%). Themes are still found, but Korean guests are under-counted in the evidence. We report this rather than hide it; the per-point language list makes it visible to the owner.
 - **Known hallucination risk.** The guardrails check *sources*, not *wording*. In one test run the suggestion said "earlier breakfast, perhaps around 9 AM"; guests had said breakfast came after nine. That is why every point opens its source messages and the screen ends with "यो सुझाव मात्र हो। निर्णय तपाईंको।" (This is only a suggestion. The decision is yours.)
-- **Inclusivity.** Nepali by default, simple wording, icons paired with text, 48 px touch targets, three text sizes, semantic HTML with `lang` on every piece of text so TalkBack picks the right voice, an `aria-live` announcement when the summary is ready, and read-aloud. If the phone has no Nepali voice, Gauri says so instead of reading Nepali with the wrong voice.
+- **Inclusivity.** Nepali by default, simple wording, icons paired with text, 48 px touch targets, three text sizes, semantic HTML with `lang` on every piece of text so TalkBack picks the right voice, an `aria-live` announcement when the summary is ready, and read-aloud. If the phone has no voice for the owner's language, Gauri says so instead of reading it with the wrong voice. The owner's language can be any language, including right-to-left ones.
 
 ## Limitations and trade-offs
 
@@ -122,6 +137,10 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 - **Not deterministic.** The same input can give slightly different citation lists between runs, even at temperature 0.
 - **Prompt-sensitive.** Two reasonable prompt additions each made results much worse (see LOOP_LOG.md). A small model needs measuring, not guessing.
 - **Synthetic evaluation only.** No real guest messages have been tested.
+- **Other languages are unmeasured.** All scores are for a Nepali-reading owner and five guest languages. Other languages run through exactly the same code, but how well a 4.6B-parameter model reads or writes a given language varies, and for small languages (Maithili, Bhojpuri, Nepal Bhasa, Dzongkha) it may be poor.
+- **The language check is by script.** It catches "the Nepali text came back in English", but cannot tell French from Spanish, or Nepali from Hindi; for Latin-script languages it only rejects text identical to the English.
+- **AI-translated labels can be wrong.** In a Hindi trial one label put "{0} of {1}" in the wrong order. Translated labels are marked as AI-translated in Settings; Nepali and English labels are hand-written.
+- **Message language is guessed from the script only**, so French, Spanish or German messages are first labelled English, and Hindi ones Nepali, until changed by hand. The model still reads them correctly; only the label is wrong.
 - **Editing a draft** changes only the guest-language text; the Nepali meaning is then marked as possibly out of date, since the owner cannot verify the edit herself.
 - **Setup defaults used** (no team answers at build time): 6 GB RAM laptop, one model loaded; no Android phone with a Nepali voice; no real guest comments.
 
@@ -132,6 +151,9 @@ Held-out **test set**, `gemma4:e2b` (4.6 GB on disk), mean of 2 runs, laptop CPU
 3. Fix Korean recall: try a per-language pass, or translate-then-group, and measure both on the test set.
 4. Test with TalkBack and a Nepali voice on a real phone, with a real owner.
 5. Romanized Nepali and mother-tongue messages.
+6. Score more guest and owner languages (the code is language-neutral; the evidence is not yet).
+
+Changed from the original plan at the team's request: the fixed list of five languages was replaced by any-language support.
 
 Out of scope by design: sending SMS/WhatsApp, reading the phone's inbox, voice input, bookings, payments, accounts, cloud sync, analytics.
 

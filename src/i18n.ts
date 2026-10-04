@@ -1,7 +1,6 @@
 // UI text: [Nepali, English]. Nepali is the default; English is for judges.
 const S = {
   app: ["गौरी", "Gauri"],
-  switchLang: ["Switch to English", "नेपालीमा हेर्नुहोस्"],
   heroTitle: ["यो महिनाका पाहुनाको कुरा", "What this month's guests said"],
   statMessages: ["सन्देश", "messages"],
   statLangs: ["भाषा", "languages"],
@@ -34,7 +33,9 @@ const S = {
   uncertain: ["निश्चित छैन — आफैं हेर्नुहोस्", "Not sure — please check yourself"],
   listen: ["सुन्नुहोस्", "Listen"],
   stop: ["रोक्नुहोस्", "Stop"],
-  noVoice: ["यो फोनमा नेपाली आवाज छैन", "No Nepali voice on this phone"],
+  noVoice: ["यो फोनमा {0} आवाज छैन", "No {0} voice on this phone"],
+  onlyOne: ["एक जना पाहुनाले मात्र भन्नुभयो", "Only one guest mentioned"],
+  weakUpgrade: ["एक जना पाहुनाको कुराबाट मात्र आएको सुझाव", "Suggestion from only one guest"],
   footer: ["यो सुझाव मात्र हो। निर्णय तपाईंको।", "This is only a suggestion. The decision is yours."],
   info: ["मोडेल: {0} · {1} सेकेन्ड · {2} सन्देश", "Model: {0} · {1} seconds · {2} messages"],
   ready: ["सारांश तयार छ। {0} वटा कुरा।", "Summary ready. {0} points."],
@@ -67,7 +68,7 @@ const S = {
   draft: ["धन्यवाद लेख्नुहोस्", "Draft thank-you"],
   drafting: ["लेख्दैछ…", "Writing…"],
   draftReady: ["मस्यौदा तयार छ।", "Draft ready."],
-  meaning: ["नेपालीमा अर्थ", "Meaning in Nepali"],
+  meaning: ["तपाईंको भाषामा अर्थ", "Meaning in your language"],
   guestText: ["पाहुनाको भाषामा", "In the guest's language"],
   to: ["कसलाई", "To"],
   approve: ["स्वीकृत", "Approve"],
@@ -75,13 +76,20 @@ const S = {
   discard: ["हटाउनुहोस्", "Discard"],
   saveEdit: ["सुरक्षित गर्नुहोस्", "Save"],
   editLabel: ["पाहुनाको भाषाको पाठ सम्पादन गर्नुहोस्", "Edit the text in the guest's language"],
-  edited: ["तपाईंले सम्पादन गर्नुभएको — नेपाली अर्थ पुरानो हुन सक्छ।", "Edited by you — the Nepali meaning may be out of date."],
+  edited: ["तपाईंले सम्पादन गर्नुभएको — अर्थ पुरानो हुन सक्छ।", "Edited by you — the meaning shown may be out of date."],
   approved: ["स्वीकृत भयो", "Approved"],
   copy: ["प्रतिलिपि गर्नुहोस्", "Copy"],
   copied: ["प्रतिलिपि भयो। अब आफ्नो सन्देश एपमा टाँस्नुहोस्।", "Copied. Now paste it in your messaging app."],
 
   settingsTitle: ["सेटिङ", "Settings"],
-  uiLang: ["एपको भाषा", "App language"],
+  myLang: ["मेरो भाषा", "My language"],
+  myLangHelp: ["सारांश, अर्थ र आवाज यही भाषामा आउँछ। पाहुनाले जुनसुकै भाषामा लेख्न सक्छन्।", "Summaries, meanings and read-aloud use this language. Guests can write in any language."],
+  translateApp: ["एपका शब्द {0} मा अनुवाद गर्नुहोस्", "Translate the app's labels into {0}"],
+  translateHelp: ["यही यन्त्रको AI ले एक पटक अनुवाद गर्छ। १–३ मिनेट लाग्छ।", "The AI on this device translates them once. Takes 1–3 minutes."],
+  translating: ["अनुवाद हुँदैछ… {0}/{1}", "Translating… {0} of {1}"],
+  translated: ["अनुवाद भयो: {0}/{1} शब्द।", "Translated {0} of {1} labels."],
+  aiLabels: ["एपका यी शब्द AI ले अनुवाद गरेको हो; गल्ती हुन सक्छ।", "The app's labels in this language were translated by the on-device AI and may contain mistakes."],
+  unknownLang: ["थाहा छैन", "Not known"],
   textSize: ["अक्षरको आकार", "Text size"],
   sizeNormal: ["सामान्य", "Normal"],
   sizeLarge: ["ठूलो", "Large"],
@@ -107,8 +115,16 @@ const S = {
 } satisfies Record<string, [string, string]>;
 
 export type Key = keyof typeof S;
-export type UiLang = "ne" | "en";
+export const KEYS = Object.keys(S) as Key[];
+export const ENGLISH = Object.fromEntries(KEYS.map((k) => [k, S[k][1]])) as Record<Key, string>;
 
-export function translate(ui: UiLang, key: Key, ...args: (string | number)[]): string {
-  return S[key][ui === "ne" ? 0 : 1].replace(/\{(\d)\}/g, (_, i) => String(args[+i]));
+// Label sets for other languages, translated on the device (see src/ai/translate.ts).
+let packs: Record<string, Partial<Record<Key, string>>> = {};
+export const setPacks = (p: typeof packs) => (packs = p);
+// Nepali and English are hand-written; any other language needs a translated set.
+export const hasLabels = (lang: string) => lang === "ne" || lang === "en" || !!packs[lang];
+
+export function translate(lang: string, key: Key, ...args: (string | number)[]): string {
+  const text = lang === "ne" ? S[key][0] : lang === "en" ? S[key][1] : packs[lang]?.[key] ?? S[key][1];
+  return text.replace(/\{(\d)\}/g, (_, i) => String(args[+i]));
 }

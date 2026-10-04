@@ -3,16 +3,18 @@ import "@fontsource/noto-sans-devanagari/700.css";
 import "./style.css";
 import sample from "../data/synthetic_messages.json";
 import { analyse, draftThanks } from "./ai/analyse";
+import { translateLabels } from "./ai/translate";
 import { applyGuardrails, hasEnoughFeedback, languagesOf, NotSureError, notEnoughFeedback } from "./ai/guardrails";
 import { OllamaError } from "./ai/ollama";
 import { runChecks, type Check } from "./checks";
 import { icon } from "./icons";
-import { translate, type Key } from "./i18n";
+import { hasLabels, KEYS, setPacks, translate, type Key } from "./i18n";
+import { COMMON_LANGS, isRtl, langName, languagesIn, UNKNOWN } from "./lang";
 import { fromJson, fromPaste } from "./messages";
 import { MOCK_ANALYSIS, MOCK_DRAFTS } from "./mock";
 import { clearAll, load, save } from "./store";
-import { LANGS, LANG_NAMES, type Draft, type Lang, type Message, type Point } from "./types";
-import { hasNepaliVoice, speakNepali, stopSpeaking } from "./voice";
+import type { Draft, Lang, Message, Point } from "./types";
+import { hasVoice, speak, stopSpeaking } from "./voice";
 
 type Screen = "summary" | "messages" | "follow" | "settings" | "checks";
 
@@ -28,8 +30,16 @@ const drafting = new Set<string>(); // message ids being drafted
 const editing = new Set<string>(); // draft ids being edited
 const edited = new Set<string>();
 
-const t = (key: Key, ...args: (string | number)[]) => translate(state.settings.ui, key, ...args);
-const cfg = () => ({ baseUrl: "/ollama", model: state.settings.model, minMessages: state.settings.minMessages });
+let translating: [number, number] | null = null; // label translation progress
+
+const owner = () => state.settings.ownerLang;
+// Language the app's own labels are shown in: the owner's (when labels exist for it), else English.
+const uiLang = (): Lang => (state.settings.ui === "own" && hasLabels(owner()) ? owner() : "en");
+const t = (key: Key, ...args: (string | number)[]) => translate(uiLang(), key, ...args);
+const cfg = () => ({ baseUrl: "/ollama", model: state.settings.model, minMessages: state.settings.minMessages, ownerLang: owner() });
+const nameOf = (l: Lang) => (l === UNKNOWN ? t("unknownLang") : langName(l));
+// A language named inside a sentence of the app: in the app's language, so it reads as one sentence.
+const nameInUi = (l: Lang) => (l === uiLang() ? langName(l) : langName(l, uiLang()));
 
 // ---------- tiny DOM helpers ----------
 type Child = Node | string | null | false | undefined;
@@ -41,6 +51,7 @@ function h<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, 
     else if (k === "value" || k === "checked" || k === "selected") (el as any)[k] = v;
     else el.setAttribute(k, v === true ? "" : String(v));
   }
+  if (attrs.lang && tag !== "option") el.setAttribute("dir", "auto"); // right-to-left languages lay out correctly
   el.append(...children.filter((c): c is Node | string => !!c));
   return el;
 }
@@ -50,7 +61,7 @@ const button = (id: string, emoji: string, label: string, onclick: () => void, a
 const live = h("div", { id: "live", class: "sr-only", "aria-live": "polite", role: "status" });
 function announce(text: string) {
   live.textContent = "";
-  live.lang = state.settings.ui;
+  live.lang = uiLang();
   setTimeout(() => (live.textContent = text), 50);
 }
 
@@ -64,7 +75,7 @@ async function runAnalysis() {
   error = null;
   const n = state.messages.length;
   if (!hasEnoughFeedback(n, state.settings.minMessages)) {
-    state.analysis = notEnoughFeedback(n, state.settings.model); // rule 4: the model is not called
+    state.analysis = notEnoughFeedback(n, state.settings.model, owner()); // rule 4: the model is not called
     announce(t("notEnough", n, state.settings.minMessages));
     return commit();
   }
@@ -77,7 +88,7 @@ async function runAnalysis() {
   }, 1000);
   try {
     state.analysis = state.settings.demo
-      ? applyGuardrails(MOCK_ANALYSIS, state.messages, { model: "demo", seconds: 0 })
+      ? applyGuardrails(MOCK_ANALYSIS, state.messages, { model: "demo", seconds: 0, lang: "ne" })
       : await analyse(state.messages, cfg());
     const a = state.analysis;
     announce(t("ready", a.loved.length + a.wished.length + (a.upgrade ? 1 : 0)));
@@ -116,7 +127,7 @@ async function makeDraft(m: Message) {
   render();
   try {
     const d: Draft = state.settings.demo
-      ? { id: `d-${m.id}-${Date.now()}`, message_id: m.id, lang: m.lang, ...MOCK_DRAFTS[m.lang], status: "pending" }
+      ? { id: `d-${m.id}-${Date.now()}`, message_id: m.id, lang: m.lang, ...(MOCK_DRAFTS[m.lang] ?? MOCK_DRAFTS.en), own_lang: "ne", status: "pending" }
       : await draftThanks(m, cfg());
     state.drafts.unshift(d);
     announce(t("draftReady"));
@@ -146,27 +157,59 @@ async function copyDraft(d: Draft) {
 
 function listen() {
   const a = state.analysis!;
+  // Headings are read only if the app has labels in the summary's language.
+  const say = (key: Key) => (hasLabels(a.lang) ? [`${translate(a.lang, key)}.`] : []);
   const lines = [
-    "मासिक सारांश।",
-    "पाहुनालाई मन परेको।", ...a.loved.map((p) => p.point_ne),
-    "पाहुनाले चाहेको।", ...a.wished.map((p) => p.point_ne),
-    ...(a.upgrade ? ["सुझाव।", a.upgrade.point_ne] : []),
-    ...(a.uncertain.length ? ["निश्चित छैन, आफैं हेर्नुहोस्।", ...a.uncertain.map((u) => u.note_ne)] : []),
-    "यो सुझाव मात्र हो। निर्णय तपाईंको।",
+    ...say("summaryTitle"),
+    ...say("loved"), ...a.loved.map((p) => p.point_own),
+    ...say("wished"), ...a.wished.map((p) => p.point_own),
+    ...(a.upgrade ? [...say("upgrade"), a.upgrade.point_own] : []),
+    ...(a.uncertain.length ? [...say("uncertain"), ...a.uncertain.map((u) => u.note_own)] : []),
+    ...say("footer"),
   ];
-  noVoice = !speakNepali(lines.join(" "));
+  noVoice = !speak(lines.join(" "), a.lang);
   if (noVoice) {
-    announce(t("noVoice"));
+    announce(t("noVoice", nameInUi(a.lang)));
+    render();
+  }
+}
+
+async function translateApp() {
+  error = null;
+  translating = [0, KEYS.length];
+  render();
+  try {
+    const pack = await translateLabels(cfg(), (done, total) => { translating = [done, total]; render(); });
+    const n = Object.keys(pack).length;
+    if (n) state.packs[owner()] = pack; // labels that failed their check stay in English
+    setPacks(state.packs);
+    translating = null;
+    commit();
+    announce(t("translated", n, KEYS.length));
+  } catch (e) {
+    translating = null;
+    error = errorText(e);
+    announce(error);
     render();
   }
 }
 
 // ---------- screens ----------
-// Round language badge, like a profile picture. Decoration: the language name is always written next to it.
-const AVATAR: Record<Lang, string> = { en: "EN", ko: "한", hi: "हि", zh: "中", ne: "ने" };
-const avatar = (l: Lang, cls = "") => h("span", { class: `avatar ${l} ${cls}`, lang: l, "aria-hidden": "true" }, AVATAR[l]);
+// Round language badge, like a profile picture: the first letters of the language's own name.
+// Decoration: the language name is always written next to it.
+const SHORT: Record<string, string> = { en: "EN", ko: "한", hi: "हि", zh: "中", ne: "ने" };
+function avatar(l: Lang, cls = ""): HTMLElement {
+  const name = langName(l);
+  const short = SHORT[l] ?? (l === UNKNOWN ? "?" : /^\p{Script=Latin}/u.test(name) ? l.toUpperCase() : [...name][0]);
+  // Other languages get a stable colour from their code (dark enough for white text).
+  const hue = [...l].reduce((n, c) => n * 31 + c.charCodeAt(0), 7) % 360;
+  return h("span", { class: `avatar ${l} ${cls}`, lang: l, "aria-hidden": "true", style: SHORT[l] ? null : `background:hsl(${hue} 55% 32%)` }, short);
+}
 const chip = (emoji: string, ...children: Child[]) => h("span", { class: "meta" }, icon(emoji), ...children);
 const alertBox = () => error && h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error);
+
+// For judges: the English version under each owner-language text.
+const showEnglish = () => uiLang() === "en" && state.analysis?.lang !== "en";
 
 function pointItem(p: Point, key: string, emoji: string): HTMLElement {
   const langs = languagesOf(p, state.messages);
@@ -176,14 +219,14 @@ function pointItem(p: Point, key: string, emoji: string): HTMLElement {
     h("div", { class: "point-head" },
       h("span", { class: "badge" }, icon(emoji)),
       h("div", {},
-        h("p", { lang: "ne", class: "big" }, p.point_ne),
-        state.settings.ui === "en" && h("p", { lang: "en", class: "small" }, p.point_en))),
+        h("p", { lang: state.analysis!.lang, class: "big" }, p.point_own),
+        showEnglish() && h("p", { lang: "en", class: "small" }, p.point_en))),
     h("button", { type: "button", id: `src-${key}`, class: "link", "aria-expanded": String(isOpen), "aria-controls": `list-${key}`, onclick: () => { isOpen ? open.delete(key) : open.add(key); render(); } },
       h("span", { class: "pile" }, ...langs.map((l) => avatar(l, "mini"))),
-      h("span", { class: "link-text" }, t("basedOn", cited.length), " · ", ...langs.flatMap((l, i) => [i ? ", " : "", h("span", { lang: l }, LANG_NAMES[l])])),
+      h("span", { class: "link-text" }, t("basedOn", cited.length), " · ", ...langs.flatMap((l, i) => [i ? ", " : "", h("span", { lang: l }, nameOf(l))])),
       icon(isOpen ? "▼" : "▶")),
     isOpen && h("ul", { id: `list-${key}`, class: "sources" }, ...cited.map((m) =>
-      h("li", {}, avatar(m.lang), h("div", { class: "bubble" }, h("span", { class: "who", lang: m.lang }, LANG_NAMES[m.lang]), h("span", { lang: m.lang }, m.text))))),
+      h("li", {}, avatar(m.lang), h("div", { class: "bubble" }, h("span", { class: "who", lang: m.lang }, nameOf(m.lang)), h("span", { lang: m.lang }, m.text))))),
   );
 }
 
@@ -197,7 +240,7 @@ function section(titleKey: Key, emoji: string, points: Point[], prefix: string, 
 function summaryScreen(): Child[] {
   const a = state.analysis;
   const n = state.messages.length, min = state.settings.minMessages;
-  const present = LANGS.filter((l) => state.messages.some((m) => m.lang === l));
+  const present = languagesIn(state.messages);
   const stat = (emoji: string, value: number, label: Key) => h("li", {}, icon(emoji), h("strong", {}, String(value)), h("span", {}, t(label)));
   const out: Child[] = [
     h("h1", { tabindex: "-1" }, t("summaryTitle")),
@@ -211,7 +254,7 @@ function summaryScreen(): Child[] {
     present.length > 0 && h("div", { class: "stories" },
       h("p", { class: "label" }, t("guestLangs")),
       h("ul", {}, ...present.map((l) =>
-        h("li", {}, h("span", { class: "ring" }, avatar(l, "story")), h("span", { class: "story-name", lang: l }, LANG_NAMES[l]), h("span", { class: "story-n" }, String(state.messages.filter((m) => m.lang === l).length)))))),
+        h("li", {}, h("span", { class: "ring" }, avatar(l, "story")), h("span", { class: "story-name", lang: l }, nameOf(l)), h("span", { class: "story-n" }, String(state.messages.filter((m) => m.lang === l).length)))))),
   ];
   if (busySince !== null) {
     out.push(
@@ -234,13 +277,16 @@ function summaryScreen(): Child[] {
     h("div", { class: "row" },
       button("listen", "🔊", t("listen"), listen, { class: "tonal" }),
       button("stop", "⏹", t("stop"), stopSpeaking)),
-    noVoice && h("p", { class: "notice warn", role: "alert" }, icon("🔇"), t("noVoice")),
+    noVoice && h("p", { class: "notice warn", role: "alert" }, icon("🔇"), t("noVoice", nameInUi(a.lang))),
     section("loved", "❤️", a.loved, "loved", "none"),
     section("wished", "💭", a.wished, "wished", "none"),
     section("upgrade", "💡", a.upgrade ? [a.upgrade] : [], "upgrade", "noUpgrade"),
     a.uncertain.length > 0 && h("section", { class: "uncertain" },
       h("h2", { class: "sec" }, icon("❓"), t("uncertain")),
-      h("ul", {}, ...a.uncertain.map((u) => h("li", {}, h("p", { lang: "ne" }, u.note_ne), state.settings.ui === "en" && h("p", { lang: "en", class: "small" }, u.note_en))))),
+      h("ul", {}, ...a.uncertain.map((u) => h("li", {},
+        u.reason && h("p", { class: "small" }, icon("👤"), t(u.reason === "single_guest" ? "onlyOne" : "weakUpgrade"), ":"),
+        h("p", { lang: a.lang }, u.note_own),
+        showEnglish() && h("p", { lang: "en", class: "small" }, u.note_en))))),
     h("footer", {},
       h("p", { class: "big" }, icon("🤝"), t("footer")),
       h("p", { class: "small" }, icon("🤖"), t("info", a.model, a.seconds, a.n_messages))),
@@ -254,9 +300,15 @@ const postHead = (m: Message, title: Child) =>
     h("div", {},
       h("strong", {}, title),
       h("span", { class: "metas" },
-        chip("🌐", h("span", { lang: m.lang }, LANG_NAMES[m.lang])),
+        chip("🌐", h("span", { lang: m.lang }, nameOf(m.lang))),
         chip("📅", m.received_at),
         m.synthetic && h("span", { class: "tag" }, icon("🧪"), t("synthetic")))));
+
+// Every language can be picked; one that came in with imported data is kept in the list too.
+const langOptions = (current: Lang, withUnknown = true) =>
+  [...new Set([current, ...COMMON_LANGS, ...languagesIn(state.messages), ...(withUnknown ? [UNKNOWN] : [])])]
+    .filter((l) => withUnknown || l !== UNKNOWN)
+    .map((l) => h("option", { value: l, lang: l === UNKNOWN ? null : l, selected: l === current }, l === UNKNOWN ? `? ${t("unknownLang")}` : `${langName(l)} (${l})`));
 
 function messagesScreen(): Child[] {
   const paste = h("textarea", { id: "paste", rows: "3" });
@@ -289,7 +341,7 @@ function messagesScreen(): Child[] {
           button(`del-${m.id}`, "🗑", t("del"), () => deleteMessage(m.id), { "aria-label": t("delMsg", m.id), class: "ghost danger-text" }),
           h("label", { for: `lang-${m.id}` }, icon("🌐"), t("language")),
           h("select", { id: `lang-${m.id}`, onchange: (e: Event) => { m.lang = (e.target as HTMLSelectElement).value as Lang; commit(); } },
-            ...LANGS.map((l) => h("option", { value: l, lang: l, selected: l === m.lang }, LANG_NAMES[l])))),
+            ...langOptions(m.lang))),
       ))),
   ];
 }
@@ -304,7 +356,7 @@ function draftCard(d: Draft): HTMLElement {
     h("h3", {}, icon("💬"), t("theirMessage")),
     h("p", { lang: m.lang, class: "quote" }, m.text),
     h("h3", {}, icon("🌱"), t("meaning")),
-    h("p", { lang: "ne", class: "big reply" }, d.text_ne),
+    h("p", { lang: d.own_lang, class: "big reply" }, d.text_own),
     edited.has(d.id) && h("p", { class: "small" }, icon("✏️"), t("edited")),
     h("h3", {}, icon("🌐"), t("guestText")),
     editing.has(d.id)
@@ -351,9 +403,16 @@ function settingsScreen(): Child[] {
     field(emoji, id, labelKey, h("select", { id, onchange: (e: Event) => onchange((e.target as HTMLSelectElement).value) }, ...options.map(([v, text]) => h("option", { value: v, selected: v === value }, text))));
   return [
     h("h1", { tabindex: "-1" }, t("settingsTitle")),
+    alertBox(),
     h("h2", { class: "sec" }, icon("🔤"), t("secAppearance")),
     h("div", { class: "card" },
-      choice("🌐", "ui", "uiLang", s.ui, [["ne", "नेपाली"], ["en", "English"]], (v) => set("ui", v as typeof s.ui)),
+      field("🌐", "owner", "myLang", h("select", { id: "owner", onchange: (e: Event) => { s.ui = "own"; set("ownerLang", (e.target as HTMLSelectElement).value); } }, ...langOptions(s.ownerLang, false))),
+      h("p", { class: "small" }, t("myLangHelp")),
+      !hasLabels(s.ownerLang) && (translating
+        ? h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("translating", translating[0], translating[1])),
+            h("div", { class: "meter", "aria-hidden": "true" }, h("span", { style: `width:${(translating[0] / translating[1]) * 100}%` })))
+        : h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp")))),
+      !!state.packs[s.ownerLang] && h("p", { class: "notice" }, icon("ℹ️"), t("aiLabels")),
       choice("🔤", "size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize))),
     h("h2", { class: "sec" }, icon("🤖"), t("secAi")),
     h("div", { class: "card" },
@@ -371,6 +430,7 @@ function settingsScreen(): Child[] {
       button("clear", "🗑", t("clear"), () => {
         if (!confirm(t("clearConfirm"))) return;
         state = clearAll();
+        setPacks(state.packs);
         error = null;
         announce(t("cleared"));
         render();
@@ -390,7 +450,7 @@ function checksScreen(): Child[] {
     }, { class: "primary wide" }),
     checks && h("p", { class: "notice safe big" }, icon("🛡"), t("checksDone", checks.length, passed)),
     checks && h("ul", { class: "cards checks" }, ...checks.map((c) =>
-      h("li", {}, h("strong", { class: c.pass ? "pass" : "fail" }, icon(c.pass ? "✅" : "❌"), t(c.pass ? "pass" : "fail")), h("span", {}, state.settings.ui === "ne" ? c.ne : c.en)))),
+      h("li", {}, h("strong", { class: c.pass ? "pass" : "fail" }, icon(c.pass ? "✅" : "❌"), t(c.pass ? "pass" : "fail")), h("span", {}, uiLang() === "ne" ? c.ne : c.en)))),
     button("back", "⬅", t("back"), () => go("settings"), { class: "wide" }),
   ];
 }
@@ -412,16 +472,19 @@ function go(to: Screen) {
 const app = document.querySelector("#app")!;
 function render() {
   const focused = document.activeElement?.id;
-  const ui = state.settings.ui;
+  const ui = uiLang();
+  // The switch offers the other of the two: the owner's language or English (for judges).
+  const other: Lang = state.settings.ui === "own" ? "en" : owner();
   document.documentElement.lang = ui;
+  document.documentElement.dir = isRtl(ui) ? "rtl" : "ltr";
   document.documentElement.dataset.size = state.settings.textSize;
   const badges: Partial<Record<Screen, number>> = { messages: state.messages.length, follow: state.drafts.filter((d) => d.status === "pending").length };
   app.replaceChildren(
     h("header", {},
       h("div", { class: "appbar" },
         h("p", { class: "brand", lang: "ne" }, h("span", { class: "logo" }, icon("🌱")), "गौरी"),
-        h("button", { type: "button", id: "ui-toggle", class: "pill", "aria-label": t("switchLang"), onclick: () => { state.settings.ui = ui === "ne" ? "en" : "ne"; commit(); } },
-          icon("🌐"), h("span", { lang: ui === "ne" ? "en" : "ne" }, ui === "ne" ? "EN" : "ने"))),
+        owner() !== "en" && h("button", { type: "button", id: "ui-toggle", class: "pill", "aria-label": langName(other), onclick: () => { state.settings.ui = state.settings.ui === "own" ? "en" : "own"; commit(); } },
+          icon("🌐"), h("span", { lang: other }, SHORT[other] ?? other.toUpperCase()))),
       h("nav", { "aria-label": t("navLabel") },
         h("ul", {}, ...NAV.map(([s, emoji, key]) =>
           h("li", {}, h("button", { type: "button", id: `nav-${s}`, onclick: () => go(s), "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null },
@@ -433,5 +496,6 @@ function render() {
 }
 
 document.body.append(live);
-if (typeof speechSynthesis !== "undefined") speechSynthesis.onvoiceschanged = () => { if (noVoice && hasNepaliVoice()) { noVoice = false; render(); } };
+setPacks(state.packs);
+if (typeof speechSynthesis !== "undefined") speechSynthesis.onvoiceschanged = () => { if (noVoice && state.analysis && hasVoice(state.analysis.lang)) { noVoice = false; render(); } };
 render();

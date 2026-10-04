@@ -6,13 +6,13 @@
    "model_size_gb": 4.6,
    "n_messages": 40,
    "runs": 2,
-   "at": "2026-10-04T04:37:28.993Z",
+   "at": "2026-10-04T05:09:34.731Z",
    "SCORE": 1.65,
    "theme_recall": 1,
    "per_language": {
     "en": 1,
-    "ko": 0.9,
-    "hi": 1,
+    "ko": 0.8,
+    "hi": 0.8,
     "zh": 1,
     "ne": 0.8
    },
@@ -22,7 +22,7 @@
    "t5_in_uncertain": true,
    "citation_validity": 1,
    "min_citations_per_point": 4,
-   "seconds": 43.5,
+   "seconds": 48.5,
    "not_enough_ok": true,
    "themes_found": [
     {
@@ -51,8 +51,8 @@
     },
     "per_language": {
      "en": 1,
-     "ko": 1,
-     "hi": 1,
+     "ko": 0.8,
+     "hi": 0.8,
      "zh": 1,
      "ne": 0.8
     },
@@ -63,17 +63,16 @@
     "citation_validity": 1,
     "min_citations": 4,
     "n_points": 5,
-    "seconds": 53,
+    "seconds": 64,
     "analysis": {
      "status": "ok",
      "n_messages": 40,
      "loved": [
       {
-       "point_en": "Guests loved the walk through the coffee farm and seeing how coffee grows.",
-       "point_ne": "कफी खेतमा घुम्न र कफी कसरी उब्जन्छ हेर्न मन पर्यो।",
+       "point_en": "Guests loved the walk through the coffee farm and seeing coffee cherries for the first time.",
+       "point_own": "कफी खेतमा घुम्नु र कफी चेरीहरू पहिलो पटक हेर्नु मन पर्यो।",
        "message_ids": [
         "m02",
-        "m08",
         "m09",
         "m11",
         "m17",
@@ -83,22 +82,21 @@
       },
       {
        "point_en": "Guests loved learning to cook with the owner, especially making dal bhat and momos.",
-       "point_ne": "मालिकसँग पकाउन सिक्न मन पर्यो, विशेष गरी दालभात र मोमो बनाउन।",
+       "point_own": "घर मालिकसँग पकाउन सिक्नु मन पर्यो, विशेष गरी दालभात र मोमो बनाउनु।",
        "message_ids": [
         "m04",
         "m18",
         "m27",
         "m31",
         "m32",
-        "m37",
         "m40"
        ]
       }
      ],
      "wished": [
       {
-       "point_en": "Guests wished for earlier breakfast as it was served too late, making it hard to start hiking early.",
-       "point_ne": "बिहानको खाना धेरै ढिलो आयो, जसले बिहान चाँडै हिँड्न गाह्रो भयो।",
+       "point_en": "Guests wished for earlier breakfast times as they needed to start hiking early.",
+       "point_own": "अतिथिहरूले बिहानको खाना अलि चाँडो पाउन चाहन्थे किनकि उनीहरूले बिहानै हिँड्नुपर्थ्यो।",
        "message_ids": [
         "m03",
         "m15",
@@ -108,8 +106,8 @@
        ]
       },
       {
-       "point_en": "Guests wished for better signage or road markers to help find the farm, as it was difficult to locate.",
-       "point_ne": "फार्म पत्ता लगाउन सहयोग गर्न सडकमा संकेत वा मार्कर चाहियो, किनकि यो पत्ता लगाउन गाह्रो थियो।",
+       "point_en": "Guests wished for better signage or road markers to help find the farm.",
+       "point_own": "अतिथिहरूले फार्म फेला पार्न मद्दत गर्नका लागि राम्रो संकेत वा बाटोका चिन्हहरू चाहन्थे।",
        "message_ids": [
         "m12",
         "m26",
@@ -120,8 +118,8 @@
       }
      ],
      "upgrade": {
-      "point_en": "Upgrade: Improve the clarity of directions to the farm by installing clear road signs.",
-      "point_ne": "अपग्रेड: फार्मको दिशा स्पष्ट पार्न स्पष्ट सडक संकेतहरू स्थापना गर्नुहोस्।",
+      "point_en": "Upgrade: Install clear road signage or markers to help guests find the farm.",
+      "point_own": "अपग्रेड: अतिथिहरूलाई फार्म फेला पार्न मद्दत गर्न स्पष्ट बाटोका संकेत वा चिन्हहरू स्थापना गर्नुहोस्।",
       "message_ids": [
        "m26",
        "m34",
@@ -131,21 +129,19 @@
      },
      "uncertain": [
       {
-       "note_en": "Only one guest mentioned: Guests wished for Wi-Fi availability.",
-       "note_ne": "एक जना पाहुनाले मात्र भन्नुभयो: गेस्टहरूले वाईफाई उपलब्ध भएको चाहन्थे।"
+       "note_en": "Guests wished for Wi-Fi availability.",
+       "note_own": "अतिथिहरूले वाईफाई उपलब्ध भएको चाहन्थे।",
+       "reason": "single_guest"
       },
       {
-       "note_en": "The owner asked if they were open in December.",
-       "note_ne": "मालिकले डिसेम्बरमा खुला छ कि छैन भनेर सोधेका थिए। (m01)"
-      },
-      {
-       "note_en": "One guest mentioned that the bus was shaking a lot but they arrived safely.",
-       "note_ne": "एक गेस्टले भन्यो कि बस धेरै हल्लिरहेको थियो तर उनीहरू सुरक्षित पुगे। (m28)"
+       "note_en": "The owner's availability in December is mentioned as a question.",
+       "note_own": "दिसम्बरमा मालिकको उपलब्धता प्रश्नको रूपमा उल्लेख गरिएको छ।"
       }
      ],
      "model": "gemma4:e2b",
-     "seconds": 53,
-     "created_at": "2026-10-04T04:36:54.577Z"
+     "seconds": 64,
+     "lang": "ne",
+     "created_at": "2026-10-04T05:09:01.404Z"
     }
    },
    {
@@ -160,7 +156,7 @@
     "per_language": {
      "en": 1,
      "ko": 0.8,
-     "hi": 1,
+     "hi": 0.8,
      "zh": 1,
      "ne": 0.8
     },
@@ -171,14 +167,14 @@
     "citation_validity": 1,
     "min_citations": 4,
     "n_points": 5,
-    "seconds": 34,
+    "seconds": 33,
     "analysis": {
      "status": "ok",
      "n_messages": 40,
      "loved": [
       {
        "point_en": "Guests loved the walk through the coffee farm and seeing coffee cherries for the first time.",
-       "point_ne": "कफी खेतमा घुम्नु र कफी चेरीहरू पहिलो पटक हेर्नु मन पर्यो।",
+       "point_own": "कफी खेतमा घुम्नु र कफी चेरीहरू पहिलो पटक हेर्नु मन पर्यो।",
        "message_ids": [
         "m02",
         "m09",
@@ -190,14 +186,13 @@
       },
       {
        "point_en": "Guests loved learning to cook with the owner, especially making dal bhat and momos.",
-       "point_ne": "घरको मालिकसँग पकाउन सिक्नु मन पर्यो, विशेष गरी दालभात र मोमो बनाउनु।",
+       "point_own": "घरको मालिकसँग पकाउन सिक्नु मन पर्यो, विशेष गरी दालभात र मोमो बनाउनु।",
        "message_ids": [
         "m04",
         "m18",
         "m27",
         "m31",
         "m32",
-        "m37",
         "m40"
        ]
       }
@@ -205,7 +200,7 @@
      "wished": [
       {
        "point_en": "Guests wished for earlier breakfast times as they needed to start hiking early.",
-       "point_ne": "अतिथिहरूले बिहानको खाना अगाडि दिन चाहन्थे किनकि उनीहरूले चाँडै हिँड्न चाहन्थे।",
+       "point_own": "अतिथिहरूले बिहानको खाना अगाडि पाउन चाहन्थे किनकि उनीहरूले चाँडै हिँड्न चाहन्थे।",
        "message_ids": [
         "m03",
         "m15",
@@ -216,7 +211,7 @@
       },
       {
        "point_en": "Guests wished for better signage or road markers to help find the farm.",
-       "point_ne": "अतिथिहरूले फार्म फेला गर्न मद्दत गर्नका लागि राम्रो संकेत वा बाटोका चिन्हहरू चाहन्थे।",
+       "point_own": "अतिथिहरूले फार्म फेला पार्न मद्दत गर्नका लागि राम्रो संकेत वा बाटोका चिन्हहरू चाहन्थे।",
        "message_ids": [
         "m12",
         "m26",
@@ -227,8 +222,8 @@
       }
      ],
      "upgrade": {
-      "point_en": "Upgrade: Install clear road signage to help guests find the farm.",
-      "point_ne": "अपग्रेड: अतिथिहरूलाई फार्म फेला गर्न मद्दत गर्न स्पष्ट बाटोका चिन्हहरू स्थापना गर्नुहोस्।",
+      "point_en": "Upgrade: Install clear road signage or markers to help guests find the farm.",
+      "point_own": "अपग्रेड: अतिथिहरूलाई फार्म फेला पार्न मद्दत गर्न स्पष्ट बाटोका संकेत वा चिन्हहरू स्थापना गर्नुहोस्।",
       "message_ids": [
        "m26",
        "m34",
@@ -238,17 +233,19 @@
      },
      "uncertain": [
       {
-       "note_en": "Only one guest mentioned: Guests wished for Wi-Fi availability.",
-       "note_ne": "एक जना पाहुनाले मात्र भन्नुभयो: अतिथिहरूले वाईफाई उपलब्ध भएको चाहन्थे।"
+       "note_en": "Guests wished for Wi-Fi availability.",
+       "note_own": "अतिथिहरूले वाईफाई उपलब्ध भएको चाहन्थे।",
+       "reason": "single_guest"
       },
       {
        "note_en": "The owner's availability in December is unclear.",
-       "note_ne": "दिसम्बरमा मालिकको उपलब्धता अस्पष्ट छ।"
+       "note_own": "दिसम्बरमा मालिकको उपलब्धता स्पष्ट छैन।"
       }
      ],
      "model": "gemma4:e2b",
-     "seconds": 34,
-     "created_at": "2026-10-04T04:37:28.993Z"
+     "seconds": 33,
+     "lang": "ne",
+     "created_at": "2026-10-04T05:09:34.726Z"
     }
    }
   ]

@@ -1,13 +1,6 @@
 // Turning pasted text or an imported JSON file into Message objects.
-import { LANGS, type Lang, type Message } from "./types";
-
-// Guess by script. Devanagari is guessed as Nepali; Hindi is picked by hand in the list.
-export function guessLang(text: string): Lang {
-  if (/[가-힯ᄀ-ᇿ]/.test(text)) return "ko";
-  if (/[一-鿿]/.test(text)) return "zh";
-  if (/[ऀ-ॿ]/.test(text)) return "ne";
-  return "en";
-}
+import { guessLang, isLangCode } from "./lang";
+import type { Message } from "./types";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -34,7 +27,7 @@ export function fromJson(json: unknown, existing: Message[]): Message[] {
     taken.add(id);
     return {
       id, text: x.text.trim(),
-      lang: LANGS.includes(x.lang) ? x.lang : guessLang(x.text),
+      lang: isLangCode(x.lang) ? x.lang : guessLang(x.text), // any language code is kept
       received_at: typeof x.received_at === "string" ? x.received_at : today(),
       contact: typeof x.contact === "string" && x.contact ? x.contact : null,
       synthetic: x.synthetic === true,

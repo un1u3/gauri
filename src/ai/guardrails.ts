@@ -1,40 +1,49 @@
 // Guardrails applied in code to every model output before anything is displayed.
 // These are the product: do not weaken them to raise an eval number.
+import { writtenIn } from "../lang";
 import type { Analysis, Lang, Message, Point, RawAnalysis, RawDraft, Uncertain } from "../types";
 
 export const DEFAULT_MIN_MESSAGES = 8;
 export const MIN_CITATIONS = 2;
 
-const DEVANAGARI = /[ऀ-ॿ]/;
 const isText = (x: unknown): x is string => typeof x === "string" && x.trim().length > 0;
-const isNepali = (x: unknown): x is string => isText(x) && DEVANAGARI.test(x);
+
+// The model is asked for each text twice: in English ("point_en") and in the owner's language
+// under a key named after that language ("point_ne", "point_fr", …).
+export const ownKey = (prefix: "point" | "note" | "text", lang: Lang) => `${prefix}_${lang.replace(/[^a-z]/g, "")}`;
+
+// Text that claims to be in the owner's language must use that language's script, and
+// (unless the owner reads English) must not simply be the English text again.
+function inOwnLanguage(x: unknown, lang: Lang, english?: unknown): x is string {
+  return isText(x) && writtenIn(x, lang) && (lang === "en" || x.trim() !== english);
+}
 
 // Rule 1: with too few messages there is no analysis and the model is not called.
 export function hasEnoughFeedback(n: number, min = DEFAULT_MIN_MESSAGES): boolean {
   return n >= min;
 }
 
-export function notEnoughFeedback(n: number, model: string): Analysis {
-  return { status: "not_enough_feedback", n_messages: n, loved: [], wished: [], upgrade: null, uncertain: [], model, seconds: 0, created_at: new Date().toISOString() };
-}
-
-function isPoint(x: any): x is Point {
-  return !!x && isText(x.point_en) && isNepali(x.point_ne) && Array.isArray(x.message_ids) && x.message_ids.every((id: unknown) => typeof id === "string");
+export function notEnoughFeedback(n: number, model: string, lang: Lang): Analysis {
+  return { status: "not_enough_feedback", n_messages: n, loved: [], wished: [], upgrade: null, uncertain: [], lang, model, seconds: 0, created_at: new Date().toISOString() };
 }
 
 // Rule 5 (schema): returns null unless the output has exactly the expected shape,
-// including Nepali fields that are really written in Devanagari.
-export function validateAnalysis(x: any): RawAnalysis | null {
+// including owner-language fields that are really written in the owner's language (`lang`).
+export function validateAnalysis(x: any, lang: Lang): RawAnalysis | null {
   if (!x || typeof x !== "object") return null;
   for (const key of ["loved", "wished", "upgrade", "uncertain"]) if (!Array.isArray(x[key])) return null;
+  const pk = ownKey("point", lang), nk = ownKey("note", lang);
+  const isPoint = (p: any) => !!p && isText(p.point_en) && inOwnLanguage(p[pk], lang, p.point_en) && Array.isArray(p.message_ids) && p.message_ids.every((id: unknown) => typeof id === "string");
   if (![...x.loved, ...x.wished, ...x.upgrade].every(isPoint)) return null;
-  if (!x.uncertain.every((u: any) => !!u && isText(u.note_en) && isNepali(u.note_ne))) return null;
-  return { loved: x.loved, wished: x.wished, upgrade: x.upgrade, uncertain: x.uncertain };
+  if (!x.uncertain.every((u: any) => !!u && isText(u.note_en) && inOwnLanguage(u[nk], lang, u.note_en))) return null;
+  const point = (p: any): Point => ({ point_en: p.point_en, point_own: p[pk], message_ids: p.message_ids });
+  return { loved: x.loved.map(point), wished: x.wished.map(point), upgrade: x.upgrade.map(point), uncertain: x.uncertain.map((u: any) => ({ note_en: u.note_en, note_own: u[nk] })) };
 }
 
-export function validateDraft(x: any): RawDraft | null {
-  if (!x || !isText(x.text) || !isNepali(x.text_ne)) return null;
-  return { text: x.text.trim(), text_ne: x.text_ne.trim() };
+export function validateDraft(x: any, lang: Lang): RawDraft | null {
+  const own = x?.[ownKey("text", lang)];
+  if (!x || !isText(x.text) || !inOwnLanguage(own, lang)) return null;
+  return { text: x.text.trim(), text_own: own.trim() };
 }
 
 export class NotSureError extends Error {}
@@ -56,18 +65,19 @@ export async function validated<T>(call: () => Promise<unknown>, validate: (x: u
 }
 
 // Rules 2–4: keep only citations that exist; a point needs MIN_CITATIONS of them to be shown.
-export function applyGuardrails(raw: RawAnalysis, messages: Message[], meta: { model: string; seconds: number }): Analysis {
+export function applyGuardrails(raw: RawAnalysis, messages: Message[], meta: { model: string; seconds: number; lang: Lang }): Analysis {
   const known = new Set(messages.map((m) => m.id));
   const clean = (p: Point): Point => ({ ...p, message_ids: [...new Set(p.message_ids.map(normalizeId))].filter((id) => known.has(id)) });
   const uncertain: Uncertain[] = [];
-  const demote = (p: Point, en: string, ne: string) => {
+  // The screen adds "Only one guest mentioned:" in the owner's language, from `reason`.
+  const demote = (p: Point, reason: Uncertain["reason"]) => {
     // A point with no real source at all is dropped: there is nothing for the owner to check.
-    if (p.message_ids.length > 0) uncertain.push({ note_en: `${en}: ${p.point_en}`, note_ne: `${ne}: ${p.point_ne}` });
+    if (p.message_ids.length > 0) uncertain.push({ note_en: p.point_en, note_own: p.point_own, reason });
   };
   const keep = (points: Point[]): Point[] =>
     points.map(clean).filter((p) => {
       if (p.message_ids.length >= MIN_CITATIONS) return true;
-      demote(p, "Only one guest mentioned", "एक जना पाहुनाले मात्र भन्नुभयो");
+      demote(p, "single_guest");
       return false;
     });
 
@@ -75,10 +85,12 @@ export function applyGuardrails(raw: RawAnalysis, messages: Message[], meta: { m
   const wished = keep(raw.wished);
   let upgrade: Point | null = raw.upgrade.length ? clean(raw.upgrade[0]) : null;
   if (upgrade && upgrade.message_ids.length < MIN_CITATIONS) {
-    demote(upgrade, "Suggestion from only one guest", "एक जना पाहुनाको कुराबाट मात्र आएको सुझाव");
+    demote(upgrade, "weak_upgrade");
     upgrade = null;
   }
-  uncertain.push(...raw.uncertain.map((u) => ({ note_en: u.note_en, note_ne: u.note_ne })));
+  // The model sometimes leaves a raw id like "[m01]" in a note; ids mean nothing to the owner.
+  const tidy = (t: string) => t.replace(/\s*[[(]\s*[a-z]{1,2}\d+\s*[\])]/gi, "").trim();
+  uncertain.push(...raw.uncertain.map((u) => ({ note_en: tidy(u.note_en), note_own: tidy(u.note_own) })));
 
   return { status: "ok", n_messages: messages.length, loved, wished, upgrade, uncertain, ...meta, created_at: new Date().toISOString() };
 }

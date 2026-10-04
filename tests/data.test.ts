@@ -1,7 +1,7 @@
 // The synthetic sets must keep the planted structure the evaluation relies on.
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { LANGS, type Message } from "../src/types";
+import { EVAL_LANGS as LANGS, type Message } from "../src/types";
 
 const load = (f: string) => JSON.parse(readFileSync(`data/${f}`, "utf8"));
 const sets = [["synthetic_messages.json", "synthetic_truth.json"], ["synthetic_test.json", "synthetic_test_truth.json"]];

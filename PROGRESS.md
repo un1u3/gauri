@@ -16,6 +16,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Step 6: baseline dev SCORE 1.475 (mean of 2; runs 1.30 and 1.65).
 - Step 6b: loop ran 3 iterations, 1 kept: dev 1.475 → 1.650. Stopped (2 non-improving in a row). Held-out test: SCORE 1.350, themes 4/4, per-language 80/20/80/80/100. EVAL.md + README written.
 - UI redesign x2 (team request): social-app style — hero with stats, language avatar row, insight cards with language face-piles, chat-bubble sources, post-style feed, grouped settings, EN/ने switch in the app bar, inline SVG icons (`src/icons.ts`), web-app manifest. 37/37 browser checks pass with the real model.
+- Any-language support (team request, overrides the brief's five-language limit): `Lang` is any code; owner language setting drives prompt/schema/guardrails/voice/labels; labels for other languages translated on-device and checked. 51 tests; dev SCORE unchanged 1.650; browser flows pass in ne/en/es.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.
@@ -28,6 +29,9 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - `think: false` in every Ollama call: model reports the `thinking` capability and honours the flag (verified).
 - `upgrade` is an array of 0–1 points in the model schema (avoids nested nulls); code turns it into `Point | null`.
 - Commits go straight to `main` and are pushed after each passing step (the brief asks for it; freeze check is a fresh clone).
+
+- Data shape changed from the brief: `point_ne/note_ne/text_ne` → `point_own/note_own/text_own` (+ `Analysis.lang`, `Draft.own_lang`). The model-facing key is still `point_<code>`, so for Nepali it is still `point_ne`.
+- Storage key is now `gauri.v2` (old saved data is ignored).
 
 ## Learned (rules discovered the hard way — follow these from now on)
 - Laptop has 6.1 GB RAM, CPU only. With the model loaded ~1 GB is free: keep one model loaded, keep `num_ctx` small (8192 max), don't run eval and heavy builds together.
@@ -43,12 +47,17 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 
 - This model is very prompt-sensitive: adding a `labels` scaffold or an end-of-input reminder each dropped dev SCORE to 0.95. Keep prompts short; measure every change.
 
+- For a Nepali owner the prompt must stay byte-identical to `tests/fixtures/evaluated_prompt.json` (test enforces). Any prompt change = re-run the loop.
+- Chrome lacks own-script language names for some languages (showed "Nepali" not "नेपाली"): names for offered languages are written out in `src/lang.ts`.
+- Python patch scripts: check exact indentation / literal characters first; a failed assert writes nothing.
+
 ## Open questions for the team
 1. Is there an Android phone with a Nepali TTS voice for testing?
 2. Any real guest comments (with consent, names removed)? → `data/real_messages.json`
 3. OK to keep Gemma's Nepali without a translation fallback?
 
 ## Known issues / cut list
+- Languages beyond the evaluated five (and owners other than Nepali) are tried by hand only, not scored. Script-only language check; AI-translated labels can be wrong (Hindi "{0} of {1}" order).
 - Korean recall 20% on test (dev 90%). Not fixable by prompt wording in the loop; next idea: per-language pass. Reported in README/EVAL.
 - Guardrails check sources, not wording: one test run's upgrade said "around 9 AM", which no guest said.
 - TalkBack and Nepali TTS untested on a real phone (no voice on this laptop; fallback message verified).

@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { analyse } from "../src/ai/analyse";
 import { DEFAULT_MIN_MESSAGES } from "../src/ai/guardrails";
 import { DEFAULT_MODEL } from "../src/ai/prompts";
-import { LANGS, type Analysis, type Lang, type Message, type Point } from "../src/types";
+import { EVAL_LANGS as LANGS, type Analysis, type Lang, type Message, type Point } from "../src/types";
 
 type Theme = { id: string; type: "loved" | "wished" | "single"; name: string; message_ids: string[] };
 
@@ -18,7 +18,7 @@ const runs = Number(arg("runs", "2"));
 const files = set === "test" ? ["synthetic_test.json", "synthetic_test_truth.json"] : ["synthetic_messages.json", "synthetic_truth.json"];
 const messages: Message[] = JSON.parse(readFileSync(`data/${files[0]}`, "utf8"));
 const themes: Theme[] = JSON.parse(readFileSync(`data/${files[1]}`, "utf8")).themes;
-const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES };
+const cfg = { baseUrl: "http://localhost:11434", model: arg("model", DEFAULT_MODEL), minMessages: DEFAULT_MIN_MESSAGES, ownerLang: "ne" };
 
 const overlap = (p: Point, ids: string[]) => p.message_ids.filter((id) => ids.includes(id)).length;
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
@@ -49,7 +49,7 @@ function score(a: Analysis) {
   // The single-mention theme must not be shown as a point; it should be listed as uncertain.
   const displayed = [...a.loved, ...a.wished, ...(a.upgrade ? [a.upgrade] : [])];
   const t5_not_a_point = !displayed.some((p) => overlap(p, single.message_ids) > 0);
-  const t5_in_uncertain = a.uncertain.some((u) => /wi-?fi|internet|वाइ|वाई|इन्टरनेट/i.test(u.note_en + u.note_ne));
+  const t5_in_uncertain = a.uncertain.some((u) => /wi-?fi|internet|वाइ|वाई|इन्टरनेट/i.test(u.note_en + u.note_own));
   const t5_correct = t5_not_a_point && t5_in_uncertain;
 
   const cites = displayed.flatMap((p) => p.message_ids);
