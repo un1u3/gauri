@@ -4,7 +4,7 @@
   "text": "क्या आप दिसंबर में खुले रहते हैं?",
   "lang": "hi",
   "received_at": "2026-08-01",
-  "contact": "guest-m01@example.invalid",
+  "contact": "+91 98555 01201",
   "synthetic": true
  },
  {
@@ -20,7 +20,7 @@
   "text": "아침 식사가 너무 늦게 나왔어요. 일찍 출발해야 해서 아쉬웠습니다.",
   "lang": "ko",
   "received_at": "2026-08-03",
-  "contact": "guest-m03@example.invalid",
+  "contact": "+82 10-5550-0103",
   "synthetic": true
  },
  {
@@ -36,7 +36,7 @@
   "text": "धन्यवाद दिदी। हामी राम्रोसँग घर पुग्यौं।",
   "lang": "ne",
   "received_at": "2026-08-04",
-  "contact": "guest-m05@example.invalid",
+  "contact": "+977 98-5550-0105",
   "synthetic": true
  },
  {
@@ -52,7 +52,7 @@
   "text": "Thank you for everything. We reached Pokhara safely.",
   "lang": "en",
   "received_at": "2026-08-05",
-  "contact": "guest-m07@example.invalid",
+  "contact": "+44 7700 900107",
   "synthetic": true
  },
  {
@@ -68,7 +68,7 @@
   "text": "कॉफ़ी के खेत में घूमना बहुत अच्छा लगा। कॉफ़ी कैसे उगती है, यह पहली बार देखा।",
   "lang": "hi",
   "received_at": "2026-08-07",
-  "contact": "guest-m09@example.invalid",
+  "contact": "+91 98555 01209",
   "synthetic": true
  },
  {
@@ -84,7 +84,7 @@
   "text": "कफी बारीमा घुम्न पाउँदा खुसी लाग्यो। कफी कसरी फल्छ भनेर पहिलो पटक देखें।",
   "lang": "ne",
   "received_at": "2026-08-08",
-  "contact": "guest-m11@example.invalid",
+  "contact": "+977 98-5550-0111",
   "synthetic": true
  },
  {
@@ -100,7 +100,7 @@
   "text": "यसपालि पानी धेरै पर्‍यो।",
   "lang": "ne",
   "received_at": "2026-08-09",
-  "contact": "guest-m13@example.invalid",
+  "contact": "+977 98-5550-0113",
   "synthetic": true
  },
  {
@@ -116,7 +116,7 @@
   "text": "早餐上得太晚了,我们本来想早点出发去徒步。",
   "lang": "zh",
   "received_at": "2026-08-11",
-  "contact": "guest-m15@example.invalid",
+  "contact": "+86 138 5550 0115",
   "synthetic": true
  },
  {
@@ -132,7 +132,7 @@
   "text": "커피 나무 사이를 산책하고 직접 열매를 따 본 것이 인상 깊었습니다.",
   "lang": "ko",
   "received_at": "2026-08-12",
-  "contact": "guest-m17@example.invalid",
+  "contact": "+82 10-5550-0117",
   "synthetic": true
  },
  {
@@ -148,7 +148,7 @@
   "text": "कॉफ़ी बागान की सैर सबसे यादगार रही।",
   "lang": "hi",
   "received_at": "2026-08-13",
-  "contact": "guest-m19@example.invalid",
+  "contact": "+91 98555 01219",
   "synthetic": true
  },
  {
@@ -164,7 +164,7 @@
   "text": "अर्को महिना साथीहरू पनि आउन सक्छन् कि भनेर सोध्दै छु।",
   "lang": "ne",
   "received_at": "2026-08-15",
-  "contact": "guest-m21@example.invalid",
+  "contact": "+977 98-5550-0121",
   "synthetic": true
  },
  {
@@ -180,7 +180,7 @@
   "text": "在咖啡园里散步很棒,主人讲解了咖啡是怎么种的。",
   "lang": "zh",
   "received_at": "2026-08-16",
-  "contact": "guest-m23@example.invalid",
+  "contact": "+86 138 5550 0123",
   "synthetic": true
  },
  {
@@ -196,7 +196,7 @@
   "text": "와이파이가 있으면 좋겠어요.",
   "lang": "ko",
   "received_at": "2026-08-18",
-  "contact": "guest-m25@example.invalid",
+  "contact": "+82 10-5550-0125",
   "synthetic": true
  },
  {
@@ -212,7 +212,7 @@
   "text": "The cooking class was the best part of our stay. We made dal bhat and momos together!",
   "lang": "en",
   "received_at": "2026-08-19",
-  "contact": "guest-m27@example.invalid",
+  "contact": "+44 7700 900127",
   "synthetic": true
  },
  {
@@ -228,7 +228,7 @@
   "text": "Lovely place, but breakfast was served too late. We wanted to start hiking by 7.",
   "lang": "en",
   "received_at": "2026-08-20",
-  "contact": "guest-m29@example.invalid",
+  "contact": "+44 7700 900129",
   "synthetic": true
  },
  {
@@ -244,7 +244,7 @@
   "text": "最喜欢和主人一起做饭的课程,学会了做馍馍。",
   "lang": "zh",
   "received_at": "2026-08-22",
-  "contact": "guest-m31@example.invalid",
+  "contact": "+86 138 5550 0131",
   "synthetic": true
  },
  {
@@ -260,7 +260,7 @@
   "text": "山里的晚上比想象的冷。",
   "lang": "zh",
   "received_at": "2026-08-23",
-  "contact": "guest-m33@example.invalid",
+  "contact": "+86 138 5550 0133",
   "synthetic": true
  },
  {
@@ -276,7 +276,7 @@
   "text": "我拍了很多照片,回去给朋友看。",
   "lang": "zh",
   "received_at": "2026-08-24",
-  "contact": "guest-m35@example.invalid",
+  "contact": "+86 138 5550 0135",
   "synthetic": true
  },
  {
@@ -292,7 +292,7 @@
   "text": "खाना बनाने की क्लास बहुत मज़ेदार थी। हमने खुद दाल-भात बनाना सीखा।",
   "lang": "hi",
   "received_at": "2026-08-26",
-  "contact": "guest-m37@example.invalid",
+  "contact": "+91 98555 01237",
   "synthetic": true
  },
  {
@@ -308,7 +308,7 @@
   "text": "फार्म भेट्टाउन गाह्रो भयो। बाटोमा कुनै बोर्ड थिएन।",
   "lang": "ne",
   "received_at": "2026-08-27",
-  "contact": "guest-m39@example.invalid",
+  "contact": "+977 98-5550-0139",
   "synthetic": true
  },
  {

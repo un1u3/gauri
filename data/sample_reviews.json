@@ -4,7 +4,7 @@
   "text": "말이 통하지 않아서 궁금한 것을 물어볼 수 없었던 점이 아쉬웠어요.",
   "lang": "ko",
   "received_at": "2026-09-01",
-  "contact": "guest-r01@example.invalid",
+  "contact": "+82 10-5550-0101",
   "synthetic": true
  },
  {
@@ -20,7 +20,7 @@
   "text": "가족처럼 대해 주셔서 떠날 때 눈물이 났어요.",
   "lang": "ko",
   "received_at": "2026-09-03",
-  "contact": "guest-r03@example.invalid",
+  "contact": "+82 10-5550-0103",
   "synthetic": true
  },
  {
@@ -36,7 +36,7 @@
   "text": "向导走了以后,我们和主人没法交流,只能靠手势。",
   "lang": "zh",
   "received_at": "2026-09-04",
-  "contact": "guest-r05@example.invalid",
+  "contact": "+86 138 5550 0105",
   "synthetic": true
  },
  {
@@ -52,7 +52,7 @@
   "text": "没有热水洗澡,晚上洗冷水很冷。",
   "lang": "zh",
   "received_at": "2026-09-05",
-  "contact": "guest-r07@example.invalid",
+  "contact": "+86 138 5550 0107",
   "synthetic": true
  },
  {
@@ -68,7 +68,7 @@
   "text": "Picking coffee cherries and then roasting them over the fire with the family was unforgettable.",
   "lang": "en",
   "received_at": "2026-09-07",
-  "contact": "guest-r09@example.invalid",
+  "contact": "+44 7700 900109",
   "synthetic": true
  },
  {
@@ -84,7 +84,7 @@
   "text": "用自家菜园的菜做的饭特别好吃,每顿都吃得很饱。",
   "lang": "zh",
   "received_at": "2026-09-08",
-  "contact": "guest-r11@example.invalid",
+  "contact": "+86 138 5550 0111",
   "synthetic": true
  },
  {
@@ -100,7 +100,7 @@
   "text": "La route pour arriver est longue et très cahoteuse, et la maison est difficile à trouver.",
   "lang": "fr",
   "received_at": "2026-09-09",
-  "contact": "guest-r13@example.invalid",
+  "contact": "+33 6 55 50 01 13",
   "synthetic": true
  },
  {
@@ -116,7 +116,7 @@
   "text": "नुहाउन तातो पानी भए अझ राम्रो हुन्थ्यो।",
   "lang": "ne",
   "received_at": "2026-09-11",
-  "contact": "guest-r15@example.invalid",
+  "contact": "+977 98-5550-0115",
   "synthetic": true
  },
  {
@@ -132,7 +132,7 @@
   "text": "Nachts war es im Zimmer sehr kalt, eine zweite Decke wäre gut gewesen.",
   "lang": "de",
   "received_at": "2026-09-12",
-  "contact": "guest-r17@example.invalid",
+  "contact": "+49 1515 5550117",
   "synthetic": true
  },
  {
@@ -148,7 +148,7 @@
   "text": "Beautiful place, but there was no hot water at all and it was hard to wash after a long hike.",
   "lang": "en",
   "received_at": "2026-09-13",
-  "contact": "guest-r19@example.invalid",
+  "contact": "+44 7700 900119",
   "synthetic": true
  },
  {
@@ -164,7 +164,7 @@
   "text": "Back in Kathmandu now. Thank you again!",
   "lang": "en",
   "received_at": "2026-09-15",
-  "contact": "guest-r21@example.invalid",
+  "contact": "+44 7700 900121",
   "synthetic": true
  },
  {
@@ -180,7 +180,7 @@
   "text": "畑でとれた野菜を使った家庭料理がとてもおいしかったです。",
   "lang": "ja",
   "received_at": "2026-09-16",
-  "contact": "guest-r23@example.invalid",
+  "contact": "+81 90-5550-0123",
   "synthetic": true
  },
  {
@@ -196,7 +196,7 @@
   "text": "Nights were colder than we expected and the blanket was thin.",
   "lang": "en",
   "received_at": "2026-09-18",
-  "contact": "guest-r25@example.invalid",
+  "contact": "+44 7700 900125",
   "synthetic": true
  },
  {
@@ -212,7 +212,7 @@
   "text": "只能付现金,不能刷卡,有点不方便。",
   "lang": "zh",
   "received_at": "2026-09-19",
-  "contact": "guest-r27@example.invalid",
+  "contact": "+86 138 5550 0127",
   "synthetic": true
  },
  {
@@ -228,7 +228,7 @@
   "text": "Les repas faits maison avec les légumes du jardin étaient délicieux.",
   "lang": "fr",
   "received_at": "2026-09-20",
-  "contact": "guest-r29@example.invalid",
+  "contact": "+33 6 55 50 01 29",
   "synthetic": true
  },
  {
@@ -244,7 +244,7 @@
   "text": "राति निकै जाडो भयो, ओढ्ने अलि पातलो थियो।",
   "lang": "ne",
   "received_at": "2026-09-22",
-  "contact": "guest-r31@example.invalid",
+  "contact": "+977 98-5550-0131",
   "synthetic": true
  },
  {
@@ -260,7 +260,7 @@
   "text": "Once our guide left we could not really talk to our hosts. We had so many questions about the farm.",
   "lang": "en",
   "received_at": "2026-09-23",
-  "contact": "guest-r33@example.invalid",
+  "contact": "+44 7700 900133",
   "synthetic": true
  },
  {
@@ -276,7 +276,7 @@
   "text": "आफ्नै घर जस्तो माया पाइयो। आमाले छोराछोरीलाई जस्तै ख्याल गर्नुभयो।",
   "lang": "ne",
   "received_at": "2026-09-24",
-  "contact": "guest-r35@example.invalid",
+  "contact": "+977 98-5550-0135",
   "synthetic": true
  },
  {
@@ -292,7 +292,7 @@
   "text": "커피 농장을 돌아보고 직접 볶은 커피를 마신 것이 가장 좋았습니다.",
   "lang": "ko",
   "received_at": "2026-09-26",
-  "contact": "guest-r37@example.invalid",
+  "contact": "+82 10-5550-0137",
   "synthetic": true
  },
  {
@@ -308,7 +308,7 @@
   "text": "कॉफ़ी के बाग़ में घूमना और वहीं की ताज़ी कॉफ़ी पीना बहुत अच्छा लगा।",
   "lang": "hi",
   "received_at": "2026-09-27",
-  "contact": "guest-r39@example.invalid",
+  "contact": "+91 98555 01239",
   "synthetic": true
  },
  {

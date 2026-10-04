@@ -4,7 +4,7 @@
   "text": "早饭九点多才有,对我们来说太迟了。",
   "lang": "zh",
   "received_at": "2026-09-01",
-  "contact": "guest-t01@example.invalid",
+  "contact": "+86 138 5550 0101",
   "synthetic": true
  },
  {
@@ -20,7 +20,7 @@
   "text": "फोटोहरू पठाउँदै छु।",
   "lang": "ne",
   "received_at": "2026-09-03",
-  "contact": "guest-t03@example.invalid",
+  "contact": "+977 98-5550-0103",
   "synthetic": true
  },
  {
@@ -36,7 +36,7 @@
   "text": "कफी बगानको भ्रमण धेरै मन पर्‍यो। कफीको दाना टिप्न पनि पाइयो।",
   "lang": "ne",
   "received_at": "2026-09-04",
-  "contact": "guest-t05@example.invalid",
+  "contact": "+977 98-5550-0105",
   "synthetic": true
  },
  {
@@ -52,7 +52,7 @@
   "text": "谢谢,我们已经到家了。",
   "lang": "zh",
   "received_at": "2026-09-05",
-  "contact": "guest-t07@example.invalid",
+  "contact": "+86 138 5550 0107",
   "synthetic": true
  },
  {
@@ -68,7 +68,7 @@
   "text": "बिहानको खाना अलि चाँडो भए हुन्थ्यो, नौ बजेपछि मात्र आयो।",
   "lang": "ne",
   "received_at": "2026-09-07",
-  "contact": "guest-t09@example.invalid",
+  "contact": "+977 98-5550-0109",
   "synthetic": true
  },
  {
@@ -84,7 +84,7 @@
   "text": "下雨了,所以没看到日出。",
   "lang": "zh",
   "received_at": "2026-09-08",
-  "contact": "guest-t11@example.invalid",
+  "contact": "+86 138 5550 0111",
   "synthetic": true
  },
  {
@@ -100,7 +100,7 @@
   "text": "The bus from Kathmandu was very crowded.",
   "lang": "en",
   "received_at": "2026-09-09",
-  "contact": "guest-t13@example.invalid",
+  "contact": "+44 7700 900113",
   "synthetic": true
  },
  {
@@ -116,7 +116,7 @@
   "text": "Do you have space for four people in March?",
   "lang": "en",
   "received_at": "2026-09-11",
-  "contact": "guest-t15@example.invalid",
+  "contact": "+44 7700 900115",
   "synthetic": true
  },
  {
@@ -132,7 +132,7 @@
   "text": "Cooking dinner together with the host was so much fun. The cooking lesson alone was worth the trip.",
   "lang": "en",
   "received_at": "2026-09-12",
-  "contact": "guest-t17@example.invalid",
+  "contact": "+44 7700 900117",
   "synthetic": true
  },
  {
@@ -148,7 +148,7 @@
   "text": "주인분과 함께 음식을 만드는 수업이 제일 좋았습니다.",
   "lang": "ko",
   "received_at": "2026-09-13",
-  "contact": "guest-t19@example.invalid",
+  "contact": "+82 10-5550-0119",
   "synthetic": true
  },
  {
@@ -164,7 +164,7 @@
   "text": "밤에 별이 정말 많았어요.",
   "lang": "ko",
   "received_at": "2026-09-15",
-  "contact": "guest-t21@example.invalid",
+  "contact": "+82 10-5550-0121",
   "synthetic": true
  },
  {
@@ -180,7 +180,7 @@
   "text": "아침밥이 늦어서 트레킹 출발이 늦어졌어요.",
   "lang": "ko",
   "received_at": "2026-09-16",
-  "contact": "guest-t23@example.invalid",
+  "contact": "+82 10-5550-0123",
   "synthetic": true
  },
  {
@@ -196,7 +196,7 @@
   "text": "ठाउँ पत्ता लगाउन निकै गाह्रो भयो। मोडमा एउटा बोर्ड राखिदिनुस्।",
   "lang": "ne",
   "received_at": "2026-09-18",
-  "contact": "guest-t25@example.invalid",
+  "contact": "+977 98-5550-0125",
   "synthetic": true
  },
  {
@@ -212,7 +212,7 @@
   "text": "जगह तक पहुँचने का रास्ता समझ नहीं आया। कोई साइनबोर्ड लगा दीजिए।",
   "lang": "hi",
   "received_at": "2026-09-19",
-  "contact": "guest-t27@example.invalid",
+  "contact": "+91 98555 01227",
   "synthetic": true
  },
  {
@@ -228,7 +228,7 @@
   "text": "नमस्ते दिदी, हामी काठमाडौं आइपुग्यौं।",
   "lang": "ne",
   "received_at": "2026-09-20",
-  "contact": "guest-t29@example.invalid",
+  "contact": "+977 98-5550-0129",
   "synthetic": true
  },
  {
@@ -244,7 +244,7 @@
   "text": "सुबह का नाश्ता नौ बजे के बाद आया, यह हमारे लिए बहुत देर थी।",
   "lang": "hi",
   "received_at": "2026-09-22",
-  "contact": "guest-t31@example.invalid",
+  "contact": "+91 98555 01231",
   "synthetic": true
  },
  {
@@ -260,7 +260,7 @@
   "text": "잘 지내다 갑니다. 건강하세요.",
   "lang": "ko",
   "received_at": "2026-09-23",
-  "contact": "guest-t33@example.invalid",
+  "contact": "+82 10-5550-0133",
   "synthetic": true
  },
  {
@@ -276,7 +276,7 @@
   "text": "नाश्ता थोड़ा जल्दी मिल जाता तो अच्छा होता, हम ट्रेक के लिए लेट हो गए।",
   "lang": "hi",
   "received_at": "2026-09-24",
-  "contact": "guest-t35@example.invalid",
+  "contact": "+91 98555 01235",
   "synthetic": true
  },
  {
@@ -292,7 +292,7 @@
   "text": "पहाड़ों में ठंड काफ़ी थी।",
   "lang": "hi",
   "received_at": "2026-09-26",
-  "contact": "guest-t37@example.invalid",
+  "contact": "+91 98555 01237",
   "synthetic": true
  },
  {
@@ -308,7 +308,7 @@
   "text": "Safe travels to us! Thanks again.",
   "lang": "en",
   "received_at": "2026-09-27",
-  "contact": "guest-t39@example.invalid",
+  "contact": "+44 7700 900139",
   "synthetic": true
  },
  {

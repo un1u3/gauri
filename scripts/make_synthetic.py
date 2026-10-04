@@ -204,6 +204,12 @@ SAMPLE = [
     ("es", "S3", "El baño es de tipo turco y está fuera de la casa; nos costó acostumbrarnos."),
 ]
 
+# Invented numbers, one pattern per language's usual country code. They belong to nobody we know of:
+# the UK ones are from the range reserved for fiction, the others use a 555-style block.
+PHONE = {
+    "en": "+44 7700 9001{:02d}", "ko": "+82 10-5550-01{:02d}", "hi": "+91 98555 012{:02d}", "zh": "+86 138 5550 01{:02d}",
+    "ne": "+977 98-5550-01{:02d}", "ja": "+81 90-5550-01{:02d}", "fr": "+33 6 55 50 01 {:02d}", "de": "+49 1515 55501{:02d}", "es": "+34 655 50 01 {:02d}",
+}
 
 def build(rows, prefix, seed, month, themes=THEMES):
     rows = rows[:]
@@ -214,8 +220,8 @@ def build(rows, prefix, seed, month, themes=THEMES):
         messages.append({
             "id": mid, "text": text, "lang": lang,
             "received_at": f"2026-{month:02d}-{1 + (i * 28) // (len(rows) + 1):02d}",
-            # Made-up contacts for about half the guests; not real phone numbers.
-            "contact": f"guest-{mid}@example.invalid" if i % 2 else None,
+            # Made-up phone numbers for about half the guests (messages arrive by SMS / WhatsApp).
+            "contact": PHONE[lang].format(i) if i % 2 else None,
             "synthetic": True,
         })
         for t in theme.split("+"):  # a message may express two themes

@@ -4,7 +4,7 @@
   "text": "Greetings from London! We are back home now.",
   "lang": "en",
   "received_at": "2026-10-01",
-  "contact": "guest-f01@example.invalid",
+  "contact": "+44 7700 900101",
   "synthetic": true
  },
  {
@@ -20,7 +20,7 @@
   "text": "कॉफ़ी के बाग़ में सुबह की सैर बहुत सुकून देने वाली थी।",
   "lang": "hi",
   "received_at": "2026-10-03",
-  "contact": "guest-f03@example.invalid",
+  "contact": "+91 98555 01203",
   "synthetic": true
  },
  {
@@ -36,7 +36,7 @@
   "text": "早餐准备得太慢了,我们差点赶不上车。",
   "lang": "zh",
   "received_at": "2026-10-04",
-  "contact": "guest-f05@example.invalid",
+  "contact": "+86 138 5550 0105",
   "synthetic": true
  },
  {
@@ -52,7 +52,7 @@
   "text": "希望早饭能早一点,我们七点就要出发。",
   "lang": "zh",
   "received_at": "2026-10-05",
-  "contact": "guest-f07@example.invalid",
+  "contact": "+86 138 5550 0107",
   "synthetic": true
  },
  {
@@ -68,7 +68,7 @@
   "text": "덕분에 잘 쉬다 갑니다.",
   "lang": "ko",
   "received_at": "2026-10-07",
-  "contact": "guest-f09@example.invalid",
+  "contact": "+82 10-5550-0109",
   "synthetic": true
  },
  {
@@ -84,7 +84,7 @@
   "text": "One thing: breakfast was not ready until quite late and we had to rush to catch our ride.",
   "lang": "en",
   "received_at": "2026-10-08",
-  "contact": "guest-f11@example.invalid",
+  "contact": "+44 7700 900111",
   "synthetic": true
  },
  {
@@ -100,7 +100,7 @@
   "text": "커피 농장 산책 덕분에 커피 한 잔이 어디서 오는지 알게 됐어요.",
   "lang": "ko",
   "received_at": "2026-10-09",
-  "contact": "guest-f13@example.invalid",
+  "contact": "+82 10-5550-0113",
   "synthetic": true
  },
  {
@@ -116,7 +116,7 @@
   "text": "아침을 너무 늦게 먹게 되어서 일정이 밀렸어요.",
   "lang": "ko",
   "received_at": "2026-10-11",
-  "contact": "guest-f15@example.invalid",
+  "contact": "+82 10-5550-0115",
   "synthetic": true
  },
  {
@@ -132,7 +132,7 @@
   "text": "आंटी के साथ मोमो बनाना सीखा, कुकिंग क्लास में बहुत मज़ा आया।",
   "lang": "hi",
   "received_at": "2026-10-12",
-  "contact": "guest-f17@example.invalid",
+  "contact": "+91 98555 01217",
   "synthetic": true
  },
  {
@@ -148,7 +148,7 @@
   "text": "如果有无线网络就更好了。",
   "lang": "zh",
   "received_at": "2026-10-13",
-  "contact": "guest-f19@example.invalid",
+  "contact": "+86 138 5550 0119",
   "synthetic": true
  },
  {
@@ -164,7 +164,7 @@
   "text": "घर ढूँढने में बहुत परेशानी हुई, रास्ते में कहीं कोई निशान नहीं था।",
   "lang": "hi",
   "received_at": "2026-10-15",
-  "contact": "guest-f21@example.invalid",
+  "contact": "+91 98555 01221",
   "synthetic": true
  },
  {
@@ -180,7 +180,7 @@
   "text": "跟着主人逛咖啡园,第一次看到咖啡树,很有意思。",
   "lang": "zh",
   "received_at": "2026-10-16",
-  "contact": "guest-f23@example.invalid",
+  "contact": "+86 138 5550 0123",
   "synthetic": true
  },
  {
@@ -196,7 +196,7 @@
   "text": "我们已经到博卡拉了,一切顺利。",
   "lang": "zh",
   "received_at": "2026-10-18",
-  "contact": "guest-f25@example.invalid",
+  "contact": "+86 138 5550 0125",
   "synthetic": true
  },
  {
@@ -212,7 +212,7 @@
   "text": "आपके गाँव की हवा बहुत साफ़ है।",
   "lang": "hi",
   "received_at": "2026-10-19",
-  "contact": "guest-f27@example.invalid",
+  "contact": "+91 98555 01227",
   "synthetic": true
  },
  {
@@ -228,7 +228,7 @@
   "text": "Is the farm open during Dashain?",
   "lang": "en",
   "received_at": "2026-10-20",
-  "contact": "guest-f29@example.invalid",
+  "contact": "+44 7700 900129",
   "synthetic": true
  },
  {
@@ -244,7 +244,7 @@
   "text": "घर खोज्दा खोज्दा हैरान भइयो, बाटो देखाउने केही थिएन।",
   "lang": "ne",
   "received_at": "2026-10-22",
-  "contact": "guest-f31@example.invalid",
+  "contact": "+977 98-5550-0131",
   "synthetic": true
  },
  {
@@ -260,7 +260,7 @@
   "text": "We spent an afternoon in the kitchen learning to make momos with our host. Best memory of Nepal.",
   "lang": "en",
   "received_at": "2026-10-23",
-  "contact": "guest-f33@example.invalid",
+  "contact": "+44 7700 900133",
   "synthetic": true
  },
  {
@@ -276,7 +276,7 @@
   "text": "路上风景很美。",
   "lang": "zh",
   "received_at": "2026-10-24",
-  "contact": "guest-f35@example.invalid",
+  "contact": "+86 138 5550 0135",
   "synthetic": true
  },
  {
@@ -292,7 +292,7 @@
   "text": "호스트 가족과 같이 저녁을 만들어 본 요리 체험이 가장 기억에 남습니다.",
   "lang": "ko",
   "received_at": "2026-10-26",
-  "contact": "guest-f37@example.invalid",
+  "contact": "+82 10-5550-0137",
   "synthetic": true
  },
  {
@@ -308,7 +308,7 @@
   "text": "हामी सकुशल घर आइपुग्यौं, धन्यवाद।",
   "lang": "ne",
   "received_at": "2026-10-27",
-  "contact": "guest-f39@example.invalid",
+  "contact": "+977 98-5550-0139",
   "synthetic": true
  },
  {
