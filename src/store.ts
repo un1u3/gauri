@@ -10,7 +10,8 @@ export type Settings = { demo: boolean; model: string; minMessages: number; text
 // profile: the owner's situation, used to fit ideas to her. ideas: results per summary point, so reopening does not re-run the model.
 export type State = { messages: Message[]; analysis: Analysis | null; drafts: Draft[]; settings: Settings; packs: Record<string, Record<string, string>>; profile: Profile; ideas: Record<string, IdeasResult> };
 
-const KEY = "gauri.v2";
+export const STORE_KEY = "gauri.v2";
+const KEY = STORE_KEY;
 const defaults = (): State => ({
   messages: [], analysis: null, drafts: [], packs: {}, profile: { ...DEFAULT_PROFILE }, ideas: {},
   settings: { demo: false, model: DEFAULT_MODEL, minMessages: DEFAULT_MIN_MESSAGES, textSize: "normal", ui: "own", ownerLang: "ne" },

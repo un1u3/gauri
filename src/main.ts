@@ -16,7 +16,7 @@ import type { Section } from "./ideas/match";
 import { cardView } from "./ideas/view";
 import { fromJson, fromPaste } from "./messages";
 import { MOCK_ANALYSIS, MOCK_DRAFTS } from "./mock";
-import { clearAll, load, save } from "./store";
+import { clearAll, load, save, STORE_KEY } from "./store";
 import type { Draft, Lang, Message, Point } from "./types";
 import { hasVoice, speak, stopSpeaking } from "./voice";
 
@@ -518,6 +518,11 @@ function settingsScreen(): Child[] {
       h("div", { class: "field check" },
         h("input", { type: "checkbox", id: "demo", checked: s.demo, onchange: (e: Event) => set("demo", (e.target as HTMLInputElement).checked) }),
         h("label", { for: "demo" }, icon("🎬"), t("demo")))),
+    h("h2", { class: "sec" }, icon("🎬"), t("demoTitle")),
+    h("div", { class: "card" },
+      h("p", { class: "small" }, t("demoHelp")),
+      h("a", { class: "btn", href: "guest.html", target: "_blank", rel: "noopener" }, icon("📱"), t("openGuest")),
+      h("a", { class: "btn", href: "flow.html", target: "_blank", rel: "noopener" }, icon("💬"), t("openFlow"))),
     h("h2", { class: "sec" }, icon("🛡"), t("secPrivacy")),
     h("div", { class: "card" },
       h("h3", {}, icon("📝"), t("consentTitle")),
@@ -592,7 +597,26 @@ function render() {
   if (focused) document.getElementById(focused)?.focus(); // keep keyboard / TalkBack position across re-renders
 }
 
-document.body.append(live);
+// A message written on the simulated guest phone (another window or frame) lands in the store:
+// pick it up at once and tell the owner.
+const toast = h("button", { type: "button", id: "toast", class: "toast", hidden: true, onclick: () => { toast.hidden = true; go("messages"); } });
+let toastTimer = 0;
+window.addEventListener("storage", (e) => {
+  if (e.key !== STORE_KEY || !e.newValue) return;
+  const known = new Set(state.messages.map((m) => m.id));
+  state = load();
+  setPacks(state.packs);
+  const fresh = state.messages.filter((m) => !known.has(m.id)).pop();
+  render();
+  if (!fresh) return;
+  toast.replaceChildren(icon("💬"), h("span", {}, h("strong", {}, t("newMessage")), " · ", h("span", { lang: fresh.lang }, nameOf(fresh.lang)), h("span", { class: "toast-text", lang: fresh.lang }, fresh.text)));
+  toast.hidden = false;
+  announce(`${t("newMessage")}: ${nameOf(fresh.lang)}`);
+  clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => (toast.hidden = true), 8000);
+});
+
+document.body.append(live, toast);
 setPacks(state.packs);
 if (typeof speechSynthesis !== "undefined") speechSynthesis.onvoiceschanged = () => { if (noVoice && state.analysis && hasVoice(state.analysis.lang)) { noVoice = false; render(); } };
 render();

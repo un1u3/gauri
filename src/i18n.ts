@@ -75,6 +75,12 @@ const S = {
   pLanguages: ["मैले बोल्ने भाषा (अल्पविरामले छुट्याउनुहोस्)", "Languages I speak (separate with commas)"],
   pHelpers: ["सघाउने मान्छे", "Helpers"],
 
+  newMessage: ["नयाँ सन्देश आयो", "New message received"],
+  demoTitle: ["डेमो", "Demo"],
+  demoHelp: ["पाहुनाको फोनको नक्कल: त्यहाँ लेखेको सन्देश सिधै यहाँ आउँछ। साँच्चैको SMS जाँदैन।", "A simulated guest phone: a message written there arrives here at once. No real SMS is sent."],
+  openGuest: ["पाहुनाको फोन खोल्नुहोस्", "Open the guest's phone"],
+  openFlow: ["दुवै फोन सँगै हेर्नुहोस्", "Show both phones side by side"],
+
   messagesTitle: ["सन्देशहरू", "Messages"],
   count: ["{0} सन्देश", "{0} messages"],
   paste: ["सन्देश टाँस्नुहोस् (एक लाइनमा एउटा)", "Paste messages (one per line)"],

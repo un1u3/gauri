@@ -6,5 +6,7 @@ const ollama = { "/ollama": { target: "http://localhost:11434", changeOrigin: tr
 export default defineConfig({
   server: { host: true, proxy: ollama },
   preview: { host: true, proxy: ollama },
+  // Three pages: the app, the simulated guest phone, and both side by side (demo).
+  build: { rollupOptions: { input: { main: "index.html", guest: "guest.html", flow: "flow.html" } } },
   test: { include: ["tests/**/*.test.ts", "src/**/*.test.ts"] },
 });

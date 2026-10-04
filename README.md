@@ -92,6 +92,17 @@ The interface is laid out as a phone app (app bar with a one-tap language switch
 
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.
 
+## Showing the flow: a simulated guest phone
+
+For demos there are two extra pages, both reachable from Settings → "डेमो":
+
+- **`/guest.html`** — a guest's phone, laid out like a phone's messaging app. Pick a guest (Korean, Japanese, French, Hindi, Chinese, English), type or tap a message in that language and press send.
+- **`/flow.html`** — the guest's phone and Gauri side by side, so the whole path fits on one screen.
+
+A message sent there appears in Gauri at once: a "नयाँ सन्देश आयो" (new message) notice, the count on the Messages tab, and the guest listed under thank-yous. The thread opens with the consent note from the farm card, in the guest's language.
+
+**This is a simulation.** No SMS is sent or received; the guest page writes into the same on-device store that Gauri reads, and messages made this way carry the "synthetic" badge. In real use a guest's SMS or WhatsApp message would be shared or pasted into Gauri (reading the inbox directly is on the roadmap, not built). Gauri still never sends anything: the thread is one-way.
+
 ## "What can I improve?" (सुधारका उपाय)
 
 ```
