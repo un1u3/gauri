@@ -1,0 +1,140 @@
+{
+ "dev": {
+  "summary": {
+   "set": "dev",
+   "model": "gemma4:e2b",
+   "model_size_gb": 4.6,
+   "n_messages": 40,
+   "runs": 1,
+   "at": "2026-10-04T04:21:44.564Z",
+   "SCORE": 1.55,
+   "theme_recall": 1,
+   "per_language": {
+    "en": 0.8,
+    "ko": 0.8,
+    "hi": 1,
+    "zh": 0.6,
+    "ne": 0.8
+   },
+   "min_language": 0.6,
+   "t5_correct": true,
+   "t5_not_a_point": true,
+   "t5_in_uncertain": true,
+   "citation_validity": 1,
+   "min_citations_per_point": 4,
+   "seconds": 57,
+   "not_enough_ok": true,
+   "themes_found": [
+    {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    }
+   ]
+  },
+  "runs": [
+   {
+    "SCORE": 1.55,
+    "theme_recall": 1,
+    "themes_found": {
+     "T1": true,
+     "T2": true,
+     "T3": true,
+     "T4": true
+    },
+    "per_language": {
+     "en": 0.8,
+     "ko": 0.8,
+     "hi": 1,
+     "zh": 0.6,
+     "ne": 0.8
+    },
+    "min_language": 0.6,
+    "t5_correct": true,
+    "t5_not_a_point": true,
+    "t5_in_uncertain": true,
+    "citation_validity": 1,
+    "min_citations": 4,
+    "n_points": 5,
+    "seconds": 57,
+    "analysis": {
+     "status": "ok",
+     "n_messages": 40,
+     "loved": [
+      {
+       "point_en": "Walk through the coffee farm was wonderful.",
+       "point_ne": "कफी खेतमा घुम्नु धेरै राम्रो थियो।",
+       "message_ids": [
+        "m02",
+        "m08",
+        "m09",
+        "m11",
+        "m19",
+        "m23"
+       ]
+      },
+      {
+       "point_en": "Learning to cook with Noor was loved.",
+       "point_ne": "नूरसँग खाना पकाउन सिक्नु मन पर्यो।",
+       "message_ids": [
+        "m04",
+        "m18",
+        "m31",
+        "m37",
+        "m40"
+       ]
+      }
+     ],
+     "wished": [
+      {
+       "point_en": "Breakfast was served too late.",
+       "point_ne": "बिहानको खाना धेरै ढिलो आयो।",
+       "message_ids": [
+        "m03",
+        "m20",
+        "m24",
+        "m29"
+       ]
+      },
+      {
+       "point_en": "There should be signage on the road to find the farm.",
+       "point_ne": "फार्म भेट्न बाटोमा संकेत (बोर्ड) हुनुपर्छ।",
+       "message_ids": [
+        "m12",
+        "m26",
+        "m34",
+        "m38",
+        "m39"
+       ]
+      }
+     ],
+     "upgrade": {
+      "point_en": "Upgrade: Install road signage to help guests find the farm.",
+      "point_ne": "सुधार: अतिथिहरूलाई फार्म भेट्न मद्दत गर्न बाटोमा संकेत राख्नुहोस्।",
+      "message_ids": [
+       "m12",
+       "m26",
+       "m34",
+       "m38",
+       "m39"
+      ]
+     },
+     "uncertain": [
+      {
+       "note_en": "Only one guest mentioned: Wi-Fi would be nice.",
+       "note_ne": "एक जना पाहुनाले मात्र भन्नुभयो: वाई-फाई भए राम्रो हुनेछ।"
+      },
+      {
+       "note_en": "The owner's availability in December is unclear.",
+       "note_ne": "दिसम्बरमा मालिकको उपलब्धता स्पष्ट छैन। (m01)"
+      }
+     ],
+     "model": "gemma4:e2b",
+     "seconds": 57,
+     "created_at": "2026-10-04T04:21:44.558Z"
+    }
+   }
+  ]
+ }
+}
