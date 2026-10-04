@@ -1,6 +1,7 @@
 // UI text: [Nepali, English]. Nepali is the default; English is for judges.
 const S = {
   app: ["गौरी", "Gauri"],
+  tagline: ["पाहुनाको कुरा, तपाईंको भाषामा", "Your guests' words, in your language"],
   navSummary: ["सारांश", "Summary"],
   navMessages: ["सन्देश", "Messages"],
   navFollow: ["धन्यवाद", "Thank-yous"],

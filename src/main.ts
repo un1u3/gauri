@@ -6,6 +6,7 @@ import { analyse, draftThanks } from "./ai/analyse";
 import { applyGuardrails, hasEnoughFeedback, languagesOf, NotSureError, notEnoughFeedback } from "./ai/guardrails";
 import { OllamaError } from "./ai/ollama";
 import { runChecks, type Check } from "./checks";
+import { icon } from "./icons";
 import { translate, type Key } from "./i18n";
 import { fromJson, fromPaste } from "./messages";
 import { MOCK_ANALYSIS, MOCK_DRAFTS } from "./mock";
@@ -42,8 +43,6 @@ function h<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, 
   el.append(...children.filter((c): c is Node | string => !!c));
   return el;
 }
-// Icons are decoration next to a text label, so screen readers skip them.
-const icon = (emoji: string) => h("span", { "aria-hidden": "true", class: "icon" }, emoji);
 const button = (id: string, emoji: string, label: string, onclick: () => void, attrs: Record<string, unknown> = {}) =>
   h("button", { type: "button", id, onclick, ...attrs }, icon(emoji), label);
 
@@ -181,7 +180,7 @@ const messageLine = (m: Message) =>
 
 function section(titleKey: Key, emoji: string, points: Point[], prefix: string, emptyKey: Key): HTMLElement {
   return h("section", {},
-    h("h2", {}, icon(emoji), t(titleKey)),
+    h("h2", { class: `sec ${prefix}` }, icon(emoji), t(titleKey)),
     points.length ? h("ul", { class: "points" }, ...points.map((p, i) => pointItem(p, `${prefix}${i}`))) : h("p", {}, t(emptyKey)),
   );
 }
@@ -191,10 +190,12 @@ function summaryScreen(): Child[] {
   const n = state.messages.length, min = state.settings.minMessages;
   const out: Child[] = [
     h("h1", { tabindex: "-1" }, t("summaryTitle")),
-    button("analyse", "🔍", t("analyse"), runAnalysis, { class: "primary", disabled: busySince !== null }),
+    h("div", { class: "hero" },
+      h("p", {}, icon("💬"), t("count", n)),
+      button("analyse", "🔍", t("analyse"), runAnalysis, { class: "primary wide", disabled: busySince !== null })),
   ];
   if (busySince !== null) {
-    out.push(h("div", { class: "notice" }, h("p", {}, icon("⏳"), t("analysing")), h("p", { id: "elapsed" }, t("elapsed", Math.round((Date.now() - busySince) / 1000)))));
+    out.push(h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("analysing")), h("p", { id: "elapsed" }, t("elapsed", Math.round((Date.now() - busySince) / 1000)))));
     return out;
   }
   if (error) out.push(h("p", { class: "notice warn", role: "alert" }, icon("⚠️"), error));
@@ -216,7 +217,7 @@ function summaryScreen(): Child[] {
     section("wished", "💭", a.wished, "wished", "none"),
     section("upgrade", "💡", a.upgrade ? [a.upgrade] : [], "upgrade", "noUpgrade"),
     a.uncertain.length > 0 && h("section", { class: "uncertain" },
-      h("h2", {}, icon("❓"), t("uncertain")),
+      h("h2", { class: "sec" }, icon("❓"), t("uncertain")),
       h("ul", {}, ...a.uncertain.map((u) => h("li", {}, h("p", { lang: "ne" }, u.note_ne), state.settings.ui === "en" && h("p", { lang: "en" }, u.note_en))))),
     h("footer", {},
       h("p", { class: "big" }, icon("🤝"), t("footer")),
@@ -378,7 +379,9 @@ function render() {
   document.documentElement.dataset.size = state.settings.textSize;
   app.replaceChildren(
     h("header", {},
-      h("p", { class: "brand", lang: "ne" }, icon("🌱"), "गौरी"),
+      h("div", { class: "appbar" },
+        h("p", { class: "brand", lang: "ne" }, icon("🌱"), "गौरी"),
+        h("p", { class: "tagline" }, t("tagline"))),
       h("nav", { "aria-label": t("navLabel") },
         h("ul", {}, ...NAV.map(([s, emoji, key]) =>
           h("li", {}, button(`nav-${s}`, emoji, t(key), () => go(s), { "aria-current": s === screen || (s === "settings" && screen === "checks") ? "page" : null })))))),

@@ -15,6 +15,7 @@ Recovery: read this file, run `npm test`, continue from **Now**.
 - Steps 4–5: all screens, voice, drafts, Checks. Headless-Chrome run with the real model: 37/37 checks pass after fixes (a11y audit on every screen, keyboard, aria-live, 0 external requests, 8/8 Checks PASS). 34 unit tests pass.
 - Step 6: baseline dev SCORE 1.475 (mean of 2; runs 1.30 and 1.65).
 - Step 6b: loop ran 3 iterations, 1 kept: dev 1.475 → 1.650. Stopped (2 non-improving in a row). Held-out test: SCORE 1.350, themes 4/4, per-language 80/20/80/80/100. EVAL.md + README written.
+- UI redesign (team request): phone-app shell, bottom tab bar, cards, inline SVG icons (`src/icons.ts`), web-app manifest. Browser checks re-run: all pass.
 
 ## Decisions (and why)
 - A point with zero valid citations is dropped, not moved to "uncertain": there is no message for the owner to check, so showing it would be showing an invented fact.

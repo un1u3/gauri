@@ -1,77 +1,122 @@
-/* Mobile-first, one column. All sizes in rem so the text-size setting and browser zoom scale everything. */
+/* Phone-app layout: app bar on top, tab bar at the bottom, cards in between.
+   All sizes in rem so the text-size setting and browser zoom scale everything.
+   Colours are checked for ≥ 4.5:1 contrast; nothing relies on colour alone. */
 :root {
-  --ink: #1a1a1a;
-  --paper: #ffffff;
-  --soft: #f3f1ea;
+  --ink: #1c1b18;
+  --muted: #55504a; /* 7.6:1 on white */
+  --page: #f6f1e7;
+  --card: #ffffff;
+  --line: #d9d2c3;
+  --edge: #6f695d; /* input borders, 5:1 on white */
   --green: #0b5d3b; /* 7.6:1 on white */
-  --red: #a11a1a; /* 7.4:1 on white */
-  --line: #5f5f5f;
+  --green-dark: #084630;
+  --green-tint: #e2f0e7;
+  --rose: #9b1c3a;
+  --rose-tint: #fde4ea;
+  --amber: #7a4a00;
+  --amber-tint: #fdecc8;
+  --red: #a11a1a;
+  --red-tint: #fdeaea;
+  --radius: 1rem;
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.08), 0 4px 14px rgb(40 30 10 / 0.07);
   font-family: "Noto Sans Devanagari", system-ui, sans-serif;
-  font-size: 112.5%;
+  font-size: 106.25%;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
+  background: #e9e2d3;
 }
-:root[data-size="large"] { font-size: 137.5%; }
+:root[data-size="large"] { font-size: 131.25%; }
 :root[data-size="xlarge"] { font-size: 162.5%; }
 
 * { box-sizing: border-box; }
 body { margin: 0; }
-#app { max-width: 40rem; margin: 0 auto; padding: 0 1rem 3rem; }
 
-h1 { font-size: 1.6rem; margin: 1rem 0; }
-h2 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
-h3 { font-size: 1rem; margin: 0.75rem 0 0.25rem; }
+/* The app is one phone-width column; on a laptop it sits centred like a phone. */
+#app { max-width: 30rem; min-height: 100dvh; margin: 0 auto; background: var(--page); box-shadow: 0 0 40px rgb(40 30 10 / 0.18); }
+main { padding: 0.25rem 1rem calc(6.5rem + env(safe-area-inset-bottom)); }
+
+h1 { font-size: 1.55rem; line-height: 1.3; margin: 1.1rem 0 0.6rem; }
+h2 { font-size: 1.15rem; margin: 1.6rem 0 0.6rem; }
+h3 { font-size: 0.85rem; margin: 0.9rem 0 0.2rem; color: var(--muted); font-weight: 700; }
 p { margin: 0.4rem 0; overflow-wrap: anywhere; }
 ul { list-style: none; padding: 0; margin: 0; }
-.big { font-size: 1.2rem; font-weight: 700; }
-.small { font-size: 0.9rem; }
-.icon { margin-inline-end: 0.4em; }
+.big { font-size: 1.15rem; font-weight: 700; line-height: 1.5; }
+.small { font-size: 0.875rem; color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-header { border-bottom: 2px solid var(--ink); padding: 0.5rem 0; }
-.brand { font-size: 1.3rem; font-weight: 700; margin: 0 0 0.5rem; }
-nav ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 0.4rem; }
-nav button { width: 100%; }
-/* Current page: underline + thick border, not colour alone. */
-nav button[aria-current="page"] { background: var(--ink); color: var(--paper); text-decoration: underline; border-width: 3px; }
+.icon { display: inline-flex; flex: none; vertical-align: -0.28em; margin-inline-end: 0.45em; }
+.icon svg { width: 1.3em; height: 1.3em; }
 
-button, select, input, textarea {
-  font: inherit;
-  color: var(--ink);
-  background: var(--paper);
-  border: 2px solid var(--ink);
-  border-radius: 0.5rem;
-  min-height: 3rem; /* ≥ 48px touch target */
-  padding: 0.5rem 0.9rem;
-}
-button { cursor: pointer; font-weight: 700; margin: 0.4rem 0; }
-button.primary { background: var(--green); border-color: var(--green); color: #fff; }
-button.danger { border-color: var(--red); color: var(--red); display: block; margin-top: 2rem; }
-button.link { border-style: dashed; font-weight: 400; text-align: start; }
-button:disabled { opacity: 0.6; cursor: wait; }
+/* ---------- app bar ---------- */
+header { position: sticky; top: 0; z-index: 5; }
+.appbar { background: var(--green); color: #fff; padding: calc(0.7rem + env(safe-area-inset-top)) 1rem 0.8rem; border-radius: 0 0 1.25rem 1.25rem; box-shadow: var(--shadow); }
+.brand { font-size: 1.35rem; font-weight: 700; margin: 0; line-height: 1.3; }
+.tagline { margin: 0; font-size: 0.85rem; color: #fff; }
+
+/* ---------- bottom tab bar (stays before <main> in the page, so it is read first) ---------- */
+nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 30rem; background: var(--card); border-top: 1px solid var(--line); box-shadow: 0 -4px 14px rgb(40 30 10 / 0.08); padding: 0.3rem 0.4rem calc(0.3rem + env(safe-area-inset-bottom)); }
+nav ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.2rem; }
+nav button { width: 100%; min-height: 3.6rem; margin: 0; padding: 0.35rem 0.1rem 0.25rem; display: flex; flex-direction: column; align-items: center; gap: 0.1rem; border: 0; border-radius: 0.8rem; background: none; color: var(--muted); font-size: 0.78rem; font-weight: 400; line-height: 1.35; }
+nav .icon { margin: 0; padding: 0.15rem 0.9rem; border-radius: 1rem; }
+nav .icon svg { width: 1.5rem; height: 1.5rem; }
+/* Current tab: filled pill behind the icon + bold label, not colour alone. */
+nav button[aria-current="page"] { color: var(--green-dark); font-weight: 700; }
+nav button[aria-current="page"] .icon { background: var(--green); color: #fff; }
+
+/* ---------- controls ---------- */
+button, select, input, textarea { font: inherit; color: var(--ink); min-height: 3rem; /* ≥ 48px touch target */ }
+button { display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 700; margin: 0.35rem 0; padding: 0.55rem 1.1rem; border: 2px solid var(--green); border-radius: 0.9rem; background: var(--card); color: var(--green-dark); text-align: start; transition: transform 0.08s, background 0.15s; }
+button:active { transform: scale(0.97); }
+button.primary { background: var(--green); color: #fff; box-shadow: 0 3px 10px rgb(11 93 59 / 0.3); }
+button.primary:active { background: var(--green-dark); }
+button.wide { width: 100%; font-size: 1.05rem; min-height: 3.5rem; }
+button.danger { border-color: var(--red); color: var(--red); background: var(--red-tint); width: 100%; margin-top: 2rem; }
+button:disabled { opacity: 0.55; cursor: wait; box-shadow: none; }
+/* "Based on N messages · languages": opens the sources of a point. */
+button.link { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 0 0.1rem; border: 0; background: var(--green-tint); color: var(--green-dark); font-weight: 400; font-size: 0.92rem; text-decoration: underline; text-underline-offset: 0.2em; }
+
+select, input[type="text"], input[type="number"], input[type="file"], textarea { background: var(--card); border: 2px solid var(--edge); border-radius: 0.8rem; padding: 0.55rem 0.8rem; }
 textarea, input[type="text"], input[type="number"], input[type="file"], main > select { display: block; width: 100%; }
-input[type="checkbox"] { width: 1.75rem; height: 1.75rem; min-height: 0; flex: none; }
-label { display: block; font-weight: 700; margin-top: 1rem; }
+input[type="checkbox"] { width: 1.75rem; height: 1.75rem; min-height: 0; flex: none; accent-color: var(--green); }
+label { display: block; font-weight: 700; margin: 1rem 0 0.3rem; }
 .row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
-.row label { margin-top: 0; }
+.row label { margin: 0; }
+.row > button { flex: 1 1 auto; }
 
 :focus-visible { outline: 4px solid #1a4fd6; outline-offset: 3px; }
 h1:focus { outline: none; }
 
-.notice { background: var(--soft); border-inline-start: 0.4rem solid var(--ink); padding: 0.75rem 1rem; margin: 1rem 0; }
-.notice.warn { border: 2px solid var(--red); border-inline-start-width: 0.4rem; }
+/* ---------- cards ---------- */
+.hero, .points > li, .cards > li { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 0.9rem 1rem; margin: 0.75rem 0; }
+.hero { border-top: 0.3rem solid var(--green); }
+.hero p { color: var(--muted); margin-top: 0; }
 
-.points > li, .cards > li { border: 2px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1rem; margin: 0.75rem 0; }
-.sources { margin-top: 0.5rem; }
-.sources li { border-top: 1px solid var(--line); padding: 0.5rem 0; }
-.tag { display: inline-block; border: 1px solid var(--ink); border-radius: 0.3rem; padding: 0 0.4rem; font-size: 0.85rem; font-weight: 700; margin-inline-start: 0.3rem; }
+.notice { background: var(--card); border: 1px solid var(--line); border-inline-start: 0.35rem solid var(--ink); border-radius: 0.8rem; padding: 0.75rem 1rem; margin: 1rem 0; }
+.notice.warn { border-color: var(--red); background: var(--red-tint); }
+.notice.busy .icon svg { animation: turn 1.6s linear infinite; }
+@keyframes turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .notice.busy .icon svg { animation: none; } button { transition: none; } }
+
+/* Section titles: icon in a tinted chip. The title text carries the meaning. */
+.sec { display: flex; align-items: center; }
+.sec .icon { width: 2.3rem; height: 2.3rem; align-items: center; justify-content: center; border-radius: 0.75rem; margin-inline-end: 0.6rem; background: var(--green-tint); color: var(--green-dark); }
+.sec.loved .icon { background: var(--rose-tint); color: var(--rose); }
+.sec.wished .icon { background: var(--amber-tint); color: var(--amber); }
+
+.point .big { margin-top: 0; }
+.sources { margin-top: 0.4rem; }
+.sources li { border-top: 1px solid var(--line); padding: 0.55rem 0; }
+.tag { display: inline-flex; align-items: center; border: 1px solid var(--edge); border-radius: 0.5rem; padding: 0 0.45rem; font-size: 0.8rem; font-weight: 700; color: var(--ink); background: var(--page); margin-inline-start: 0.4rem; }
+.tag .icon { margin-inline-end: 0.25em; }
 .sources .tag { margin-inline-start: 0; }
 
-/* Uncertain items: dashed frame, question-mark heading and its own title — never colour alone. */
-.uncertain { border: 3px dashed var(--ink); background: var(--soft); border-radius: 0.5rem; padding: 0 1rem 0.75rem; margin-top: 1.5rem; }
-.uncertain li { border-top: 1px solid var(--line); padding: 0.4rem 0; }
+/* Uncertain items: dashed frame, question-mark title and its own heading — never colour alone. */
+.uncertain { border: 0.18rem dashed var(--edge); background: var(--card); border-radius: var(--radius); padding: 0 1rem 0.75rem; margin-top: 1.6rem; }
+.uncertain h2 { margin-top: 0.9rem; }
+.uncertain .sec .icon { background: var(--page); color: var(--ink); }
+.uncertain li { border-top: 1px solid var(--line); padding: 0.45rem 0; }
 
-footer { margin-top: 2rem; border-top: 2px solid var(--ink); padding-top: 0.75rem; }
-.pass { color: var(--green); }
+footer { margin-top: 1.8rem; background: var(--green-tint); border-radius: var(--radius); padding: 0.8rem 1rem; }
+footer .big { margin: 0; color: var(--green-dark); }
+.pass { color: var(--green-dark); }
 .fail { color: var(--red); }

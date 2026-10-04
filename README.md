@@ -69,6 +69,8 @@ The guardrails (`src/ai/guardrails.ts`) are applied to every model output before
 
 The **जाँच (Checks)** screen (from Settings) runs these rules on fixed inputs in the browser and shows PASS/FAIL for each.
 
+The interface is laid out as a phone app (app bar, bottom tab bar, cards, inline SVG icons) and ships a web-app manifest, so on a phone it can be added to the home screen and opens full-screen.
+
 Stack: Vite + plain TypeScript, no UI framework, Vitest, localStorage, the browser's built-in speech synthesis. The only network target is the local Ollama, through the dev-server proxy (`/ollama` → `http://localhost:11434`). The Devanagari font is bundled. A test fails the build if any external URL or any sending code appears in the app.
 
 ## Data
