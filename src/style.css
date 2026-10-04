@@ -169,6 +169,21 @@ button.link > .icon { margin: 0 0 0 0.4rem; color: var(--muted); }
 .bubble { background: var(--page); border-radius: 0.3rem 1.1rem 1.1rem 1.1rem; padding: 0.5rem 0.8rem; }
 .who { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); }
 
+/* "What can I improve?" panel under a point */
+.point > button.tonal { margin: 0.6rem 0 0; justify-content: flex-start; }
+.point > button.tonal > .icon:last-child { margin: 0 0 0 auto; }
+.ideas-panel { margin-top: 0.7rem; border-top: 1px solid var(--line); padding-top: 0.3rem; }
+.ideas-panel h3 { font-size: 0.95rem; color: var(--ink); }
+.ideas > li { background: var(--page); border-radius: 1rem; padding: 0.8rem 0.9rem; margin: 0.6rem 0; border-inline-start: 0.3rem solid var(--green); }
+.ideas > li.drafted { border-inline-start-style: dashed; border-inline-start-color: var(--edge); } /* drafted ideas: dashed edge + their own label */
+.ideas .big { margin-top: 0; }
+.source { font-size: 0.88rem; margin: 0.6rem 0 0.3rem; }
+.source p { margin: 0; }
+.source button.link { background: var(--card); margin-top: 0.4rem; }
+blockquote { margin: 0.5rem 0 0; padding: 0.5rem 0.8rem; background: var(--card); border-inline-start: 0.25rem solid var(--edge); border-radius: 0.3rem 0.8rem 0.8rem 0.3rem; font-style: italic; }
+.badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0; }
+.badges .tag { margin: 0; background: var(--card); }
+
 /* Uncertain items: dashed frame, question-mark title and its own heading — never colour alone. */
 .uncertain { border: 0.16rem dashed var(--edge); background: var(--card); border-radius: var(--radius); padding: 0 1rem 0.6rem; margin-top: 1.6rem; }
 .uncertain h2 { margin: 0.9rem 0 0.5rem; }

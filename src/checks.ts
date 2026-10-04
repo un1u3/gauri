@@ -1,6 +1,12 @@
 // The Checks screen: runs every guardrail on fixed inputs, with no model call, and reports PASS/FAIL.
 import { analyse } from "./ai/analyse";
 import { applyGuardrails, languagesOf, NotSureError, validateAnalysis, validateDraft, validated } from "./ai/guardrails";
+import { gatherCandidates } from "./ideas/candidates";
+import { IDEAS } from "./ideas/data";
+import { applyIdeaGuardrails } from "./ideas/guardrails";
+import { DEFAULT_PROFILE, getIdeas } from "./ideas/ideas";
+import { matchProblems } from "./ideas/match";
+import { cardView } from "./ideas/view";
 import type { Lang, Message, Point, RawAnalysis } from "./types";
 
 export type Check = { en: string; ne: string; pass: boolean };
@@ -37,6 +43,31 @@ export async function runChecks(): Promise<Check[]> {
     refused = e instanceof NotSureError;
   }
 
+  // ---- "What can I improve?" ----
+  const BREAKFAST = "Breakfast was too late for our early bus";
+  const candidates = gatherCandidates(matchProblems(BREAKFAST, "wished", IDEAS.problems), IDEAS);
+  const OK = "अघिल्लो साँझ पाहुनालाई सोध्नुहोस्।";
+  const cards = applyIdeaGuardrails([
+    { candidate_id: "L9", how: OK, first_step: OK },                       // an id the model made up
+    { candidate_id: "L1", how: "बिहान ७ बजे खाना दिनुहोस्।", first_step: OK },   // a number
+    { candidate_id: "L2", how: "यसको शुल्क लिनुहोस्।", first_step: OK },        // money
+    { candidate_id: "D1", how: OK, first_step: "लाइसेन्स लिनुहोस्।" },          // a legal claim
+  ], candidates, "ne");
+  // Model switched off: the original ideas must still appear, and nothing may be asked of the model when nothing matches.
+  let ideaCalls = 0;
+  globalThis.fetch = (() => { ideaCalls++; return Promise.reject(new Error("blocked")); }) as typeof fetch;
+  let off, none;
+  try {
+    const cfg = { baseUrl: "", model: "check", minMessages: 8, ownerLang: "ne" };
+    off = await getIdeas(BREAKFAST, "wished", DEFAULT_PROFILE, cfg, IDEAS);
+    const before = ideaCalls;
+    none = await getIdeas("Purple elephants sing quietly on Tuesdays", "wished", DEFAULT_PROFILE, cfg, IDEAS);
+    ideaCalls -= before;
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+  const views = [...IDEAS.library.map((idea) => cardView({ candidate: { short: "L1", kind: "library", idea } }, "ne")), ...IDEAS.drafted.map((idea) => cardView({ candidate: { short: "D1", kind: "drafted", idea } }, "ne"))];
+
   // The owner's-language text must really be in that language's script, whatever the language is.
   const ownLanguageChecked =
     validateDraft({ text: "Thanks", text_ne: "Thanks" }, "ne") === null &&
@@ -53,5 +84,11 @@ export async function runChecks(): Promise<Check[]> {
     { en: "Broken model output → one retry → “not sure”, never displayed", ne: "बिग्रेको उत्तर → एक पटक फेरि प्रयास → “निश्चित छैन”, कहिल्यै देखाइँदैन", pass: refused && tries === 2 },
     { en: "Text in the owner's language must really be in that language (tested: Nepali, Arabic, Korean)", ne: "मालिकको भाषाको पाठ साँच्चै त्यही भाषामा हुनुपर्छ (जाँचिएको: नेपाली, अरबी, कोरियाली)", pass: ownLanguageChecked },
     { en: "Languages behind a point are computed from the messages, not by the model", ne: "भाषाको सूची सन्देशबाट गनिन्छ, मोडेलबाट होइन", pass: languagesOf(point(["a1", "a2", "a3"]), MSGS).join() === "en,ko,ne" },
+    { en: "Ideas: “breakfast too late” is matched to a meal-time problem by keywords, with no model", ne: "उपाय: “बिहानको खाना ढिलो” लाई खानाको समयको समस्यासँग मोडेलबिनै मिलाइन्छ", pass: matchProblems(BREAKFAST, "wished", IDEAS.problems)[0]?.tag === "food_timing" },
+    { en: "Ideas: a “loved” point never gets a complaint's ideas", ne: "उपाय: “मन परेको” कुरामा गुनासोको उपाय आउँदैन", pass: IDEAS.problems.every((p) => matchProblems(p.problem_en, "loved", IDEAS.problems).every((m) => m.type === "loved")) },
+    { en: "Ideas: an idea the model made up is dropped; text with a number, money or a legal claim is never shown", ne: "उपाय: मोडेलले आफैं बनाएको उपाय हटाइन्छ; अंक, पैसा वा कानुनी कुरा भएको पाठ देखाइँदैन", pass: cards.length === 3 && cards.every((c) => c.how === undefined && c.first_step === undefined) },
+    { en: "Ideas: with the AI off, the original ideas are still shown", ne: "उपाय: AI बन्द हुँदा पनि मूल उपाय देखिन्छ", pass: off.status === "fallback" && off.cards.length === 3 && off.cards.every((c) => !c.how) },
+    { en: "Ideas: nothing matches → “ask your homestay association or guide”, model not called", ne: "उपाय: केही नमिले → “होमस्टे संघ वा गाइडसँग सोध्नुहोस्”, मोडेल चल्दैन", pass: none.status === "no_match" && ideaCalls === 0 },
+    { en: "Ideas: every guidebook idea shows its source and exact quote; every Gauri idea is marked as not from a guidebook", ne: "उपाय: गाइडबुकको हरेक उपायमा स्रोत र ठ्याक्कै शब्द हुन्छ; गौरीको हरेक उपायमा “गाइडबुकबाट होइन” लेखिन्छ", pass: views.every((v) => (v.kind === "library" ? !!v.source && v.quotes.length > 0 : !v.source && v.quotes.length === 0)) },
   ];
 }

@@ -10,6 +10,10 @@ import { runChecks, type Check } from "./checks";
 import { icon } from "./icons";
 import { hasLabels, KEYS, setPacks, translate, type Key } from "./i18n";
 import { COMMON_LANGS, isRtl, langName, languagesIn, UNKNOWN } from "./lang";
+import { IDEAS } from "./ideas/data";
+import { getIdeas, offlineIdeas, type IdeasResult } from "./ideas/ideas";
+import type { Section } from "./ideas/match";
+import { cardView } from "./ideas/view";
 import { fromJson, fromPaste } from "./messages";
 import { MOCK_ANALYSIS, MOCK_DRAFTS } from "./mock";
 import { clearAll, load, save } from "./store";
@@ -29,6 +33,7 @@ const open = new Set<string>(); // expanded source lists
 const drafting = new Set<string>(); // message ids being drafted
 const editing = new Set<string>(); // draft ids being edited
 const edited = new Set<string>();
+const ideasBusy = new Map<string, number>(); // point key → started at (ms)
 
 let translating: [number, number] | null = null; // label translation progress
 
@@ -90,6 +95,7 @@ async function runAnalysis() {
     state.analysis = state.settings.demo
       ? applyGuardrails(MOCK_ANALYSIS, state.messages, { model: "demo", seconds: 0, lang: "ne" })
       : await analyse(state.messages, cfg());
+    state.ideas = {}; // ideas belong to the points of one summary
     const a = state.analysis;
     announce(t("ready", a.loved.length + a.wished.length + (a.upgrade ? 1 : 0)));
   } catch (e) {
@@ -117,6 +123,7 @@ function deleteMessage(id: string) {
   state.messages = state.messages.filter((m) => m.id !== id);
   state.drafts = state.drafts.filter((d) => d.message_id !== id);
   state.analysis = null; // a summary must never cite a message that is gone
+  state.ideas = {};
   announce(t("deleted"));
   commit();
 }
@@ -174,6 +181,37 @@ function listen() {
   }
 }
 
+// "What can I improve?" for one summary point. The result is kept, so reopening does not re-run the model.
+const ideasKey = (section: Section, p: Point) => `${section}|${owner()}|${p.point_en}`;
+async function toggleIdeas(section: Section, p: Point, key: string) {
+  if (open.has(`ideas-${key}`)) { open.delete(`ideas-${key}`); return render(); }
+  open.add(`ideas-${key}`);
+  const k = ideasKey(section, p);
+  if (state.ideas[k] || ideasBusy.has(k)) return render();
+  ideasBusy.set(k, Date.now());
+  render();
+  const timer = setInterval(() => {
+    const el = document.getElementById(`ideas-elapsed-${key}`);
+    if (el) el.textContent = t("elapsed", Math.round((Date.now() - ideasBusy.get(k)!) / 1000));
+  }, 1000);
+  // Demo mode never calls the model; a failing model falls back to the original ideas inside getIdeas.
+  state.ideas[k] = state.settings.demo ? offlineIdeas(p.point_en, section, IDEAS, owner()) : await getIdeas(p.point_en, section, state.profile, cfg(), IDEAS);
+  clearInterval(timer);
+  ideasBusy.delete(k);
+  announce(state.ideas[k].status === "no_match" ? t("noIdea") : t("ideasReady"));
+  commit();
+}
+
+function listenIdeas(p: Point, r: IdeasResult) {
+  const say = (key: Key) => (hasLabels(r.lang) ? `${translate(r.lang, key)}.` : "");
+  const lines = [p.point_own, ...r.cards.flatMap((c) => (c.how ? [c.how, `${say("firstStep")} ${c.first_step}`] : [])), r.status === "no_match" ? say("noIdea") : "", say("ideasFooter")];
+  noVoice = !speak(lines.filter(Boolean).join(" "), r.lang);
+  if (noVoice) {
+    announce(t("noVoice", nameInUi(r.lang)));
+    render();
+  }
+}
+
 async function translateApp() {
   error = null;
   translating = [0, KEYS.length];
@@ -212,6 +250,7 @@ const alertBox = () => error && h("p", { class: "notice warn", role: "alert" }, 
 const showEnglish = () => uiLang() === "en" && state.analysis?.lang !== "en";
 
 function pointItem(p: Point, key: string, emoji: string): HTMLElement {
+  const section = key.replace(/\d+$/, "") as Section;
   const langs = languagesOf(p, state.messages);
   const isOpen = open.has(key);
   const cited = p.message_ids.map((id) => state.messages.find((m) => m.id === id)).filter((m): m is Message => !!m);
@@ -227,7 +266,43 @@ function pointItem(p: Point, key: string, emoji: string): HTMLElement {
       icon(isOpen ? "▼" : "▶")),
     isOpen && h("ul", { id: `list-${key}`, class: "sources" }, ...cited.map((m) =>
       h("li", {}, avatar(m.lang), h("div", { class: "bubble" }, h("span", { class: "who", lang: m.lang }, nameOf(m.lang)), h("span", { lang: m.lang }, m.text))))),
+    h("button", { type: "button", id: `ideas-btn-${key}`, class: "tonal wide", "aria-expanded": String(open.has(`ideas-${key}`)), "aria-controls": `ideas-${key}`, onclick: () => toggleIdeas(section, p, key) },
+      icon("💡"), t("ideasBtn"), icon(open.has(`ideas-${key}`) ? "▼" : "▶")),
+    open.has(`ideas-${key}`) && ideasPanel(section, p, key),
   );
+}
+
+function ideasPanel(section: Section, p: Point, key: string): HTMLElement {
+  const k = ideasKey(section, p), r = state.ideas[k], started = ideasBusy.get(k);
+  const body: Child[] = [h("h3", { lang: state.analysis!.lang }, icon("💡"), p.point_own)];
+  if (started) body.push(h("div", { class: "notice busy" }, h("p", {}, icon("⏳"), t("ideasLoading")), h("p", { id: `ideas-elapsed-${key}`, class: "small" }, t("elapsed", Math.round((Date.now() - started) / 1000)))));
+  if (r) {
+    if (r.status === "fallback") body.push(h("p", { class: "notice warn" }, icon("⚠️"), t("ideasUnavailable")));
+    if (r.status === "no_match") body.push(h("p", { class: "notice" }, icon("🤝"), t("noIdea")));
+    else body.push(button(`ideas-listen-${key}`, "🔊", t("listen"), () => listenIdeas(p, r)));
+    body.push(h("ul", { class: "ideas" }, ...r.cards.map((card, i) => {
+      const v = cardView(card, r.lang), q = `quote-${key}-${i}`;
+      return h("li", { class: v.kind },
+        // 1. the explanation (or, if there is none that passed the checks, the idea as written in the data)
+        v.how ? h("p", { lang: r.lang, class: "big" }, v.how) : h("p", { lang: v.originalLang, class: "big" }, v.original),
+        v.how && h("p", {}, h("strong", {}, t("firstStep"), ": "), h("span", { lang: r.lang }, v.first_step)),
+        // 2. where the idea comes from — always shown
+        v.kind === "library"
+          ? h("div", { class: "source" },
+              h("p", {}, icon("📘"), h("strong", {}, t("fromGuidebook")), ": ", h("span", { lang: "en" }, v.source)),
+              h("button", { type: "button", id: `${q}-btn`, class: "link", "aria-expanded": String(open.has(q)), "aria-controls": q, onclick: () => { open.has(q) ? open.delete(q) : open.add(q); render(); } },
+                h("span", { class: "link-text" }, t("exactWords")), icon(open.has(q) ? "▼" : "▶")),
+              open.has(q) && h("div", { id: q }, ...v.quotes.map((quote) => h("blockquote", { lang: "en" }, quote))))
+          : h("p", { class: "source" }, icon("🤖"), h("strong", {}, t("gauriIdea"))),
+        // 3–4. honest labels, in words
+        h("p", { class: "badges" },
+          v.needsInternet && h("span", { class: "tag" }, icon("🌐"), t("needsInternet")),
+          v.needsEnglish && h("span", { class: "tag" }, icon("🔤"), t("needsEnglish")),
+          v.pending && h("span", { class: "tag" }, icon("⏳"), t("notChecked"))));
+    })));
+  }
+  body.push(h("p", { class: "small" }, icon("🤝"), t("ideasFooter")));
+  return h("div", { id: `ideas-${key}`, class: "ideas-panel" }, ...body);
 }
 
 function section(titleKey: Key, emoji: string, points: Point[], prefix: string, emptyKey: Key): HTMLElement {
@@ -398,6 +473,9 @@ function followScreen(): Child[] {
 function settingsScreen(): Child[] {
   const s = state.settings;
   const set = <K extends keyof typeof s>(k: K, v: (typeof s)[K]) => { s[k] = v; commit(); };
+  const pr = state.profile;
+  // A changed situation means the saved ideas no longer fit it.
+  const setProfile = <K extends keyof typeof pr>(k: K, v: (typeof pr)[K]) => { pr[k] = v; state.ideas = {}; commit(); };
   const field = (emoji: string, id: string, labelKey: Key, control: HTMLElement) => h("div", { class: "field" }, h("label", { for: id }, icon(emoji), t(labelKey)), control);
   const choice = (emoji: string, id: string, labelKey: Key, value: string, options: [string, string][], onchange: (v: string) => void) =>
     field(emoji, id, labelKey, h("select", { id, onchange: (e: Event) => onchange((e.target as HTMLSelectElement).value) }, ...options.map(([v, text]) => h("option", { value: v, selected: v === value }, text))));
@@ -414,6 +492,19 @@ function settingsScreen(): Child[] {
         : h("div", {}, button("translate", "✨", t("translateApp", nameInUi(s.ownerLang)), translateApp, { class: "primary wide" }), h("p", { class: "small" }, t("translateHelp")))),
       !!state.packs[s.ownerLang] && h("p", { class: "notice" }, icon("ℹ️"), t("aiLabels")),
       choice("🔤", "size", "textSize", s.textSize, [["normal", t("sizeNormal")], ["large", t("sizeLarge")], ["xlarge", t("sizeXlarge")]], (v) => set("textSize", v as typeof s.textSize))),
+    h("h2", { class: "sec" }, icon("🌱"), t("profileTitle")),
+    h("div", { class: "card" },
+      h("p", { class: "small" }, t("profileHelp")),
+      field("🔢", "p-rooms", "pRooms", h("input", { type: "number", id: "p-rooms", min: "1", max: "10", value: String(pr.rooms), onchange: (e: Event) => setProfile("rooms", Math.min(10, Math.max(1, Number((e.target as HTMLInputElement).value) || pr.rooms))) })),
+      field("📅", "p-district", "pDistrict", h("input", { type: "text", id: "p-district", value: pr.district, onchange: (e: Event) => setProfile("district", (e.target as HTMLInputElement).value.trim() || pr.district) })),
+      field("📱", "p-smartphone", "pSmartphone", h("input", { type: "text", id: "p-smartphone", value: pr.smartphone_days, onchange: (e: Event) => setProfile("smartphone_days", (e.target as HTMLInputElement).value.trim()) })),
+      field("🔢", "p-budget", "pBudget", h("select", { id: "p-budget", onchange: (e: Event) => setProfile("budget", (e.target as HTMLSelectElement).value as typeof pr.budget) },
+        ...([["very_small", "budgetVerySmall"], ["small", "budgetSmall"], ["some", "budgetSome"]] as [string, Key][]).map(([v, k]) => h("option", { value: v, selected: v === pr.budget }, t(k))))),
+      field("💬", "p-languages", "pLanguages", h("input", { type: "text", id: "p-languages", value: pr.host_languages.join(", "), onchange: (e: Event) => setProfile("host_languages", (e.target as HTMLInputElement).value.split(",").map((x) => x.trim()).filter(Boolean)) })),
+      field("👤", "p-helpers", "pHelpers", h("input", { type: "text", id: "p-helpers", value: pr.helpers, onchange: (e: Event) => setProfile("helpers", (e.target as HTMLInputElement).value.trim()) })),
+      h("div", { class: "field check" },
+        h("input", { type: "checkbox", id: "p-wifi", checked: pr.has_wifi, onchange: (e: Event) => setProfile("has_wifi", (e.target as HTMLInputElement).checked) }),
+        h("label", { for: "p-wifi" }, icon("🌐"), t("pWifi")))),
     h("h2", { class: "sec" }, icon("🤖"), t("secAi")),
     h("div", { class: "card" },
       field("🤖", "model", "model", h("input", { type: "text", id: "model", value: s.model, onchange: (e: Event) => set("model", (e.target as HTMLInputElement).value.trim() || s.model) })),
